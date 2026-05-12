@@ -767,70 +767,163 @@ var DFCL={sal:{e:'₹3–6 LPA',m:'₹8–15 LPA',s:'₹15–25 LPA',l:'₹35L+'
 };
 
 var STAGES={
-'12_appearing':{c:'rgba(249,115,22,.1)',b:'rgba(249,115,22,.25)',ic:'📝',
-  hi:'Class 12 Appearing — Exams chal rahe hain ya hone wale hain',
-  en:'Class 12 Appearing — Exams ongoing or upcoming',
-  rhi:'Abhi boards par focus karo. Career clarity parallel develop karo — final decisions abhi mat lo.',
-  ren:'Focus on boards now. Develop career clarity in parallel — do not make final decisions yet.',
-  ahi:[{ph:'Abhi (0-3 months)',t:'Board Exams First',d:'100% boards par focus karo. Career clarity side mein chalti rahegi.'},
-    {ph:'Result ke baad (3-6 months)',t:'Score Analysis & Entrance',d:'Board result ke according JEE / NEET / CUET / Bihar CET decide karo.'},
-    {ph:'Short-term (6-12 months)',t:'Entrance + Admission',d:'Target entrance preparation karo. College shortlist karo.'},
-    {ph:'Long-term (1-5 years)',t:'College + Skills',d:'Degree ke saath internships aur certifications add karo.'}],
-  aen:[{ph:'Now (0-3 months)',t:'Board Exams First',d:'Give 100% to boards. Career clarity will develop alongside.'},
-    {ph:'After Result (3-6 months)',t:'Score Analysis & Entrance',d:'Decide JEE / NEET / CUET / Bihar CET based on board result.'},
-    {ph:'Short-term (6-12 months)',t:'Entrance + Admission',d:'Prepare for target entrance. Shortlist colleges.'},
-    {ph:'Long-term (1-5 years)',t:'College + Skills',d:'Add internships and certifications alongside your degree.'}],
-  arhi:'Action plan 12th appearing status ke basis par set ki gayi — boards ke baad decisions honge.',
-  aren:'Action plan based on Class 12 appearing status — decisions will be made after boards.'},
-'12_pass':{c:'rgba(16,185,129,.08)',b:'rgba(16,185,129,.22)',ic:'✅',
-  hi:'Class 12 Pass — Decision lene ka samay aa gaya hai',
-  en:'Class 12 Passed — Time to make decisions',
-  rhi:'Sabse decision-critical stage hai. College aur branch decision agle 4-5 saal set karega.',
-  ren:'Most decision-critical stage. College and branch choice sets the next 4-5 years.',
-  ahi:[{ph:'Immediate (0-2 months)',t:'Entrance & Admission',d:'JEE / State CET counselling mein participate karo. College shortlist karo.'},
-    {ph:'Short-term (2-12 months)',t:'College + Foundation',d:'Pehle semester mein basics strong karo. Technical clubs join karo.'},
-    {ph:'Mid-term (1-3 years)',t:'Skills + Internship',d:'Certifications lo. 2nd/3rd year mein internship karo.'},
-    {ph:'Long-term (3-5 years)',t:'Placement + Higher Studies',d:'Campus placement ya GATE/MBA preparation karo.'}],
-  aen:[{ph:'Immediate (0-2 months)',t:'Entrance & Admission',d:'Participate in JEE / State CET counselling. Shortlist colleges.'},
-    {ph:'Short-term (2-12 months)',t:'College + Foundation',d:'Strengthen basics in first semester. Join technical clubs.'},
-    {ph:'Mid-term (1-3 years)',t:'Skills + Internship',d:'Earn certifications. Do internships in 2nd/3rd year.'},
-    {ph:'Long-term (3-5 years)',t:'Placement + Higher Studies',d:'Campus placement or GATE/MBA preparation.'}],
-  arhi:'12th pass ke liye timeline admission se shuru hoti hai: admission → foundation → skill → placement.',
-  aren:'For 12th pass, timeline starts from admission: admission → foundation → skill → placement.'},
-'graduation':{c:'rgba(139,92,246,.08)',b:'rgba(139,92,246,.22)',ic:'🎓',
-  hi:'Graduation Complete — Career transition ka samay',
-  en:'Graduation Complete — Time for career transition',
-  rhi:'Decisive stage hai. MBA/PG/Job decision agle 10 saal ka trajectory set karta hai.',
-  ren:'Decisive stage. MBA/PG/Job decision sets the next 10-year trajectory.',
-  ahi:[{ph:'Immediate (0-3 months)',t:'Decision Finalize Karo',d:'PG ya job — decide karo. Target exam choose karo.'},
-    {ph:'Short-term (3-12 months)',t:'Exam Prep / Job Hunt',d:'Target exam preparation ya job applications.'},
-    {ph:'Mid-term (1-3 years)',t:'Specialization',d:'Field mein specialization develop karo.'},
-    {ph:'Long-term (3-10 years)',t:'Senior Roles',d:'Mid-senior level roles target karo.'}],
-  aen:[{ph:'Immediate (0-3 months)',t:'Finalise Decision',d:'PG or job — decide. Choose target exam.'},
-    {ph:'Short-term (3-12 months)',t:'Exam Prep / Job Hunt',d:'Prepare for target exam or apply for jobs.'},
-    {ph:'Mid-term (1-3 years)',t:'Specialisation',d:'Develop specialisation in your field.'},
-    {ph:'Long-term (3-10 years)',t:'Senior Roles',d:'Target mid-senior level roles.'}],
-  arhi:'Graduation ke baad: career decision → specialization → growth.',
-  aren:'After graduation: career decision → specialisation → growth.'},
-'other':{c:'rgba(107,122,153,.08)',b:'rgba(107,122,153,.2)',ic:'📋',
-  hi:'Career Assessment Stage',en:'Career Assessment Stage',
-  rhi:'Counselling session mein customized roadmap banaya jaayega.',
-  ren:'A customised roadmap will be built in the counselling session.',
-  ahi:[{ph:'Immediate',t:'Career Clarity',d:'Counsellor se detailed discussion karo.'},
-    {ph:'Short-term',t:'Goal Setting',d:'Short aur long term goals decide karo.'},
-    {ph:'Long-term',t:'Execution',d:'Consistent effort se goal achieve karo.'}],
-  aen:[{ph:'Immediate',t:'Career Clarity',d:'Have a detailed discussion with counsellor.'},
-    {ph:'Short-term',t:'Goal Setting',d:'Decide short and long-term goals.'},
-    {ph:'Long-term',t:'Execution',d:'Achieve goals through consistent effort.'}],
-  arhi:'Action plan current stage ke hisaab se hai.',
-  aren:'Action plan is based on current stage.'}
+
+  // ── CLASS 9 / 10 ──
+  'class_9_10':{
+    c:'rgba(59,130,246,.1)',b:'rgba(59,130,246,.25)',ic:'📘',
+    hi:'Class 9 / 10 — School stage, career awareness ka sahi samay',
+    en:'Class 9 / 10 — School stage, the right time for career awareness',
+    rhi:'Ye stage career explore karne ka best time hai — abhi koi final decision nahi lena, sirf awareness develop karni hai. Stream choice Class 11 mein hogi, lekin preparation abhi se start hoti hai.',
+    ren:'This is the best stage to explore careers — no final decisions needed yet, just develop awareness. Stream choice happens in Class 11, but preparation starts now.',
+    ahi:[
+      {ph:'Abhi (School mein)',t:'Career Awareness Start Karo',d:'Different careers ke baare mein padhna shuru karo. INWANG assessment se apni strengths pata karo.'},
+      {ph:'Class 10 Boards (Next 1-2 yrs)',t:'Boards par Focus',d:'Class 10 boards strong karna sabse zaroori hai — marks hi aage ka rasta decide karenge.'},
+      {ph:'Post Class 10 (Result ke baad)',t:'Stream Selection',d:'Science, Commerce, Arts — board result aur interest ke basis par sahi stream choose karo. INWANG counselling lo.'},
+      {ph:'Class 11-12 (2-3 years)',t:'Stream + Entrance Prep',d:'Chosen stream mein strong foundation banao. Entrance exams ki early preparation shuru karo.'},
+    ],
+    aen:[
+      {ph:'Now (School)',t:'Start Career Awareness',d:'Start reading about different careers. Use the INWANG assessment to discover your strengths.'},
+      {ph:'Class 10 Boards (Next 1-2 yrs)',t:'Focus on Boards',d:'Scoring well in Class 10 boards is most important — marks determine the path ahead.'},
+      {ph:'Post Class 10 (After result)',t:'Stream Selection',d:'Science, Commerce, Arts — choose the right stream based on board result and interest. Take INWANG counselling.'},
+      {ph:'Class 11-12 (2-3 years)',t:'Stream + Entrance Prep',d:'Build a strong foundation in your chosen stream. Start early preparation for entrance exams.'},
+    ],
+    arhi:'Action plan Class 9/10 student ke liye specially designed hai — career explore karo, board strong karo, phir stream decide karo. Ye sequence sabse effective hai.',
+    aren:'Action plan specially designed for Class 9/10 student — explore careers, strengthen boards, then decide stream. This sequence is most effective.',
+  },
+
+  // ── CLASS 11 ──
+  'class_11':{
+    c:'rgba(16,185,129,.08)',b:'rgba(16,185,129,.22)',ic:'📗',
+    hi:'Class 11 — Stream choose ho gayi, ab foundation banane ka samay',
+    en:'Class 11 — Stream chosen, now time to build the foundation',
+    rhi:'Class 11 ek transition year hai — naya syllabus, naya difficulty level. Is saal ka focus strong foundation banana hai taaki Class 12 aur entrance exams mein best performance ho sake.',
+    ren:'Class 11 is a transition year — new syllabus, new difficulty level. This year\'s focus is building a strong foundation so performance in Class 12 and entrance exams is at its best.',
+    ahi:[
+      {ph:'Abhi (Class 11)',t:'Foundation Strong Karo',d:'Naye subjects ke fundamentals deeply samjho — Class 12 aur entrance dono iske upar build honge. Weak topics identify karo aur jaldi address karo.'},
+      {ph:'Mid Class 11 (3-6 months)',t:'Entrance Awareness',d:'JEE / NEET / CUET / Commerce entrance — apne field ka target exam samjho. Basic preparation parallel shuru karo.'},
+      {ph:'Class 12 Start (6-12 months)',t:'Dual Preparation',d:'Class 12 boards + entrance exam dono parallel chalane ki strategy banao. INWANG counselling mein roadmap finalize karo.'},
+      {ph:'Long-term (1-3 years)',t:'College + Career',d:'Target college shortlist karo. Entrance clear karo, sahi branch mein admission lo.'},
+    ],
+    aen:[
+      {ph:'Now (Class 11)',t:'Build Foundation',d:'Deeply understand the fundamentals of new subjects — both Class 12 and entrance exams build on this. Identify weak topics and address them early.'},
+      {ph:'Mid Class 11 (3-6 months)',t:'Entrance Awareness',d:'JEE / NEET / CUET / Commerce entrance — understand the target exam for your field. Start basic preparation in parallel.'},
+      {ph:'Class 12 Start (6-12 months)',t:'Dual Preparation',d:'Build a strategy to run Class 12 boards and entrance exam preparation in parallel. Finalise roadmap in INWANG counselling.'},
+      {ph:'Long-term (1-3 years)',t:'College + Career',d:'Shortlist target colleges. Clear entrance, secure admission in the right branch.'},
+    ],
+    arhi:'Class 11 student ke liye foundation year sabse critical hai — ye saal waste hone se Class 12 aur entrance dono affect hote hain.',
+    aren:'For a Class 11 student, the foundation year is most critical — wasting this year affects both Class 12 and entrance exams.',
+  },
+
+  // ── CLASS 12 APPEARING ──
+  '12_appearing':{
+    c:'rgba(249,115,22,.1)',b:'rgba(249,115,22,.25)',ic:'📝',
+    hi:'Class 12 Appearing — Exams chal rahe hain ya hone wale hain',
+    en:'Class 12 Appearing — Exams ongoing or upcoming',
+    rhi:'Ye stage sabse important hai — abhi boards par focus karo aur parallel career clarity develop karo. Final decisions boards ke baad honge.',
+    ren:'This is the most critical stage — focus on boards now while developing career clarity in parallel. Final decisions will be made after boards.',
+    ahi:[
+      {ph:'Abhi (0-3 months)',t:'Board Exams First',d:'100% boards par focus karo. Career clarity side mein chalti rahegi.'},
+      {ph:'Result ke baad (3-6 months)',t:'Score Analysis & Entrance',d:'Board result ke according JEE / NEET / CUET / Bihar CET decide karo.'},
+      {ph:'Short-term (6-12 months)',t:'Entrance + Admission',d:'Target entrance preparation karo. College shortlist karo.'},
+      {ph:'Long-term (1-5 years)',t:'College + Skills',d:'Degree ke saath internships aur certifications add karo.'},
+    ],
+    aen:[
+      {ph:'Now (0-3 months)',t:'Board Exams First',d:'Give 100% to boards. Career clarity will develop alongside.'},
+      {ph:'After Result (3-6 months)',t:'Score Analysis & Entrance',d:'Decide JEE / NEET / CUET / Bihar CET based on board result.'},
+      {ph:'Short-term (6-12 months)',t:'Entrance + Admission',d:'Prepare for target entrance. Shortlist colleges.'},
+      {ph:'Long-term (1-5 years)',t:'College + Skills',d:'Add internships and certifications alongside your degree.'},
+    ],
+    arhi:'Action plan 12th appearing status ke basis par set ki gayi — boards ke baad decisions honge.',
+    aren:'Action plan based on Class 12 appearing status — decisions will be made after boards.',
+  },
+
+  // ── CLASS 12 PASS ──
+  '12_pass':{
+    c:'rgba(16,185,129,.08)',b:'rgba(16,185,129,.22)',ic:'✅',
+    hi:'Class 12 Pass — Decision lene ka samay aa gaya hai',
+    en:'Class 12 Passed — Time to make decisions',
+    rhi:'Sabse decision-critical stage hai. College aur branch decision agle 4-5 saal set karega.',
+    ren:'Most decision-critical stage. College and branch choice sets the next 4-5 years.',
+    ahi:[
+      {ph:'Immediate (0-2 months)',t:'Entrance & Admission',d:'JEE / State CET counselling mein participate karo. College shortlist karo.'},
+      {ph:'Short-term (2-12 months)',t:'College + Foundation',d:'Pehle semester mein basics strong karo. Technical clubs join karo.'},
+      {ph:'Mid-term (1-3 years)',t:'Skills + Internship',d:'Certifications lo. 2nd/3rd year mein internship karo.'},
+      {ph:'Long-term (3-5 years)',t:'Placement + Higher Studies',d:'Campus placement ya GATE/MBA preparation karo.'},
+    ],
+    aen:[
+      {ph:'Immediate (0-2 months)',t:'Entrance & Admission',d:'Participate in JEE / State CET counselling. Shortlist colleges.'},
+      {ph:'Short-term (2-12 months)',t:'College + Foundation',d:'Strengthen basics in first semester. Join technical clubs.'},
+      {ph:'Mid-term (1-3 years)',t:'Skills + Internship',d:'Earn certifications. Do internships in 2nd/3rd year.'},
+      {ph:'Long-term (3-5 years)',t:'Placement + Higher Studies',d:'Campus placement or GATE/MBA preparation.'},
+    ],
+    arhi:'12th pass ke liye timeline admission se shuru hoti hai: admission → foundation → skill → placement.',
+    aren:'For 12th pass, timeline starts from admission: admission → foundation → skill → placement.',
+  },
+
+  // ── GRADUATION ──
+  'graduation':{
+    c:'rgba(139,92,246,.08)',b:'rgba(139,92,246,.22)',ic:'🎓',
+    hi:'Graduation Complete — Career transition ka samay',
+    en:'Graduation Complete — Time for career transition',
+    rhi:'Decisive stage hai. MBA/PG/Job decision agle 10 saal ka trajectory set karta hai.',
+    ren:'Decisive stage. MBA/PG/Job decision sets the next 10-year trajectory.',
+    ahi:[
+      {ph:'Immediate (0-3 months)',t:'Decision Finalize Karo',d:'PG ya job — decide karo. Target exam choose karo.'},
+      {ph:'Short-term (3-12 months)',t:'Exam Prep / Job Hunt',d:'Target exam preparation ya job applications.'},
+      {ph:'Mid-term (1-3 years)',t:'Specialization',d:'Field mein specialization develop karo.'},
+      {ph:'Long-term (3-10 years)',t:'Senior Roles',d:'Mid-senior level roles target karo.'},
+    ],
+    aen:[
+      {ph:'Immediate (0-3 months)',t:'Finalise Decision',d:'PG or job — decide. Choose target exam.'},
+      {ph:'Short-term (3-12 months)',t:'Exam Prep / Job Hunt',d:'Prepare for target exam or apply for jobs.'},
+      {ph:'Mid-term (1-3 years)',t:'Specialisation',d:'Develop specialisation in your field.'},
+      {ph:'Long-term (3-10 years)',t:'Senior Roles',d:'Target mid-senior level roles.'},
+    ],
+    arhi:'Graduation ke baad: career decision → specialization → growth.',
+    aren:'After graduation: career decision → specialisation → growth.',
+  },
+
+  // ── DIPLOMA / ITI ──
+  'diploma':{
+    c:'rgba(245,158,11,.1)',b:'rgba(245,158,11,.25)',ic:'🔧',
+    hi:'Diploma / ITI — Vocational path, direct career entry possible',
+    en:'Diploma / ITI — Vocational path, direct career entry possible',
+    rhi:'Diploma aur ITI holders ke liye direct industry entry available hai — ya lateral entry se B.Tech bhi possible hai. Dono paths explore karo.',
+    ren:'Diploma and ITI holders can enter industry directly — or pursue B.Tech via lateral entry. Explore both paths.',
+    ahi:[
+      {ph:'Immediate',t:'Path Decision Karo',d:'Direct job ya Lateral Entry B.Tech — dono ka ROI compare karo. INWANG counselling lo.'},
+      {ph:'Short-term (0-6 months)',t:'Skills + Certification',d:'Field-specific certifications lo — industry value badhti hai. Job applications shuru karo.'},
+      {ph:'Mid-term (1-3 years)',t:'Experience Build Karo',d:'Entry level job mein experience gain karo ya B.Tech complete karo.'},
+      {ph:'Long-term (3-8 years)',t:'Senior Technical Roles',d:'Technical expertise develop karo — engineer ya senior technician level target karo.'},
+    ],
+    aen:[
+      {ph:'Immediate',t:'Make Path Decision',d:'Direct job or Lateral Entry B.Tech — compare ROI of both. Take INWANG counselling.'},
+      {ph:'Short-term (0-6 months)',t:'Skills + Certifications',d:'Get field-specific certifications — increases industry value. Start job applications.'},
+      {ph:'Mid-term (1-3 years)',t:'Build Experience',d:'Gain experience in an entry-level job or complete B.Tech.'},
+      {ph:'Long-term (3-8 years)',t:'Senior Technical Roles',d:'Develop technical expertise — target engineer or senior technician level.'},
+    ],
+    arhi:'Diploma/ITI ke baad direct industry entry ya lateral B.Tech — dono valid paths hain. Counselling mein sahi path decide hoga.',
+    aren:'After Diploma/ITI, direct industry entry or lateral B.Tech — both are valid paths. The right path will be decided in counselling.',
+  },
+
+  // ── OTHER / DEFAULT ──
+  'other':{
+    c:'rgba(107,122,153,.08)',b:'rgba(107,122,153,.2)',ic:'📋',
+    hi:'Career Assessment Stage',en:'Career Assessment Stage',
+    rhi:'Current stage ke basis par counselling session mein customized roadmap banaya jaayega.',
+    ren:'A customised roadmap will be built in the counselling session based on current stage.',
+    ahi:[{ph:'Immediate',t:'Career Clarity',d:'Counsellor se detailed discussion karo.'},{ph:'Short-term',t:'Goal Setting',d:'Short aur long term goals decide karo.'},{ph:'Long-term',t:'Execution',d:'Consistent effort se goal achieve karo.'}],
+    aen:[{ph:'Immediate',t:'Career Clarity',d:'Have a detailed discussion with counsellor.'},{ph:'Short-term',t:'Goal Setting',d:'Decide short and long-term goals.'},{ph:'Long-term',t:'Execution',d:'Achieve goals through consistent effort.'}],
+    arhi:'Action plan current stage ke hisaab se hai.',
+    aren:'Action plan is based on current stage.',
+  }
 };
 
 // Demo student data
 var demo={
   id:'IA-26-00001',name:'Rahul Kumar',
   qual:'Class 12 (PCM — Result Awaited)',qualStatus:'12_appearing',
-  city:'Muzaffarpur, Bihar',date:'28 April 2026',
+  city:'Muzaffarpur',state:'Bihar',date:'28 April 2026',
   scores:{analytical:5.7,communication:4.2,learning:6.1,decision:5.0,motivation:5.8,clarity:3.9},
   readPct:77,readLvl:{hi:'High Readiness',en:'High Readiness'},found:'Strong (71/100)',
   pri:'Engineering / Technical',sec:'IT / Computer Applications',em:'Research / Science',
@@ -903,6 +996,19 @@ var demo={
   note:{hi:'Ye sab indicators milkar ek strong picture banate hain — Rahul mein woh core qualities hain jo engineering mein success ke liye zaroori hain. Technical skills college mein sikhaye jaate hain — lekin attitude, sincerity aur responsibility already present hain. Pehle 6 mahine transition ke liye thoda patience rakhe — uske baad growth accelerate hogi.',en:"Together these indicators paint a strong picture — Rahul has the core qualities essential for success in engineering. Technical skills are taught in college — but attitude, sincerity and responsibility are already present. A little patience for the first 6 months of transition — after that, growth accelerates significantly."}}
 };
 
+// ── STAGE DETECTION ──
+// Maps Academic_Stage or Qualification text to qualStatus key
+function detectStage(academicStage, qual){
+  var s = (academicStage||'').toLowerCase() + ' ' + (qual||'').toLowerCase();
+  if(s.includes('class 9') || s.includes('class 10') || s.includes('class ix') || s.includes('class x') || s.includes('9th') || s.includes('10th')) return 'class_9_10';
+  if(s.includes('class 11') || s.includes('xi') || s.includes('11th')) return 'class_11';
+  if(s.includes('appearing') || s.includes('result awaited') || s.includes('class 12') || s.includes('xii') || s.includes('12th')) return '12_appearing';
+  if(s.includes('12 pass') || s.includes('passed') || s.includes('hsc') || s.includes('intermediate')) return '12_pass';
+  if(s.includes('graduation') || s.includes('graduate') || s.includes('b.tech') || s.includes('bca') || s.includes('b.sc') || s.includes('ba ') || s.includes('b.com') || s.includes('bba')) return 'graduation';
+  if(s.includes('diploma') || s.includes('iti') || s.includes('polytechnic') || s.includes('vocational')) return 'diploma';
+  return 'other';
+}
+
 // ── ENGINE ──
 var SK=['analytical','communication','learning','decision','motivation','clarity'];
 var SN=['Analytical','Communication','Learning Agility','Decision Making','Motivation','Career Clarity'];
@@ -967,7 +1073,7 @@ function RND(d){
   // Cover
   document.getElementById('cId').textContent=d.id;
   document.getElementById('cName').textContent=d.name;
-  document.getElementById('cSub').textContent=[d.qual,d.city].filter(Boolean).join(' · ');
+  document.getElementById('cSub').textContent=[d.qual,[d.city,d.state].filter(Boolean).join(', ')].filter(Boolean).join(' · ');
   document.getElementById('cDate').textContent=d.date||td;
   document.getElementById('cStatus').textContent=d.qual;
   document.getElementById('cRead').textContent=d.readPct+'%';
@@ -1020,7 +1126,6 @@ function AL(){
   // Intro
   // Intro — structured point-wise render
   var introEl = document.getElementById('intro');
-  var introData = hi ? d.intro : d.intro_en;
   introEl.innerHTML =
     '<div class="intro-body">' + (hi ? d.intro.body_hi : d.intro.body_en) + '</div>' +
     '<div class="intro-obj-lbl">' + (hi ? 'Is report ka objective:' : 'Objectives of this report:') + '</div>' +
@@ -1489,11 +1594,237 @@ window.onerror=function(msg,src,line,col,err){
   document.getElementById('ls').innerHTML='<div style="color:#ef4444;padding:30px;font-size:14px;line-height:1.8"><strong>Error:</strong><br>'+msg+'<br><small>Line: '+line+'</small></div>';
   return false;
 };
-window.onload=function(){
-  try{RND(demo);}
-  catch(e){
-    document.getElementById('ls').innerHTML='<div style="color:#ef4444;padding:30px;font-size:14px;line-height:1.8"><strong>JS Error:</strong><br>'+e.message+'<br><small>'+e.stack+'</small></div>';
+// ── AppScript Web App URL ──
+var WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwU-FHQij4bNhWGyol0jRZz6x2Mkc3h5g8LDM2APdlZFm5TLyDxOo6flpPrCFxs3eh1/exec';
+
+window.onload = function(){
+  // Get lead ID from URL: ?id=IA-26-00015
+  var params = new URLSearchParams(location.search);
+  var leadId = params.get('id');
+  var paidParam = params.get('paid');
+  
+  // If paid param present, override IP
+  if(paidParam === 'true') {
+    // IP already set to true in code
   }
+  
+  if(!leadId) {
+    // No ID — show demo report
+    document.getElementById('ltxt').textContent = 'Demo report load ho rahi hai...';
+    try{ RND(demo); }
+    catch(e){ showError(e); }
+    return;
+  }
+  
+  // Fetch real student data from AppScript
+  document.getElementById('ltxt').textContent = 'Report fetch ho rahi hai...';
+  
+  // Use JSONP to avoid CORS with AppScript
+  var cbName = 'inwangCb_' + Date.now();
+  var script = document.createElement('script');
+  var timeout = setTimeout(function(){
+    // Timeout — show demo
+    if(window[cbName]) delete window[cbName];
+    document.getElementById('ltxt').textContent = 'Demo mode...';
+    try{ RND(demo); } catch(e){ showError(e); }
+  }, 8000);
+  
+  window[cbName] = function(d){
+    clearTimeout(timeout);
+    delete window[cbName];
+    document.head.removeChild(script);
+    if(d.error){
+      document.getElementById('ltxt').textContent = 'Demo mode...';
+      RND(demo);
+      return;
+    }
+    var reportData = mergeWithDefaults(d);
+    RND(reportData);
+  };
+  
+  script.src = WEBAPP_URL + '?action=report&id=' + encodeURIComponent(leadId) + '&callback=' + cbName;
+  script.onerror = function(){
+    clearTimeout(timeout);
+    document.getElementById('ltxt').textContent = 'Demo mode...';
+    try{ RND(demo); } catch(e){ showError(e); }
+  };
+  document.head.appendChild(script);
 };
+
+function showError(e){
+  document.getElementById('ls').innerHTML='<div style="color:#ef4444;padding:30px;font-size:14px;line-height:1.8"><strong>Error:</strong><br>'+e.message+'</div>';
+}
+
+// Merge AppScript data with demo defaults
+function mergeWithDefaults(d){
+  var sc = d.scores || {};
+  var a = sc.a||4, c = sc.c||4, l = sc.l||4, de = sc.d||4, m = sc.m||4, cl = sc.cl||4;
+  var readPct = Math.round((a+c+l+de+m+cl)/42*100);
+  var readLvl = readPct>=70?'High Readiness':readPct>=50?'Medium Readiness':'Low Readiness';
+  var foundPct = Math.round((a+l+de)/21*100);
+  var foundLvl = foundPct>=70?'Strong ('+foundPct+'/100)':foundPct>=50?'Moderate ('+foundPct+'/100)':'Developing ('+foundPct+'/100)';
+  
+  // Detect stage from qual
+  var qual = (d.qual||'').toLowerCase();
+  var qStatus = 'other';
+  if(qual.indexOf('12')>=0 && (qual.indexOf('appear')>=0||qual.indexOf('await')>=0)) qStatus='12_appearing';
+  else if(qual.indexOf('12')>=0||qual.indexOf('inter')>=0||qual.indexOf('hsc')>=0) qStatus='12_pass';
+  else if(qual.indexOf('10th')>=0||qual.indexOf('matric')>=0) qStatus='class_9_10';
+  else if(qual.indexOf('grad')>=0||qual.indexOf('b.tech')>=0||qual.indexOf('bca')>=0||qual.indexOf('b.sc')>=0) qStatus='graduation';
+  else if(qual.indexOf('diploma')>=0||qual.indexOf('iti')>=0) qStatus='diploma';
+  
+  // Build scores object
+  var scores = {
+    analytical:    a,
+    communication: c,
+    learning:      l,
+    decision:      de,
+    motivation:    m,
+    clarity:       cl
+  };
+  
+  // Primary cluster from assessment
+  var pri = d.c1 || demo.pri;
+  var sec = d.c2 || demo.sec;
+  var em  = d.c3 || demo.em;
+  
+  // Stream alignment
+  var streamAlign = d.align || 'Aligned';
+  var streamPrimary = d.sp || 'Science / General';
+  
+  // Parse skill gaps
+  var gapsText = d.gaps || '';
+  var gapLines = gapsText.split('\n').filter(function(g){ return g.trim(); });
+  var gaps = gapLines.length > 0 ? gapLines.map(function(g){
+    var parts = g.split('→');
+    var dim = (parts[0]||g).trim();
+    var action = (parts[1]||'Practice regularly').trim();
+    var score = scores[dim.toLowerCase()] || 4;
+    return {
+      a:{hi:dim,en:dim},
+      c:{hi:score>=5?'Good':'Developing',en:score>=5?'Good':'Developing'},
+      r:{hi:'Strong',en:'Strong'},
+      ac:{hi:action,en:action},
+      l:score>=5?'lm':'ll'
+    };
+  }) : demo.gaps;
+  
+  // Parse strengths
+  var strText = d.str || '';
+  var strLines = strText.split('\n').filter(function(x){ return x.trim(); });
+  var strengths = strLines.length > 0 ? strLines : demo.str.hi;
+  
+  // Parse behaviour
+  var behText = d.beh || '';
+  var thinking = extractField(behText,'Thinking Style') || demo.beh.hi.thinking;
+  var work = extractField(behText,'Work Orientation') || demo.beh.hi.work;
+  var env = extractField(behText,'Best Work Environment') || demo.beh.hi.environment;
+  
+  // Courses and roles
+  var courses = d.courses ? d.courses.split(',').map(function(x){return x.trim();}).filter(Boolean) : demo.courses;
+  var roles = d.roles ? d.roles.split(',').map(function(x){return x.trim();}).filter(Boolean) : demo.roles;
+  
+  // Pathway
+  var pathway = d.path || '';
+  var streamName = streamPrimary + ' → ' + pri.split('/')[0].trim();
+  
+  return {
+    id:        d.id || demo.id,
+    name:      d.name || demo.name,
+    father:    d.father || '',
+    qual:      d.qual || demo.qual,
+    city:      d.city || 'Muzaffarpur',
+    state:     d.state || 'Bihar',
+    date:      new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}),
+    qualStatus: qStatus,
+    readPct:   readPct,
+    readLvl:   {hi: readLvl, en: readLvl},
+    found:     foundLvl,
+    scores:    scores,
+    pri:       pri,
+    sec:       sec,
+    em:        em,
+    streamAlign: streamAlign,
+    courses:   courses,
+    roles:     roles,
+    stream: {
+      name: {hi: streamName, en: streamName},
+      conf: streamAlign + ' — Assessment based',
+      alt:  {hi: sec + ' · ' + em, en: sec + ' · ' + em},
+      pw:   {hi: pathway || 'Assessment ke basis par ye stream best aligned hai.', 
+             en: pathway || 'This stream is best aligned based on assessment.'}
+    },
+    beh: {
+      hi: {thinking: thinking, work: work, environment: env},
+      en: {thinking: thinking, work: work, environment: env}
+    },
+    str: {hi: strengths, en: strengths},
+    gaps: gaps,
+    mot: demo.mot,
+    concern: demo.concern,
+    intro: {
+      body_hi: 'Yeh AI-based career assessment report '+d.name+' ke natural strengths, learning pattern aur career direction ko samajhne ke liye design ki gayi hai.',
+      body_en: "This report has been designed to understand "+d.name+"'s natural strengths, learning patterns and career direction.",
+      pts_hi: demo.intro.pts_hi,
+      pts_en: demo.intro.pts_en,
+      note_hi: demo.intro.note_hi,
+      note_en: demo.intro.note_en
+    },
+    interest: demo.interest,
+    parent: demo.parent,
+  };
+}
+
+function extractField(text, label){
+  var idx = text.indexOf(label+':');
+  if(idx < 0) return '';
+  var after = text.substring(idx + label.length + 1);
+  var end = after.indexOf('\n\n');
+  return end > 0 ? after.substring(0, end).trim() : after.split('\n')[0].trim();
+}
+
 </script>
-</body></html>
+</body></html>,
+  'class_9_10':{
+    hi:[
+      {p:'Abhi (School)',i:['INWANG assessment complete karo','Different careers explore karo','Extracurricular activities join karo','Apni strengths identify karo']},
+      {p:'Class 10 Boards',i:['Boards par 100% focus karo','Maths aur Science strong karo','Previous year papers solve karo','Study routine set karo']},
+      {p:'Post Result',i:['Board marks ke basis par stream decide karo','INWANG counselling lo — Science/Commerce/Arts','Subject combination carefully choose karo','Entrance exams research karo']},
+      {p:'Class 11-12',i:['Chosen stream mein foundation banao','Entrance exam preparation shuru karo','Career goal set karo','Regular INWANG guidance lo']},
+    ],
+    en:[
+      {p:'Now (School)',i:['Complete INWANG assessment','Explore different careers','Join extracurricular activities','Identify your strengths']},
+      {p:'Class 10 Boards',i:['Give 100% to boards','Strengthen Maths and Science','Solve previous year papers','Set a study routine']},
+      {p:'Post Result',i:['Decide stream based on board marks','Take INWANG counselling — Science/Commerce/Arts','Carefully choose subject combination','Research entrance exams']},
+      {p:'Class 11-12',i:['Build foundation in chosen stream','Start entrance exam preparation','Set career goal','Take regular INWANG guidance']},
+    ],
+  },
+  'class_11':{
+    hi:[
+      {p:'Abhi (Class 11)',i:['New subjects ke fundamentals deeply samjho','Weak topics identify karo aur address karo','Study schedule banao — boards + entrance dono ke liye','NCERT thoroughly complete karo']},
+      {p:'3-6 Months',i:['Target entrance exam decide karo','Basic entrance preparation shuru karo','Reference books add karo','Mock tests practice karo']},
+      {p:'Class 12 Start',i:['Boards + entrance dual strategy banao','Coaching ya self-study decide karo','Previous year papers solve karo','INWANG counselling mein roadmap finalize karo']},
+      {p:'Class 12 End',i:['Boards strong karo','Entrance mein best performance do','College shortlist banao','INWANG se college counselling lo']},
+    ],
+    en:[
+      {p:'Now (Class 11)',i:['Deeply understand fundamentals of new subjects','Identify and address weak topics','Build study schedule for both boards and entrance','Complete NCERT thoroughly']},
+      {p:'3-6 Months',i:['Decide target entrance exam','Start basic entrance preparation','Add reference books','Practice mock tests']},
+      {p:'Class 12 Start',i:['Build dual boards + entrance strategy','Decide coaching or self-study','Solve previous year papers','Finalise roadmap in INWANG counselling']},
+      {p:'Class 12 End',i:['Excel in boards','Give best performance in entrance','Build college shortlist','Take INWANG college counselling']},
+    ],
+  },
+  'diploma':{
+    hi:[
+      {p:'Immediate',i:['Direct job vs Lateral B.Tech — ROI compare karo','INWANG counselling mein sahi path decide karo','Field-specific skills assess karo','Industry demand research karo']},
+      {p:'0-6 Months',i:['Relevant certifications lo — ITI/trade specific','Resume banao — practical skills highlight karo','Job applications shuru karo','Industry contacts build karo']},
+      {p:'1-3 Years',i:['Entry level job mein experience gain karo','Lateral entry B.Tech explore karo agar interested ho','Technical skills upgrade karo','Performance appraisal target karo']},
+      {p:'3+ Years',i:['Senior technician ya engineer role target karo','Management ya technical specialization decide karo','Salary negotiation seekho','INWANG se career review karo']},
+    ],
+    en:[
+      {p:'Immediate',i:['Compare ROI of direct job vs Lateral B.Tech','Decide right path in INWANG counselling','Assess field-specific skills','Research industry demand']},
+      {p:'0-6 Months',i:['Get relevant certifications — ITI/trade specific','Build resume — highlight practical skills','Start job applications','Build industry contacts']},
+      {p:'1-3 Years',i:['Gain experience in entry-level job','Explore lateral entry B.Tech if interested','Upgrade technical skills','Target performance appraisal']},
+      {p:'3+ Years',i:['Target senior technician or engineer role','Decide management or technical specialisation','Learn salary negotiation','Take INWANG career review']},
+    ],
+  },
+};
