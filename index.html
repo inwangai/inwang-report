@@ -22,8 +22,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;ali
 .nb sup{font-size:8px;color:var(--muted)}
 .ns{font-size:9px;color:var(--muted);letter-spacing:1px}
 .nav-r{display:flex;gap:8px}
-.btn-l{padding:6px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:7px;font-size:11px;font-weight:700;color:var(--white);cursor:pointer;font-family:inherit}
-.btn-l.en{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:#60a5fa}
+
+
+.btn-l{padding:6px 14px;background:var(--g3);border:1px solid var(--gb);border-radius:7px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;letter-spacing:0.3px;transition:all 0.2s}
+.btn-l.active{background:rgba(212,175,55,0.15);border-color:var(--gold);color:var(--gold)}
 .btn-p{padding:6px 14px;background:var(--g3);border:1px solid var(--gb);border-radius:7px;font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;font-family:inherit}
 /* WRAP */
 .wrap{max-width:860px;margin:0 auto;padding:72px 18px 60px}
@@ -504,7 +506,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;ali
     <div><div class="nb">INWANG<sup>™</sup></div><div class="ns">AI Career Intelligence System</div></div>
   </div>
   <div class="nav-r">
-    <button class="btn-l" id="LB" onclick="TL()">🇮🇳 Hinglish</button>
+    <button class="btn-l active" id="LB" onclick="TL()">IN Hinglish</button>
     <button class="btn-p" onclick="window.print()" title="Print / Save white PDF">🖨 Print</button>
     <button class="btn-p" id="btnDigitalPDF" onclick="saveDigitalPDF()" title="Save dark digital PDF" style="background:rgba(0,212,255,.1);border-color:rgba(0,212,255,.3);color:var(--cyan)">💾 Digital PDF</button>
   </div>
@@ -610,8 +612,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;ali
     <div class="rc" id="conCard" style="display:none"><div class="sl">Student Concern Analysis</div><div id="conArea"></div></div>
     <div class="rc" id="rmCard" style="display:none"><div class="sl">Preparation Roadmap</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px" id="rmIntro">—</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="rmArea"></div></div>
     <div class="rc" id="parCard" style="display:none"><div class="sl">Parent Assurance Note</div><div class="par" id="parArea"></div></div>
-    <div class="rc" id="cnCard" style="display:none"><div class="sl">Counsellor Advisory Note</div><div class="no-print" style="font-size:10px;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:5px;padding:4px 11px;margin-bottom:10px;display:inline-block">🇬🇧 Fill in English · Manually before sending</div><div style="background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.1);border-radius:10px;padding:16px;min-height:80px;font-size:13px;color:var(--muted);font-style:italic;line-height:1.8" contenteditable="true" id="cnNote">[Counsellor note — to be filled manually in English before sending.]</div><div style="display:flex;justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)"><div style="text-align:right"><img src="data:image/png;base64,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" class="sig-img" style="height:52px;max-width:220px;object-fit:contain;filter:invert(1) brightness(2.5);display:block;margin-left:auto;margin-bottom:6px" alt="Signature"><div style="width:180px;height:1px;background:var(--muted);margin-bottom:5px;margin-left:auto"></div><div style="font-size:11px;font-weight:600;color:var(--white);text-align:right">Mohammad Meraj</div><div style="font-size:10px;color:var(--muted);text-align:right">INWANG AI Career Coach · inwangai.com</div></div></div></div>
-    <div class="rc" id="disCard" style="display:none"><div class="sl">Legal Notice & Disclaimer</div><div class="no-print" style="font-size:10px;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:5px;padding:4px 11px;margin-bottom:10px;display:inline-block">🇬🇧 Always in English — legal requirement</div><div style="font-size:11px;color:var(--muted);line-height:1.75" id="disTxt">—</div></div>
+    <div class="rc" id="cnCard" style="display:none"><div class="sl">Counsellor Advisory Note</div><div style="background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.1);border-radius:10px;padding:16px;min-height:160px;font-size:13px;color:var(--muted);font-style:italic;line-height:1.8" contenteditable="true" id="cnNote">[Counsellor note — to be filled manually in English before sending.]</div><div style="display:flex;justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)"><div style="text-align:right"><img src="data:image/png;base64,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" class="sig-img" style="height:52px;max-width:220px;object-fit:contain;filter:invert(1) brightness(2.5);display:block;margin-left:auto;margin-bottom:6px" alt="Signature"><div style="width:180px;height:1px;background:var(--muted);margin-bottom:5px;margin-left:auto"></div><div style="font-size:11px;font-weight:600;color:var(--white);text-align:right">Mohammad Meraj</div><div style="font-size:10px;color:var(--muted);text-align:right">INWANG AI Career Coach · inwangai.com</div></div></div></div>
+    <div class="rc" id="disCard" style="display:none"><div class="sl">Legal Notice & Disclaimer</div><div style="font-size:11px;color:var(--muted);line-height:1.75" id="disTxt">—</div></div>
     <div class="cta no-print"><div style="font-family:Outfit,sans-serif;font-size:16px;font-weight:800;margin-bottom:7px" id="ctaT">—</div><div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.65" id="ctaS">—</div><div id="ctaB"></div></div>
     <div class="rf no-print" style="display:none" id="screenFooter"><strong style="color:var(--gold);font-family:Outfit,sans-serif;letter-spacing:1px">INWANG™</strong> · AI Career Intelligence System · inwangai.com · +91 9470659224<br><span style="color:var(--muted)">© 2026 INWANG™. All Rights Reserved. · <span id="fId"></span></span></div>
     <div id="pf" style="display:none">INWANG™ · AI Career Intelligence System · inwangai.com · +91 9470659224 · © 2026 INWANG™. All Rights Reserved.</div>
@@ -719,6 +721,105 @@ var CLDATA={
   rr:{
       hi:'IT mein sahi skill set choose karna 10x difference create karta hai. Example: Python + Data Science specialist = ₹12-18 LPA entry vs general IT fresher = ₹4-6 LPA. 3-4 saal mein gap aur bhi badh jaata hai. INWANG counselling mein aapke scores ke basis par specific skill roadmap milega — generic advice nahi.',
       en:'Choosing the right skill set in IT creates a 10x difference. Example: Python + Data Science specialist = ₹12-18 LPA entry vs general IT fresher = ₹4-6 LPA. The gap grows even wider in 3-4 years. INWANG counselling will provide a specific skill roadmap based on your scores — not generic advice.'}
+},
+'Arts / Humanities / Creative':{
+  sal:{e:'₹3–5 LPA',m:'₹7–14 LPA',s:'₹14–25 LPA',l:'₹30L+'},
+  gov:{hi:[{n:'UPSC Civil Services',t:'UPSC',d:'IAS/IPS/IFS — Arts ke liye excellent path.'},
+    {n:'SSC CGL',t:'SSC',d:'Central govt offices mein officer posts.'},
+    {n:'Bank PO',t:'IBPS/SBI',d:'Probationary Officer. ₹8-10 LPA starting.'},
+    {n:'Teaching (TGT/PGT)',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
+    {n:'State PSC',t:'State',d:'SDM, BDO level posts.'}],
+  en:[{n:'UPSC Civil Services',t:'UPSC',d:'Excellent path for Arts background.'},
+    {n:'SSC CGL',t:'SSC',d:'Officer level posts in central govt.'},
+    {n:'Bank PO',t:'IBPS/SBI',d:'Starting ₹8-10 LPA.'},
+    {n:'Teaching (TGT/PGT)',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
+    {n:'State PSC',t:'State',d:'SDM, BDO level posts.'}]},
+  gi:{hi:'Arts mein UPSC aur teaching sabse stable govt careers hain.',en:'UPSC and teaching are the most stable govt careers for Arts.'},
+  kit:[
+    {i:'📝',n:'Language & Writing',d:{hi:'Hindi/English mein strong writing skills — daily practice karo.',en:'Strong writing in Hindi/English — practice daily.'},p:'Critical'},
+    {i:'📚',n:'Current Affairs',d:{hi:'Daily newspaper padho. Notes banao.',en:'Read daily newspaper. Make notes.'},p:'Critical'},
+    {i:'🗣️',n:'Communication',d:{hi:'Public speaking aur group discussions.',en:'Public speaking and group discussions.'},p:'High'},
+    {i:'💻',n:'Digital Skills',d:{hi:'MS Office, Canva, social media.',en:'MS Office, Canva, social media.'},p:'High'},
+    {i:'🧠',n:'Critical Thinking',d:{hi:'Current events pe logical opinions banao.',en:'Form logical opinions on current events.'},p:'Medium'},
+    {i:'🎨',n:'Creative Portfolio',d:{hi:'Writing/design portfolio build karo.',en:'Build a writing/design portfolio.'},p:'Medium'}],
+  tl:{hi:[{y:'Year 0',r:'Assessment',s:'₹149',t:'INWANG → direction'},
+    {y:'Year 1-3',r:'BA/BBA/BA LLB',s:'Investment',t:'Skills + internships'},
+    {y:'Year 4',r:'Entry Level',s:'₹3–5 LPA',t:'Media/NGO/Bank/Teaching'},
+    {y:'Year 6',r:'Mid Level',s:'₹8–14 LPA',t:'Specialization'},
+    {y:'Year 10',r:'Senior Role',s:'₹15–25 LPA',t:'Expert/Manager'},
+    {y:'Year 15+',r:'Leadership',s:'₹30L+',t:'IAS/Director/Principal'}],
+  en:[{y:'Year 0',r:'Assessment',s:'₹149',t:'INWANG → direction'},
+    {y:'Year 1-3',r:'BA/BBA/BA LLB',s:'Investment',t:'Skills + internships'},
+    {y:'Year 4',r:'Entry Level',s:'₹3–5 LPA',t:'Media/NGO/Bank/Teaching'},
+    {y:'Year 6',r:'Mid Level',s:'₹8–14 LPA',t:'Specialisation'},
+    {y:'Year 10',r:'Senior Role',s:'₹15–25 LPA',t:'Expert/Manager'},
+    {y:'Year 15+',r:'Leadership',s:'₹30L+',t:'IAS/Director/Principal'}]},
+  roi:{hi:'₹1–4 lakh (3-year BA)',en:'₹1–4 lakh (3-year BA)'},
+  bk:{hi:'8–14 months post placement',en:'8–14 months post-placement'},
+  lt:{hi:'₹1.5–3 Crore+ (25-year career)',en:'₹1.5–3 Crore+ (25-year career)'},
+  ins:{hi:'₹149 → Sahi path clear hoga',en:'₹149 → Right path will be clear'},
+  rr:{hi:'Arts mein sahi specialization — UPSC vs Teaching vs Media vs Law — alag paths hain. INWANG counselling specific roadmap degi.',
+     en:'Right specialisation in Arts — UPSC vs Teaching vs Media vs Law — are different paths. INWANG counselling gives specific roadmap.'}
+},
+'Teaching / Education':{
+  sal:{e:'₹3–6 LPA',m:'₹6–12 LPA',s:'₹12–20 LPA',l:'₹25L+'},
+  gov:{hi:[{n:'TGT/PGT Teacher',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
+    {n:'College Lecturer',t:'UGC NET',d:'NET qualify karo — college mein teaching.'}],
+  en:[{n:'TGT/PGT Teacher',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
+    {n:'College Lecturer',t:'UGC NET',d:'Qualify NET for college teaching.'}]},
+  gi:{hi:'NET/CTET qualify karo — govt teaching jobs milti hain.',en:'Qualify NET/CTET for govt teaching jobs.'},
+  kit:[
+    {i:'📚',n:'Subject Mastery',d:{hi:'Core subject deeply padho.',en:'Study core subject deeply.'},p:'Critical'},
+    {i:'🗣️',n:'Communication',d:{hi:'Clearly explain karna seekho.',en:'Learn to explain clearly.'},p:'Critical'},
+    {i:'💡',n:'Pedagogy',d:{hi:'Teaching methods.',en:'Teaching methods.'},p:'High'},
+    {i:'💻',n:'EdTech',d:{hi:'Online teaching tools.',en:'Online teaching tools.'},p:'Medium'}],
+  tl:{hi:[{y:'Year 0',r:'Assessment',s:'₹149',t:'Direction'},
+    {y:'Year 1-3',r:'BA + B.Ed',s:'Investment',t:'Degree + training'},
+    {y:'Year 4',r:'Teacher',s:'₹3–6 LPA',t:'School'},
+    {y:'Year 7',r:'Senior Teacher',s:'₹8–12 LPA',t:'NET qualify'},
+    {y:'Year 12',r:'HOD/Principal',s:'₹15–20 LPA',t:'Leadership'},
+    {y:'Year 20+',r:'Principal',s:'₹25L+',t:'Head'}],
+  en:[{y:'Year 0',r:'Assessment',s:'₹149',t:'Direction'},
+    {y:'Year 1-3',r:'BA + B.Ed',s:'Investment',t:'Degree + training'},
+    {y:'Year 4',r:'Teacher',s:'₹3–6 LPA',t:'School'},
+    {y:'Year 7',r:'Senior Teacher',s:'₹8–12 LPA',t:'NET qualify'},
+    {y:'Year 12',r:'HOD/Principal',s:'₹15–20 LPA',t:'Leadership'},
+    {y:'Year 20+',r:'Principal',s:'₹25L+',t:'Head'}]},
+  roi:{hi:'₹1–3 lakh',en:'₹1–3 lakh'},
+  bk:{hi:'10–16 months',en:'10–16 months'},
+  lt:{hi:'₹1–2.5 Crore+',en:'₹1–2.5 Crore+'},
+  ins:{hi:'₹149 → Sahi path',en:'₹149 → Right path'},
+  rr:{hi:'Teaching mein stability excellent hai.',en:'Teaching offers excellent stability.'}
+},
+'Law / Legal Studies':{
+  sal:{e:'₹3–6 LPA',m:'₹8–18 LPA',s:'₹20–40 LPA',l:'₹50L+'},
+  gov:{hi:[{n:'Judicial Services',t:'PCS J',d:'Civil judge — prestigious career.'},
+    {n:'Public Prosecutor',t:'State',d:'Govt vakeel.'}],
+  en:[{n:'Judicial Services',t:'PCS J',d:'Civil judge — prestigious career.'},
+    {n:'Public Prosecutor',t:'State',d:'Government lawyer.'}]},
+  gi:{hi:'Judiciary sabse prestigious govt legal career hai.',en:'Judiciary is the most prestigious govt legal career.'},
+  kit:[
+    {i:'⚖️',n:'Legal Reasoning',d:{hi:'Case analysis.',en:'Case analysis.'},p:'Critical'},
+    {i:'📝',n:'Legal Writing',d:{hi:'Drafting aur petitions.',en:'Drafting and petitions.'},p:'Critical'},
+    {i:'🗣️',n:'Advocacy',d:{hi:'Court mein bolna.',en:'Court advocacy.'},p:'High'},
+    {i:'📚',n:'Core Law',d:{hi:'IPC/CrPC/Constitution.',en:'IPC/CrPC/Constitution.'},p:'Critical'}],
+  tl:{hi:[{y:'Year 0',r:'Assessment',s:'₹149',t:'Direction'},
+    {y:'Year 1-5',r:'BA LLB',s:'Investment',t:'5-year integrated'},
+    {y:'Year 6',r:'Junior Lawyer',s:'₹3–6 LPA',t:'Practice'},
+    {y:'Year 8',r:'Associate',s:'₹8–15 LPA',t:'Specialization'},
+    {y:'Year 12',r:'Senior Advocate',s:'₹20–40 LPA',t:'Own practice'},
+    {y:'Year 20+',r:'Partner/Judge',s:'₹50L+',t:'Top level'}],
+  en:[{y:'Year 0',r:'Assessment',s:'₹149',t:'Direction'},
+    {y:'Year 1-5',r:'BA LLB',s:'Investment',t:'5-year integrated'},
+    {y:'Year 6',r:'Junior Lawyer',s:'₹3–6 LPA',t:'Practice'},
+    {y:'Year 8',r:'Associate',s:'₹8–15 LPA',t:'Specialisation'},
+    {y:'Year 12',r:'Senior Advocate',s:'₹20–40 LPA',t:'Own practice'},
+    {y:'Year 20+',r:'Partner/Judge',s:'₹50L+',t:'Top level'}]},
+  roi:{hi:'₹1–3 lakh',en:'₹1–3 lakh'},
+  bk:{hi:'12–18 months',en:'12–18 months'},
+  lt:{hi:'₹2–6 Crore+',en:'₹2–6 Crore+'},
+  ins:{hi:'₹149 → Direction clear',en:'₹149 → Direction clear'},
+  rr:{hi:'Law mein specialization important hai. INWANG counselling direction degi.',en:'Specialisation matters in Law. INWANG counselling will give direction.'}
 }
 };
 // Default cluster data
@@ -1120,8 +1221,10 @@ function RND(d){
 function AL(){
   var d=D;if(!d)return;
   var hi=L==='hi';
-  document.getElementById('LB').textContent=hi?'🇮🇳 Hinglish':'🇬🇧 English';
-  document.getElementById('LB').className='btn-l'+(hi?'':' en');
+  if(document.getElementById('LB')){
+    document.getElementById('LB').textContent = hi ? 'IN Hinglish' : 'EN English';
+    document.getElementById('LB').className = 'btn-l active';
+  }
   document.getElementById('ltxt').textContent=hi?'Report load ho rahi hai...':'Loading your report...';
   // Intro
   // Intro — structured point-wise render
@@ -1538,6 +1641,90 @@ function AL(){
       {p:'3+ Years',i:['Target senior technician or engineer role','Decide management or technical specialisation','Learn salary negotiation','Take INWANG career review']},
     ],
   },
+  'ug_pursuing':{
+    hi:[
+      {p:'Abhi (College)',i:['INWANG assessment se apni strengths samjho','Internships aur projects shuru karo','Core subjects mein strong foundation banao','Extracurricular activities join karo']},
+      {p:'2nd Year',i:['Specialization decide karo','Industry certifications lo — Coursera, NPTEL','Hackathons mein participate karo','LinkedIn pe professional network banao']},
+      {p:'Final Year',i:['Campus placements ki taiyari karo','Higher studies decide karo — MBA/MTech/UPSC','Resume aur portfolio ready karo','Mock interviews practice karo']},
+      {p:'Post Graduation',i:['Job ya higher studies — clear decision lo','5-year career plan banao','Professional certifications add karo','Industry mein network strong karo']},
+    ],
+    en:[
+      {p:'Now (College)',i:['Understand your strengths via INWANG','Start internships and projects','Build strong foundation in core subjects','Join extracurricular activities']},
+      {p:'2nd Year',i:['Decide your specialisation','Get industry certifications — Coursera, NPTEL','Participate in hackathons','Build professional network on LinkedIn']},
+      {p:'Final Year',i:['Prepare for campus placements','Decide on higher studies — MBA/MTech/UPSC','Get resume and portfolio ready','Practice mock interviews']},
+      {p:'Post Graduation',i:['Make clear decision — job or higher studies','Make a 5-year career plan','Add professional certifications','Strengthen industry network']},
+    ],
+  },
+  'ug_completed':{
+    hi:[
+      {p:'Abhi (Graduate)',i:['INWANG assessment se next step clear karo','MBA/MTech/UPSC — sahi option decide karo','Job market research karo apne field mein','Skills gap identify karo']},
+      {p:'6 Months',i:['Target entrance exam decide — CAT/GATE/UPSC','Coaching ya self-study plan banao','Professional certifications complete karo','Entry-level job consider karo']},
+      {p:'1-2 Years',i:['Higher studies ya job mein settle ho','Specialization develop karo','Professional network strong karo','Leadership roles ke liye taiyar ho']},
+      {p:'3-5 Years',i:['Senior role ya management position target karo','Own venture ka plan banao','Industry expert bano','Long-term financial planning shuru karo']},
+    ],
+    en:[
+      {p:'Now (Graduate)',i:['Clarify next steps with INWANG','Decide between MBA/MTech/UPSC','Research job market in your field','Identify and fill skill gaps']},
+      {p:'6 Months',i:['Decide target exam — CAT/GATE/UPSC','Make coaching or self-study plan','Complete professional certifications','Consider entry-level job']},
+      {p:'1-2 Years',i:['Complete higher studies or settle in job','Develop your specialisation','Strengthen professional network','Prepare for leadership roles']},
+      {p:'3-5 Years',i:['Target senior or management position','Plan own venture if interested','Become industry expert','Start long-term financial planning']},
+    ],
+  },
+  'pg_pursuing':{
+    hi:[
+      {p:'Abhi (PG)',i:['Research aur specialization mein depth banao','Thesis ya dissertation seriously lo','Industry connections banao — professors, alumni','Internship ya part-time work consider karo']},
+      {p:'Final Semester',i:['Job placement ya research fellowship target karo','PhD decide karo agar research mein interest hai','Professional certifications add karo','Portfolio aur publications ready karo']},
+      {p:'Post PG',i:['Senior specialist role target karo','Teaching ya research career consider karo','Consulting opportunities explore karo','Industry leadership path plan karo']},
+      {p:'2-3 Years',i:['Expert ya thought leader bano apne field mein','Own practice ya consultancy shuru karo','Mentoring aur knowledge sharing karo','Peak career performance achieve karo']},
+    ],
+    en:[
+      {p:'Now (PG)',i:['Build depth in research and specialisation','Take thesis seriously','Build industry connections — professors, alumni','Consider internship or part-time work']},
+      {p:'Final Semester',i:['Target job placement or research fellowship','Decide on PhD if interested in research','Add professional certifications','Prepare portfolio and publications']},
+      {p:'Post PG',i:['Target senior specialist role','Consider teaching or research career','Explore consulting opportunities','Plan industry leadership path']},
+      {p:'2-3 Years',i:['Become expert or thought leader','Start own practice or consultancy','Mentor others and share knowledge','Achieve peak career performance']},
+    ],
+  },
+  'pg_completed':{
+    hi:[
+      {p:'Abhi (PG Complete)',i:['Senior career path clear karo INWANG se','Teaching, research ya industry — decision lo','PhD consider karo agar academic career chahiye','Senior specialist ya consultant role target karo']},
+      {p:'1 Year',i:['Apne field mein top positions apply karo','Industry publications aur speaking engagements lo','Professional associations join karo','High-value certifications add karo']},
+      {p:'3-5 Years',i:['Department head ya senior manager bano','Own consultancy ya practice start karo','Industry mentor aur advisor bano','National level recognition build karo']},
+      {p:'5+ Years',i:['CXO ya Director level reach karo','Own institute ya business start karo','Policy level mein contribution karo','Legacy build karo — students, research, impact']},
+    ],
+    en:[
+      {p:'Now (PG Complete)',i:['Clarify senior career path with INWANG','Decide between teaching, research or industry','Consider PhD for academic career','Target senior specialist or consultant role']},
+      {p:'1 Year',i:['Apply for top positions in your field','Get publications and speaking engagements','Join professional associations','Add high-value certifications']},
+      {p:'3-5 Years',i:['Become department head or senior manager','Start own consultancy or practice','Become industry mentor and advisor','Build national level recognition']},
+      {p:'5+ Years',i:['Reach CXO or Director level','Start own institute or business','Contribute at policy level','Build legacy — students, research, impact']},
+    ],
+  },
+  'phd':{
+    hi:[
+      {p:'Abhi (PhD)',i:['Research mein world-class contribution karo','International conferences mein present karo','Global university collaborations build karo','Patents aur publications focus karo']},
+      {p:'Post PhD',i:['Post-doctoral research consider karo — India ya abroad','Top university mein faculty position target karo','Industry R&D mein senior scientist explore karo','DRDO, ISRO, CSIR apply karo']},
+      {p:'3-5 Years',i:['Associate Professor ya Senior Scientist bano','Research grants secure karo — DST, DBT, SERB','Own research lab establish karo','Industry consulting shuru karo']},
+      {p:'10+ Years',i:['Professor ya Principal Scientist bano','Institute director ya department head target karo','National awards ke liye kaam karo','Next generation researchers mentor karo']},
+    ],
+    en:[
+      {p:'Now (PhD)',i:['Make world-class research contributions','Present at international conferences','Build global university collaborations','Focus on patents and publications']},
+      {p:'Post PhD',i:['Consider post-doctoral research — India or abroad','Target faculty position at top university','Explore senior scientist in industry R&D','Apply to DRDO, ISRO, CSIR']},
+      {p:'3-5 Years',i:['Become Associate Professor or Senior Scientist','Secure research grants — DST, DBT, SERB','Establish own research lab','Start industry consulting']},
+      {p:'10+ Years',i:['Become Professor or Principal Scientist','Target institute director or department head','Work towards national awards','Mentor next generation researchers']},
+    ],
+  },
+  'working':{
+    hi:[
+      {p:'Abhi (Working)',i:['INWANG assessment se career switch ya growth decide karo','Current role mein skills upgrade karo','MBA ya relevant PG consider karo','Professional network strong karo']},
+      {p:'6-12 Months',i:['Skill gaps fill karo — online courses, certifications','Higher studies entrance target karo agar switch chahiye','Senior role ke liye apply karo','Side projects ya freelancing explore karo']},
+      {p:'2-3 Years',i:['Management role ya senior position target karo','Own venture start karne ka plan banao','Industry expert bano apne domain mein','Passive income streams develop karo']},
+      {p:'5+ Years',i:['CXO track ya entrepreneurship karo','Financial independence plan execute karo','Mentoring aur social impact karo','Legacy build karo']},
+    ],
+    en:[
+      {p:'Now (Working)',i:['Decide career switch or growth with INWANG','Upgrade skills in current role','Consider MBA or relevant PG','Strengthen professional network']},
+      {p:'6-12 Months',i:['Fill skill gaps — online courses, certifications','Target higher studies entrance if switching','Apply for senior role in current field','Explore side projects or freelancing']},
+      {p:'2-3 Years',i:['Target management role or senior position','Plan to start own venture','Become domain expert in your industry','Develop passive income streams']},
+      {p:'5+ Years',i:['Go CXO track or entrepreneurship','Execute financial independence plan','Do mentoring and create social impact','Build your legacy']},
+    ],
+  },
 };
   var rm=(rms[d.qualStatus]||rms['12_pass'])[hi?'hi':'en'];
   var rmi=document.getElementById('rmIntro');
@@ -1706,14 +1893,40 @@ function mergeWithDefaults(d){
   var foundPct = Math.round((a+l+de)/21*100);
   var foundLvl = foundPct>=70?'Strong ('+foundPct+'/100)':foundPct>=50?'Moderate ('+foundPct+'/100)':'Developing ('+foundPct+'/100)';
   
-  // Detect stage from qual
+  // Detect stage from qual — complete mapping
   var qual = (d.qual||'').toLowerCase();
   var qStatus = 'other';
-  if(qual.indexOf('12')>=0 && (qual.indexOf('appear')>=0||qual.indexOf('await')>=0)) qStatus='12_appearing';
-  else if(qual.indexOf('12')>=0||qual.indexOf('inter')>=0||qual.indexOf('hsc')>=0) qStatus='12_pass';
-  else if(qual.indexOf('10th')>=0||qual.indexOf('matric')>=0) qStatus='class_9_10';
-  else if(qual.indexOf('grad')>=0||qual.indexOf('b.tech')>=0||qual.indexOf('bca')>=0||qual.indexOf('b.sc')>=0) qStatus='graduation';
-  else if(qual.indexOf('diploma')>=0||qual.indexOf('iti')>=0) qStatus='diploma';
+  
+  // Class 9-10
+  if(qual.indexOf('class 9')>=0 || (qual.indexOf('class 10')>=0 && qual.indexOf('pass')<0))
+    qStatus = 'class_9_10';
+  // Class 11
+  else if(qual.indexOf('class 11')>=0 || qual.indexOf('class 10 pass')>=0)
+    qStatus = 'class_11';
+  // 12th Appearing/Result Awaited
+  else if((qual.indexOf('12')>=0||qual.indexOf('inter')>=0) && 
+          (qual.indexOf('appear')>=0||qual.indexOf('await')>=0||qual.indexOf('result')>=0))
+    qStatus = '12_appearing';
+  // 12th Pass
+  else if(qual.indexOf('class 12 pass')>=0||qual.indexOf('12th pass')>=0||
+          qual.indexOf('12')>=0||qual.indexOf('inter')>=0||qual.indexOf('hsc')>=0)
+    qStatus = '12_pass';
+  // ITI/Diploma
+  else if(qual.indexOf('iti')>=0||qual.indexOf('diploma')>=0||qual.indexOf('polytechnic')>=0)
+    qStatus = 'diploma';
+  // UG Pursuing
+  else if((qual.indexOf('ug')>=0||qual.indexOf('1st year')>=0||qual.indexOf('2nd year')>=0||
+           qual.indexOf('3rd year')>=0||qual.indexOf('pursuing')>=0) && 
+           qual.indexOf('completed')<0)
+    qStatus = 'graduation';
+  // UG Completed
+  else if(qual.indexOf('ug completed')>=0||qual.indexOf('graduate')>=0||
+          qual.indexOf('b.tech')>=0||qual.indexOf('bca')>=0||qual.indexOf('b.sc')>=0)
+    qStatus = 'graduation';
+  // PG/PhD/Working
+  else if(qual.indexOf('pg')>=0||qual.indexOf('post')>=0||
+          qual.indexOf('phd')>=0||qual.indexOf('working')>=0)
+    qStatus = 'graduation';
   
   // Build scores object
   var scores = {
@@ -1763,8 +1976,83 @@ function mergeWithDefaults(d){
   var env = extractField(behText,'Best Work Environment') || demo.beh.hi.environment;
   
   // Courses and roles
-  var courses = d.courses ? d.courses.split(',').map(function(x){return x.trim();}).filter(Boolean) : demo.courses;
-  var roles = d.roles ? d.roles.split(',').map(function(x){return x.trim();}).filter(Boolean) : demo.roles;
+  // Use Sheet data — fallback to cluster-based defaults if "No matching" 
+  var CLUSTER_FALLBACK = {
+    'Arts / Humanities / Creative': {
+      courses:['BA English','BA Political Science','BA Psychology','BA Journalism','BFA','BBA','BA LLB'],
+      roles:['IAS/IPS Officer','Content Writer','Journalist','HR Manager','Teacher','Lawyer']},
+    'Teaching / Education': {
+      courses:['BA + B.Ed','B.El.Ed','MA Education','D.El.Ed'],
+      roles:['School Teacher','College Lecturer','Education Counsellor','Training Manager']},
+    'Law / Legal Studies': {
+      courses:['BA LLB (5yr)','BBA LLB (5yr)','LLB (3yr)','BA Political Science'],
+      roles:['Advocate','Judge','Legal Advisor','Corporate Lawyer','Public Prosecutor']},
+    'Medical / Healthcare': {
+      courses:['MBBS','BDS','BAMS','BHMS','BSc Nursing','BPT'],
+      roles:['Doctor','Dentist','Pharmacist','Medical Officer','Healthcare Manager']},
+    'Paramedical / Nursing / BPT / OT / Lab Tech': {
+      courses:['BSc Nursing','GNM','BPT','BSc MLT','DMLT','ANM','BSc OT'],
+      roles:['Staff Nurse','Lab Technician','Physiotherapist','OT Technician','Radiographer']},
+    'Management (BBA / BCom / BCA / MBA / PGDM)': {
+      courses:['BBA','BCom','MBA','PGDM','BCA','CA','CS'],
+      roles:['Business Analyst','Marketing Manager','Finance Manager','HR Manager','Operations Manager']},
+    'Engineering / Technical': {
+      courses:['B.Tech CSE','B.Tech ECE','B.Tech Mechanical','B.Tech Civil','BCA + MCA'],
+      roles:['Software Engineer','Mechanical Engineer','Civil Engineer','Electronics Engineer']},
+    'IT / Computer Applications': {
+      courses:['BCA','B.Tech CSE','B.Sc CS','MCA','BSc IT'],
+      roles:['Software Developer','Data Analyst','Web Developer','System Analyst']},
+    'Research / Science': {
+      courses:['BSc PCM','BSc PCB','BSc Statistics','BSc Maths','MSc','IISER'],
+      roles:['Research Scientist','Data Scientist','Professor','Science Officer']},
+    'Commerce / Accounts / Finance': {
+      courses:['BCom','BCom (Hons)','CA','CS','BBA Finance','MBA Finance'],
+      roles:['Chartered Accountant','Financial Analyst','Tax Consultant','Auditor','Investment Banker']},
+    'Medical / MBBS / BDS': {
+      courses:['MBBS','BDS','BAMS','BHMS','BUMS'],
+      roles:['Doctor (MBBS)','Dentist','Ayurvedic Doctor','Homoeopathic Doctor']},
+    'Government / Civil Services': {
+      courses:['BA Political Science','BA History','BA Sociology','LLB','MA Public Admin'],
+      roles:['IAS Officer','IPS Officer','SDM','BDO','State Civil Services']},
+    'Design / Creative Arts': {
+      courses:['BFA','B.Des','B.Sc Animation','BA Fine Arts','Diploma Design'],
+      roles:['Graphic Designer','UI/UX Designer','Animator','Art Director','Creative Head']},
+    'Design / Architecture / Fine Arts': {
+      courses:['B.Arch','B.Des','BFA','NIFT','BSc Interior Design','Diploma Graphic Design'],
+      roles:['Architect','UI/UX Designer','Fashion Designer','Interior Designer','Art Director']},
+    'Paramedical / Allied Health / Nursing': {
+      courses:['BSc Nursing','GNM','ANM','BPT','BSc MLT','DMLT','BSc OT'],
+      roles:['Staff Nurse','Lab Technician','Physiotherapist','OT Technician','Radiographer']},
+    'Vocational / Skill / ITI': {
+      courses:['ITI (Electrician)','ITI (Fitter)','ITI (COPA)','ITI (Welder)','Polytechnic Diploma'],
+      roles:['Electrician','Fitter','Computer Operator','Welder','Junior Engineer']},
+    'Media / Journalism / Communication': {
+      courses:['BJMC','BA Mass Communication','BSc Animation','BA Film & TV','BA Advertising'],
+      roles:['Journalist','Content Writer','Animator','PR Manager','Video Editor']},
+    'Hotel Management / Tourism / Hospitality': {
+      courses:['BHM','BA Tourism','Diploma Hotel Management','Diploma Culinary Arts','Cabin Crew'],
+      roles:['Hotel Manager','Chef','Travel Consultant','Cabin Crew','Event Manager']},
+    'Sports / Physical Education': {
+      courses:['BSc Physical Education','BPEd','BSc Sports Science','NIS Diploma'],
+      roles:['PE Teacher','Sports Coach','Fitness Trainer','Sports Manager','NIS Coach']},
+    'Social Work / NGO / Development': {
+      courses:['BSW','BA Sociology','BA Psychology','MSW','MA Development Studies'],
+      roles:['Social Worker','NGO Manager','Community Organizer','Policy Analyst','Counsellor']},
+    'Fashion / Retail / Lifestyle': {
+      courses:['NIFT Fashion Design','BSc Fashion Design','BBA Retail','Diploma Fashion','Diploma Beauty'],
+      roles:['Fashion Designer','Fashion Stylist','Retail Manager','Merchandiser','Beauty Therapist']},
+  };
+
+  // Check if Sheet data is valid (not "No matching course found")
+  var sheetCourses = d.courses && d.courses !== 'No matching course found' ? 
+    d.courses.split(',').map(function(x){return x.trim();}).filter(Boolean) : null;
+  var sheetRoles = d.roles && d.roles !== 'No roles mapped' ?
+    d.roles.split(',').map(function(x){return x.trim();}).filter(Boolean) : null;
+
+  // Use Sheet → fallback to cluster default → fallback to demo
+  var fb = CLUSTER_FALLBACK[pri] || {};
+  var courses = sheetCourses || fb.courses || demo.courses;
+  var roles   = sheetRoles   || fb.roles   || demo.roles;
   
   // Pathway
   var pathway = d.path || '';
