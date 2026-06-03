@@ -1112,6 +1112,7 @@ var demo={
 function detectStage(academicStage, qual){
   var s = (academicStage||'').toLowerCase() + ' ' + (qual||'').toLowerCase();
   if(s.includes('class 9') || s.includes('class 10') || s.includes('class ix') || s.includes('class x') || s.includes('9th') || s.includes('10th')) return 'class_9_10';
+  if((s.includes('class 11') || s.includes('11th') || s.includes('xi')) && (s.includes('pass') || s.includes('passed') || s.includes('complete'))) return '12_appearing';
   if(s.includes('class 11') || s.includes('xi') || s.includes('11th')) return 'class_11';
   if(s.includes('appearing') || s.includes('result awaited') || s.includes('class 12') || s.includes('xii') || s.includes('12th')) return '12_appearing';
   if(s.includes('12 pass') || s.includes('passed') || s.includes('hsc') || s.includes('intermediate')) return '12_pass';
@@ -1176,6 +1177,7 @@ function GLS(sc){
 // ── RENDER ──
 function RND(d){
   D=d;
+  var hi = (typeof L !== 'undefined') ? L === 'hi' : true;
   var td=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
   // Print header
   var phi=document.getElementById('phInfo');
@@ -2094,6 +2096,7 @@ function showError(e){
 
 // Merge AppScript data with demo defaults
 function mergeWithDefaults(d){
+  var hi = (typeof L !== 'undefined') ? L === 'hi' : true; // language flag
   var sc = d.scores || {};
   var a = sc.a||4, c = sc.c||4, l = sc.l||4, de = sc.d||4, m = sc.m||4, cl = sc.cl||4;
   var readPct = Math.round((a+c+l+de+m+cl)/42*100);
