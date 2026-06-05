@@ -512,7 +512,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;ali
     </div>
   </a>
   <div class="nav-r">
-    <button class="btn-l active" id="LB" onclick="TL()">IN Hinglish</button>
+    <button class="btn-l active" id="LB" onclick="TL()">English</button>
     <button class="btn-p" onclick="window.print()" title="Print / Save white PDF">🖨 Print</button>
     <button class="btn-p" id="btnDigitalPDF" onclick="saveDigitalPDF()" title="Save dark digital PDF" style="background:rgba(0,212,255,.1);border-color:rgba(0,212,255,.3);color:var(--cyan)">💾 Digital PDF</button>
   </div>
@@ -563,7 +563,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;ali
     <div class="rc" id="clusterCard">
       <div class="sl">Career Cluster Recommendation</div>
       <div class="clp"><div class="clpl" id="lPri">Primary Cluster</div><div class="clpn" id="clPri">—</div></div>
-      <div class="clr"><div class="cls"><div class="clsl" id="lSec">Secondary</div><div class="clsn" id="clSec">—</div></div><div class="cls"><div class="clsl" id="lEm">Emerging</div><div class="clsn" id="clEm">—</div></div></div>
+      <div class="clr">
+        <div class="cls" onclick="toggleClusterDetail('sec')" style="cursor:pointer">
+          <div class="clsl" id="lSec">Secondary ▾</div>
+          <div class="clsn" id="clSec">—</div>
+        </div>
+        <div class="cls" onclick="toggleClusterDetail('em')" style="cursor:pointer">
+          <div class="clsl" id="lEm">Emerging ▾</div>
+          <div class="clsn" id="clEm">—</div>
+        </div>
+      </div>
+      
+      <!-- Secondary cluster detail -->
+      <div id="secDetail" style="display:none;margin-top:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:700;color:#6b7a99;letter-spacing:1px;margin-bottom:8px">SECONDARY CLUSTER DETAIL</div>
+        <div id="secDetailContent"></div>
+      </div>
+      
+      <!-- Emerging cluster detail -->
+      <div id="emDetail" style="display:none;margin-top:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:700;color:#6b7a99;letter-spacing:1px;margin-bottom:8px">EMERGING CLUSTER DETAIL</div>
+        <div id="emDetailContent"></div>
+      </div>
+      
       <div class="air" style="margin-top:10px"><div class="air-lbl" id="lCR">🎯 Ye cluster kyun suggest hua</div><div class="air-txt" id="clRea">—</div></div>
     </div>
     <div class="rc"><div class="sl">Interest & Energy Profile</div><div id="intArea"></div></div>
@@ -654,7 +676,11 @@ var CLDATA={
     {n:'State PWD / CPWD',t:'JE/AE',d:'Public Works Department. Via State PSC.'},
     {n:'CDS Technical Entry',t:'Defence',d:'Army/Navy/Air Force technical branches. Officer level.'}]},
   gi:{hi:'GATE score engineering ka sabse important govt gateway hai — PSU aur higher education dono ke liye.',en:'GATE is the most important government gateway for engineers — for both PSUs and higher education.'},
-  kit:[
+  pvt:{
+    hi:[{n:'TCS / Infosys / Wipro',t:'IT/Software',d:'Entry 4-8 LPA. Senior 20-40 LPA. Largest employers.'},{n:'L&T / Tata Projects',t:'Construction',d:'Civil/Mech engineers 6-15 LPA. Infrastructure boom.'},{n:'Tata Motors / Maruti / Mahindra',t:'Automobile',d:'Automotive engineering 5-12 LPA.'},{n:'Startups — Deep Tech',t:'Startup',d:'Robotics, AI, EV startups 8-25 LPA. High growth.'}],
+    en:[{n:'TCS / Infosys / Wipro',t:'IT/Software',d:'Entry 4-8 LPA. Senior 20-40 LPA. Largest employers.'},{n:'L&T / Tata Projects',t:'Construction',d:'Civil/Mech engineers 6-15 LPA. Infrastructure boom.'},{n:'Tata Motors / Maruti / Mahindra',t:'Automobile',d:'Automotive engineering 5-12 LPA.'},{n:'Startups — Deep Tech',t:'Startup',d:'Robotics, AI, EV startups 8-25 LPA.'}]
+  },
+    kit:[
     {i:'🧮',n:'Mathematics',d:{
       hi:'Calculus, Algebra, Trigonometry, Probability — engineering ki backbone hai. JEE aur college 1st year dono mein sabse zyada marks isi se aate hain. Daily practice mandatory hai.',
       en:'Calculus, Algebra, Trigonometry, Probability — the backbone of engineering. Most marks in JEE and college 1st year come from this. Daily practice is mandatory.'},p:'Critical'},
@@ -706,7 +732,11 @@ var CLDATA={
     {n:'Bank IT Officers',t:'IBPS SO',d:'IT specialist roles in banks.'},
     {n:'CERT-In Cybersecurity',t:'Analyst',d:'National cybersecurity agency.'}]},
   gi:{hi:'IT mein govt jobs private se kam hain lekin job security excellent hai.',en:'Fewer govt jobs in IT than private but job security is excellent.'},
-  kit:[{i:'🐍',n:'Python',d:{hi:'Sabse in-demand language',en:'Most in-demand language'},p:'Critical'},
+  pvt:{
+    hi:[{n:'Google / Microsoft / Amazon',t:'FAANG',d:'Top tech 20-80 LPA entry.'},{n:'Razorpay / CRED / Zerodha',t:'Startup',d:'Product companies 10-30 LPA. ESOPs milte hain.'},{n:'Freelancing — Upwork / Fiverr',t:'Freelance',d:'Global clients $20-100/hr.'},{n:'TCS / Infosys / Wipro',t:'Service',d:'Entry 4-7 LPA. Stable career.'}],
+    en:[{n:'Google / Microsoft / Amazon',t:'FAANG',d:'Top tech 20-80 LPA entry.'},{n:'Razorpay / CRED / Zerodha',t:'Startup',d:'Product companies 10-30 LPA. ESOPs available.'},{n:'Freelancing — Upwork / Fiverr',t:'Freelance',d:'Global clients $20-100/hr.'},{n:'TCS / Infosys / Wipro',t:'Service',d:'Entry 4-7 LPA. Stable career.'}]
+  },
+    kit:[{i:'🐍',n:'Python',d:{hi:'Sabse in-demand language',en:'Most in-demand language'},p:'Critical'},
     {i:'🌐',n:'Web Basics',d:{hi:'HTML/CSS/JS fundamentals',en:'HTML/CSS/JS fundamentals'},p:'High'},
     {i:'🗄️',n:'SQL & Databases',d:{hi:'Data management',en:'Data management'},p:'High'},
     {i:'🧮',n:'DSA',d:{hi:'Interview ki neenv',en:'Interview foundation'},p:'Critical'},
@@ -745,7 +775,11 @@ var CLDATA={
     {n:'Teaching (TGT/PGT)',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
     {n:'State PSC',t:'State',d:'SDM, BDO level posts.'}]},
   gi:{hi:'Arts mein UPSC aur teaching sabse stable govt careers hain.',en:'UPSC and teaching are the most stable govt careers for Arts.'},
-  kit:[
+  pvt:{
+    hi:[{n:'Ogilvy / JWT / McCann',t:'Advertising',d:'Creative roles 5-20 LPA.'},{n:'Netflix / Amazon Prime',t:'OTT/Media',d:'Content creation 8-25 LPA.'},{n:'Penguin / Harper Collins',t:'Publishing',d:'Editor, writer 4-12 LPA.'},{n:'BYJUs / Unacademy',t:'EdTech',d:'Content creator 6-15 LPA.'}],
+    en:[{n:'Ogilvy / JWT / McCann',t:'Advertising',d:'Creative roles 5-20 LPA.'},{n:'Netflix / Amazon Prime',t:'OTT/Media',d:'Content creation 8-25 LPA.'},{n:'Penguin / Harper Collins',t:'Publishing',d:'Editor, writer 4-12 LPA.'},{n:'BYJUs / Unacademy',t:'EdTech',d:'Content creator 6-15 LPA.'}]
+  },
+    kit:[
     {i:'📝',n:'Language & Writing',d:{hi:'Hindi/English mein strong writing skills — daily practice karo.',en:'Strong writing in Hindi/English — practice daily.'},p:'Critical'},
     {i:'📚',n:'Current Affairs',d:{hi:'Daily newspaper padho. Notes banao.',en:'Read daily newspaper. Make notes.'},p:'Critical'},
     {i:'🗣️',n:'Communication',d:{hi:'Public speaking aur group discussions.',en:'Public speaking and group discussions.'},p:'High'},
@@ -778,7 +812,11 @@ var CLDATA={
   en:[{n:'TGT/PGT Teacher',t:'KVS/NVS',d:'Kendriya Vidyalaya — stable govt teaching.'},
     {n:'College Lecturer',t:'UGC NET',d:'Qualify NET for college teaching.'}]},
   gi:{hi:'NET/CTET qualify karo — govt teaching jobs milti hain.',en:'Qualify NET/CTET for govt teaching jobs.'},
-  kit:[
+  pvt:{
+    hi:[{n:'BYJUs / Unacademy / PW',t:'EdTech',d:'Online teacher 5-25 LPA. Top teachers 1Cr+.'},{n:'DPS / Ryan International',t:'Private School',d:'CBSE private schools 4-10 LPA.'},{n:'Coaching Institutes',t:'Coaching',d:'IIT/NEET coaching 6-20 LPA.'},{n:'Corporate Training',t:'L&D',d:'L&D manager 8-18 LPA.'}],
+    en:[{n:'BYJUs / Unacademy / PW',t:'EdTech',d:'Online teacher 5-25 LPA. Top teachers 1Cr+.'},{n:'DPS / Ryan International',t:'Private School',d:'CBSE private schools 4-10 LPA.'},{n:'Coaching Institutes',t:'Coaching',d:'IIT/NEET coaching 6-20 LPA.'},{n:'Corporate Training',t:'L&D',d:'L&D manager 8-18 LPA.'}]
+  },
+    kit:[
     {i:'📚',n:'Subject Mastery',d:{hi:'Core subject deeply padho.',en:'Study core subject deeply.'},p:'Critical'},
     {i:'🗣️',n:'Communication',d:{hi:'Clearly explain karna seekho.',en:'Learn to explain clearly.'},p:'Critical'},
     {i:'💡',n:'Pedagogy',d:{hi:'Teaching methods.',en:'Teaching methods.'},p:'High'},
@@ -808,7 +846,11 @@ var CLDATA={
   en:[{n:'Judicial Services',t:'PCS J',d:'Civil judge — prestigious career.'},
     {n:'Public Prosecutor',t:'State',d:'Government lawyer.'}]},
   gi:{hi:'Judiciary sabse prestigious govt legal career hai.',en:'Judiciary is the most prestigious govt legal career.'},
-  kit:[
+  pvt:{
+    hi:[{n:'AZB / Cyril Amarchand',t:'Top Law Firm',d:'Associate 10-20 LPA. Partner 1Cr+.'},{n:'Reliance / TCS Legal Team',t:'In-house',d:'Corporate legal 12-25 LPA.'},{n:'Vakil.com / LegalKart',t:'Legaltech',d:'Growing sector 8-18 LPA.'},{n:'Arbitration / Mediation',t:'Independent',d:'Independent practice 10-50 LPA.'}],
+    en:[{n:'AZB / Cyril Amarchand',t:'Top Law Firm',d:'Associate 10-20 LPA. Partner 1Cr+.'},{n:'Reliance / TCS Legal Team',t:'In-house',d:'Corporate legal 12-25 LPA.'},{n:'Vakil.com / LegalKart',t:'Legaltech',d:'Growing sector 8-18 LPA.'},{n:'Arbitration / Mediation',t:'Independent',d:'Independent practice 10-50 LPA.'}]
+  },
+    kit:[
     {i:'⚖️',n:'Legal Reasoning',d:{hi:'Case analysis.',en:'Case analysis.'},p:'Critical'},
     {i:'📝',n:'Legal Writing',d:{hi:'Drafting aur petitions.',en:'Drafting and petitions.'},p:'Critical'},
     {i:'🗣️',n:'Advocacy',d:{hi:'Court mein bolna.',en:'Court advocacy.'},p:'High'},
@@ -831,7 +873,155 @@ var CLDATA={
   ins:{hi:'₹149 → Direction clear',en:'₹149 → Direction clear'},
   rr:{hi:'Law mein specialization important hai. INWANG counselling direction degi.',en:'Specialisation matters in Law. INWANG counselling will give direction.'}
 }
-};
+,
+'Medical / Healthcare':{
+  sal:{e:'₹3–6 LPA',m:'₹8–18 LPA',s:'₹20–45 LPA',l:'₹70L+'},
+  gov:{
+    hi:[{n:'AIIMS Senior Resident',t:'Direct',d:'AIIMS, PGIMER, JIPMER mein senior positions. ₹80k-1.2L/month.'},{n:'ESIC/CGHS Doctor',t:'Direct',d:'Central Govt Health Scheme. ₹80k-1.5L/month + benefits.'},{n:'Railway Medical Officer',t:'RRB',d:'Indian Railways. Job security + housing.'},{n:'Defence Medical Corps',t:'SSB',d:'Army/Navy/Air Force Medical Officer. Prestigious.'},{n:'UPSC Civil Services',t:'UPSC',d:'Medical background mein health policy roles.'}],
+    en:[{n:'AIIMS Senior Resident',t:'Direct',d:'AIIMS, PGIMER, JIPMER — senior positions. ₹80k-1.2L/month.'},{n:'ESIC/CGHS Doctor',t:'Direct',d:'Central Govt Health Scheme. ₹80k-1.5L/month + benefits.'},{n:'Railway Medical Officer',t:'RRB',d:'Indian Railways. Job security + housing.'},{n:'Defence Medical Corps',t:'SSB',d:'Army/Navy/Air Force Medical Officer. Prestigious.'},{n:'UPSC Civil Services',t:'UPSC',d:'Medical background gives edge in health policy.'}]
+  },
+  pvt:{
+    hi:[{n:'Apollo/Fortis/Max Hospitals',t:'Private Hospital',d:'Entry 6-12 LPA. Senior specialist 30-80 LPA.'},{n:'Pharmaceutical Companies',t:'Medical Affairs',d:'Medical Rep se Medical Director. 5-50 LPA.'},{n:'Health-tech Startups',t:'Clinical Lead',d:'Practo, 1mg, Healthkart. 12-35 LPA.'},{n:'WHO/UNICEF/NGOs',t:'International',d:'Global health organizations. 15-40 LPA.'}],
+    en:[{n:'Apollo/Fortis/Max Hospitals',t:'Private Hospital',d:'Entry 6-12 LPA. Senior specialist 30-80 LPA.'},{n:'Pharmaceutical Companies',t:'Medical Affairs',d:'Medical Rep to Medical Director. 5-50 LPA.'},{n:'Health-tech Startups',t:'Clinical Lead',d:'Practo, 1mg, Healthkart. 12-35 LPA.'},{n:'WHO/UNICEF/NGOs',t:'International',d:'Global health organizations. 15-40 LPA.'}]
+  },
+  kit:[{i:'🔬',n:'Clinical Skills',d:{hi:'Patient examination, diagnosis, treatment — daily practice essential.',en:'Patient examination, diagnosis, treatment — daily practice essential.'},p:'Core Skill'},{i:'📊',n:'Medical Research',d:{hi:'Research methodology — academic career ke liye.',en:'Research methodology — essential for academic career.'},p:'High Value'},{i:'💊',n:'Pharmacology',d:{hi:'Drug interactions — MBBS ke baad bhi update karo.',en:'Drug interactions — keep updating post MBBS.'},p:'Essential'},{i:'🤝',n:'Patient Communication',d:{hi:'Empathy + clear explanation — doctor-patient trust.',en:'Empathy + clear explanation — builds trust.'},p:'Career Critical'}],
+  rr:{hi:'Medical mein specialization zyada valuable hai. NEET ke baad PG target karo.',en:'Specialisation is highly valuable in medical. Target PG after NEET.'}
+},
+'Management / Business':{
+  sal:{e:'₹4–8 LPA',m:'₹12–25 LPA',s:'₹25–50 LPA',l:'₹1Cr+'},
+  gov:{
+    hi:[{n:'Bank PO/Manager',t:'IBPS/SBI',d:'SBI/PNB/Canara. Manager level 8-15 LPA + housing.'},{n:'RBI Grade B Officer',t:'RBI',d:'Prestigious. 12-18 LPA. Finance + policy.'},{n:'PSU Manager',t:'GATE/CAT',d:'MBA ke baad PSU management. 10-20 LPA + perks.'},{n:'UPSC Civil Services',t:'UPSC',d:'Management background — public administration mein strong.'}],
+    en:[{n:'Bank PO/Manager',t:'IBPS/SBI',d:'SBI/PNB/Canara. Manager level 8-15 LPA + housing.'},{n:'RBI Grade B Officer',t:'RBI',d:'Prestigious. 12-18 LPA. Finance + policy.'},{n:'PSU Manager',t:'GATE/CAT',d:'MBA to PSU management. 10-20 LPA + perks.'},{n:'UPSC Civil Services',t:'UPSC',d:'Management background — strong in public administration.'}]
+  },
+  pvt:{
+    hi:[{n:'McKinsey/BCG/Deloitte',t:'Consulting',d:'MBA ke baad 20-40 LPA. Partner 1Cr+.'},{n:'Startups — Business Dev',t:'Startup',d:'Entry 6-12 LPA. ESOPs milte hain.'},{n:'HUL/P&G/Nestle',t:'FMCG',d:'Brand management. 8-18 LPA.'},{n:'Goldman Sachs/JP Morgan',t:'Finance',d:'Investment banking. 15-35 LPA entry.'}],
+    en:[{n:'McKinsey/BCG/Deloitte',t:'Consulting',d:'Post MBA 20-40 LPA. Partner 1Cr+.'},{n:'Startups — Business Dev',t:'Startup',d:'Entry 6-12 LPA. ESOPs available.'},{n:'HUL/P&G/Nestle',t:'FMCG',d:'Brand management. 8-18 LPA.'},{n:'Goldman Sachs/JP Morgan',t:'Finance',d:'Investment banking. 15-35 LPA entry.'}]
+  },
+  kit:[{i:'📊',n:'Excel & Data Analysis',d:{hi:'Advanced Excel, Power BI — har management role mein zaroori.',en:'Advanced Excel, Power BI — essential in every management role.'},p:'Core Skill'},{i:'🗣️',n:'Presentation Skills',d:{hi:'PowerPoint + public speaking — client-facing roles ke liye.',en:'PowerPoint + public speaking — for client-facing roles.'},p:'Career Critical'},{i:'💰',n:'Financial Literacy',d:{hi:'P&L, balance sheet, cash flow — basic business sense.',en:'P&L, balance sheet, cash flow — basic business sense.'},p:'Essential'},{i:'🧠',n:'Strategic Thinking',d:{hi:'Case study practice karo — MBA entrance ke liye.',en:'Practice case studies — for MBA entrance.'},p:'High Value'}],
+  rr:{hi:'MBA top college se karo — IIM, XLRI, FMS. CAT 2 saal pehle shuru karo.',en:'Do MBA from top college — IIM, XLRI, FMS. Start CAT 2 years in advance.'}
+},
+'Commerce / Finance':{
+  sal:{e:'₹4–7 LPA',m:'₹10–20 LPA',s:'₹22–45 LPA',l:'₹80L+'},
+  gov:{
+    hi:[{n:'CA — Chartered Accountant',t:'ICAI',d:'India ka most respected finance certification. Entry 7-12 LPA.'},{n:'Income Tax/IRS Officer',t:'UPSC',d:'Indian Revenue Service. 8-15 LPA + power.'},{n:'Bank PO/Specialist',t:'IBPS',d:'Finance specialist roles. 8-15 LPA.'},{n:'SEBI Grade A Officer',t:'SEBI',d:'Securities regulator. 12-18 LPA.'},{n:'CAG Audit Officer',t:'UPSC',d:'Comptroller & Auditor General.'}],
+    en:[{n:'CA — Chartered Accountant',t:'ICAI',d:"India's most respected finance certification. Entry 7-12 LPA."},{n:'Income Tax/IRS Officer',t:'UPSC',d:'Indian Revenue Service. 8-15 LPA + power.'},{n:'Bank PO/Specialist',t:'IBPS',d:'Finance specialist roles. 8-15 LPA.'},{n:'SEBI Grade A Officer',t:'SEBI',d:'Securities regulator. 12-18 LPA.'},{n:'CAG Audit Officer',t:'UPSC',d:'Comptroller & Auditor General.'}]
+  },
+  pvt:{
+    hi:[{n:'Deloitte/PwC/EY/KPMG',t:'Big 4',d:'CA ke baad Big 4. Entry 7-12 LPA. Manager 20-35 LPA.'},{n:'Stock Market/Trading',t:'Finance',d:'Equity research, fund management. 10-50 LPA.'},{n:'Razorpay/Zerodha/Paytm',t:'Fintech',d:'Finance + tech. 12-30 LPA.'},{n:'Corporate Finance',t:'MNC',d:'CFO track. Reliance, TCS finance teams. 10-25 LPA.'}],
+    en:[{n:'Deloitte/PwC/EY/KPMG',t:'Big 4',d:'Post CA Big 4. Entry 7-12 LPA. Manager 20-35 LPA.'},{n:'Stock Market/Trading',t:'Finance',d:'Equity research, fund management. 10-50 LPA.'},{n:'Razorpay/Zerodha/Paytm',t:'Fintech',d:'Finance + tech combination. 12-30 LPA.'},{n:'Corporate Finance',t:'MNC',d:'CFO track. Reliance, TCS finance teams. 10-25 LPA.'}]
+  },
+  kit:[{i:'🧮',n:'CA/CMA/CFA',d:{hi:'Professional certification — CA sabse valuable hai.',en:'Professional certification — CA is most valuable in India.'},p:'Must Have'},{i:'📊',n:'Financial Modeling',d:{hi:'Excel-based financial models — investment banking ke liye.',en:'Excel-based financial models — for investment banking.'},p:'High Value'},{i:'📈',n:'Stock Market Basics',d:{hi:'NSE/BSE, mutual funds, derivatives — basic literacy.',en:'NSE/BSE, mutual funds, derivatives — basic literacy.'},p:'Essential'},{i:'💻',n:'Tally/SAP/QuickBooks',d:{hi:'Accounting software — CA articles mein zaroori.',en:'Accounting software — essential in CA articles.'},p:'Core Skill'}],
+  rr:{hi:'CA Foundation Class 11 se shuru karo. Ek saal pehle start karna bahut advantage deta hai.',en:'Start CA Foundation from Class 11. Starting one year early gives huge advantage.'}
+},
+'Civil Services / Govt Jobs':{
+  sal:{e:'₹5–8 LPA',m:'₹10–18 LPA',s:'₹18–30 LPA',l:'₹35L+'},
+  gov:{
+    hi:[{n:'UPSC — IAS/IPS/IFS',t:'UPSC CSE',d:'India ki sabse prestigious exam. Average 3 attempts.'},{n:'SSC CGL — Group B/C',t:'SSC',d:'Income Tax, CBI, Audit. 6-12 LPA. Lakhs vacancies.'},{n:'State PSC — SDM/BDO',t:'State PSC',d:'Bihar PSC, UP PSC. District level power.'},{n:'Railway — RRB NTPC',t:'RRB',d:'Indian Railways. Lakhs vacancies. Job security.'},{n:'Defence — NDA/CDS/CAPF',t:'UPSC',d:'Army Officer, CRPF, BSF. Prestigious.'}],
+    en:[{n:'UPSC — IAS/IPS/IFS',t:'UPSC CSE',d:"India's most prestigious exam. Average 3 attempts."},{n:'SSC CGL — Group B/C',t:'SSC',d:'Income Tax, CBI, Audit. 6-12 LPA. Lakhs of vacancies.'},{n:'State PSC — SDM/BDO',t:'State PSC',d:'Bihar PSC, UP PSC. District level power.'},{n:'Railway — RRB NTPC',t:'RRB',d:'Indian Railways. Lakhs of vacancies. Job security.'},{n:'Defence — NDA/CDS/CAPF',t:'UPSC',d:'Army Officer, CRPF, BSF. Prestigious.'}]
+  },
+  pvt:{
+    hi:[{n:'EdTech — UPSC Content',t:'Content',d:'UPSC preparation content. 6-15 LPA.'},{n:'Policy Think Tanks',t:'Research',d:'PRS Legislative Research, IDFC. 8-18 LPA.'},{n:'NGO/Development Sector',t:'Social',d:'UN, World Bank consultants. 10-25 LPA.'},{n:'Corporate Affairs',t:'Corporate',d:'Government liaison roles in MNCs. 10-20 LPA.'}],
+    en:[{n:'EdTech — UPSC Content',t:'Content',d:'UPSC preparation content. 6-15 LPA.'},{n:'Policy Think Tanks',t:'Research',d:'PRS Legislative Research, IDFC. 8-18 LPA.'},{n:'NGO/Development Sector',t:'Social',d:'UN, World Bank consultants. 10-25 LPA.'},{n:'Corporate Affairs',t:'Corporate',d:'Government liaison roles in MNCs. 10-20 LPA.'}]
+  },
+  kit:[{i:'📰',n:'Current Affairs',d:{hi:'Daily newspaper + monthly magazine — UPSC ki backbone.',en:'Daily newspaper + monthly magazine — backbone of UPSC.'},p:'Daily Habit'},{i:'📚',n:'NCERT Foundation',d:{hi:'Class 6-12 NCERT — UPSC syllabus ka 60% isi se.',en:'Class 6-12 NCERT — covers 60% of UPSC syllabus.'},p:'Foundation'},{i:'✍️',n:'Answer Writing',d:{hi:'Daily practice — UPSC Mains ke liye critical.',en:'Daily practice — critical for UPSC Mains.'},p:'High Value'},{i:'🗺️',n:'Geography & Polity',d:{hi:'Laxmikant + GC Leong — must reads.',en:'Laxmikant + GC Leong — must reads.'},p:'Core Skill'}],
+  rr:{hi:'UPSC preparation 2-3 saal ki journey hai. Optional subject carefully choose karo.',en:'UPSC preparation is a 2-3 year journey. Choose optional subject carefully.'}
+},
+'Defence / Uniform Services':{
+  sal:{e:'₹6–10 LPA',m:'₹12–20 LPA',s:'₹20–35 LPA',l:'₹40L+'},
+  gov:{
+    hi:[{n:'NDA — Army/Navy/Air Force',t:'UPSC NDA',d:'10+2 ke baad direct officer entry. Sabse prestigious.'},{n:'CDS — Combined Defence',t:'UPSC CDS',d:'Graduation ke baad officer. IMA, OTA, AFA, INA.'},{n:'CAPF — CRPF/BSF/CISF',t:'UPSC CAPF',d:'Paramilitary. Assistant Commandant. 10-15 LPA.'},{n:'Agniveer',t:'Direct',d:'4 saal contract. 25% permanent. 11L package.'},{n:'State Police — DSP',t:'State PSC',d:'State police. Prestige + power. 7-15 LPA.'}],
+    en:[{n:'NDA — Army/Navy/Air Force',t:'UPSC NDA',d:'Direct officer entry after 10+2. Most prestigious.'},{n:'CDS — Combined Defence',t:'UPSC CDS',d:'Officer entry after graduation. IMA, OTA, AFA, INA.'},{n:'CAPF — CRPF/BSF/CISF',t:'UPSC CAPF',d:'Paramilitary. Assistant Commandant. 10-15 LPA.'},{n:'Agniveer',t:'Direct',d:'4-year contract. 25% get permanent. 11L package.'},{n:'State Police — DSP',t:'State PSC',d:'State police. Prestige + power. 7-15 LPA.'}]
+  },
+  pvt:{
+    hi:[{n:'Private Security/Intelligence',t:'Security',d:'Corporate security head. 15-30 LPA.'},{n:'Defence Manufacturing',t:'Industry',d:'DRDO, HAL, L&T Defence. 10-25 LPA.'},{n:'Adventure/Tourism',t:'Leadership',d:'Leadership training companies. 6-12 LPA.'},{n:'Ex-servicemen Quota',t:'Various',d:'Railways, PSUs, banks mein reservation.'}],
+    en:[{n:'Private Security/Intelligence',t:'Security',d:'Corporate security head. 15-30 LPA.'},{n:'Defence Manufacturing',t:'Industry',d:'DRDO, HAL, L&T Defence. 10-25 LPA.'},{n:'Adventure/Tourism',t:'Leadership',d:'Leadership training companies. 6-12 LPA.'},{n:'Ex-servicemen Quota',t:'Various',d:'Railways, PSUs, banks — ex-army quota provides reservation.'}]
+  },
+  kit:[{i:'💪',n:'Physical Fitness',d:{hi:'Daily PT — 5km run, push-ups. Defence mein high standard.',en:'Daily PT — 5km run, push-ups. High physical standards.'},p:'Non-Negotiable'},{i:'🎯',n:'Leadership & Discipline',d:{hi:'NCC join karo — defence mein direct advantage.',en:'Join NCC — gives direct advantage in defence.'},p:'Essential'},{i:'📚',n:'GK & Current Affairs',d:{hi:'SSB interview mein current affairs + personality.',en:'SSB interview has current affairs + personality test.'},p:'High Value'},{i:'🧠',n:'SSB Preparation',d:{hi:'Psychological tests, GTO tasks — 6 months minimum.',en:'Psychological tests, GTO tasks — minimum 6 months prep.'},p:'Priority'}],
+  rr:{hi:'NDA ke liye Class 11 se prepare karo. Physical fitness daily routine mein.',en:'Prepare for NDA from Class 11. Add physical fitness to daily routine.'}
+},
+'Research / Science':{
+  sal:{e:'₹4–7 LPA',m:'₹9–18 LPA',s:'₹18–35 LPA',l:'₹50L+'},
+  gov:{
+    hi:[{n:'ISRO — Scientist/Engineer',t:'ISRO',d:'Space research. Entry 7-12 LPA. Top scientists 20-35 LPA.'},{n:'DRDO — Scientist B',t:'DRDO',d:'Defence R&D. 8-14 LPA. Cutting edge tech.'},{n:'CSIR Labs',t:'CSIR NET',d:'70+ labs. Pure research career.'},{n:'ICAR Agricultural Scientist',t:'ARS',d:'Agricultural Research. 8-15 LPA. Rural India impact.'},{n:'DAE — Atomic Energy',t:'BARC/DAE',d:'Nuclear research. 9-18 LPA.'}],
+    en:[{n:'ISRO — Scientist/Engineer',t:'ISRO',d:'Space research. Entry 7-12 LPA. Top scientists 20-35 LPA.'},{n:'DRDO — Scientist B',t:'DRDO',d:'Defence R&D. 8-14 LPA. Cutting edge tech.'},{n:'CSIR Labs',t:'CSIR NET',d:'70+ labs. Pure research career.'},{n:'ICAR Agricultural Scientist',t:'ARS',d:'Agricultural Research Service. 8-15 LPA.'},{n:'DAE — Atomic Energy',t:'BARC/DAE',d:'Nuclear research. 9-18 LPA.'}]
+  },
+  pvt:{
+    hi:[{n:'Pharma R&D — Sun/Cipla',t:'Research',d:'Drug discovery. 8-25 LPA. Patent filing opportunity.'},{n:'Google/Microsoft R&D',t:'Research',d:'AI/ML research. 25-80 LPA. PhD preferred.'},{n:'Biotech Startups',t:'Startup',d:'High growth. 10-25 LPA.'},{n:'Data Science/AI',t:'Tech',d:'Most in-demand research field. 15-50 LPA.'}],
+    en:[{n:'Pharma R&D — Sun/Cipla',t:'Research',d:'Drug discovery. 8-25 LPA. Patent filing opportunity.'},{n:'Google/Microsoft R&D',t:'Research',d:'AI/ML research. 25-80 LPA. PhD preferred.'},{n:'Biotech Startups',t:'Startup',d:'High growth. 10-25 LPA.'},{n:'Data Science/AI',t:'Tech',d:'Most in-demand research field. 15-50 LPA.'}]
+  },
+  kit:[{i:'🔬',n:'Research Methodology',d:{hi:'Experimental design, data analysis — research ki foundation.',en:'Experimental design, data analysis — foundation of research.'},p:'Core Skill'},{i:'💻',n:'Python/R/MATLAB',d:{hi:'Data analysis tools — coding essential hai research mein.',en:'Data analysis tools — coding essential in research today.'},p:'High Value'},{i:'📝',n:'Scientific Writing',d:{hi:'Research papers — publications career ke liye critical.',en:'Research papers — publications critical for career advancement.'},p:'Essential'},{i:'🧮',n:'Statistics & Maths',d:{hi:'Advanced stats — t-test, ANOVA, regression.',en:'Advanced stats — t-test, ANOVA, regression.'},p:'Foundation'}],
+  rr:{hi:'GATE/CSIR NET ke baad IIT/IISc mein research karo. PhD mein stipend milta hai.',en:'Do research at IIT/IISc after GATE/CSIR NET. PhD comes with stipend.'}
+},
+'Skill / Vocational':{
+  sal:{e:'₹2–5 LPA',m:'₹6–12 LPA',s:'₹12–25 LPA',l:'₹30L+'},
+  gov:{
+    hi:[{n:'ITI Government Institutes',t:'ITI',d:'Govt ITI certified trades. Job guarantee.'},{n:'PMKVY — Skill India',t:'NSDC',d:'Free training + certification + placement.'},{n:'Railways — Apprentice',t:'RRB',d:'Railway apprenticeship. Permanent job chance.'},{n:'MSME — Udyam',t:'MSME',d:'Own business with govt support + loan subsidy.'}],
+    en:[{n:'ITI Government Institutes',t:'ITI',d:'Govt ITI certified trades. Job guarantee.'},{n:'PMKVY — Skill India',t:'NSDC',d:'Free training + certification + placement support.'},{n:'Railways — Apprentice',t:'RRB',d:'Railway apprenticeship. Permanent job chance.'},{n:'MSME — Udyam',t:'MSME',d:'Start own business with govt support + loan subsidy.'}]
+  },
+  pvt:{
+    hi:[{n:'Auto/Manufacturing',t:'Industry',d:'Maruti, Tata Motors, L&T. ITI ke baad 3-8 LPA.'},{n:'Freelancing — Digital',t:'Freelance',d:'Graphic design, video editing. 3-20 LPA.'},{n:'Hospitality Industry',t:'Hotel',d:'Hotel management, cooking. 3-10 LPA entry.'},{n:'Entrepreneurship',t:'Own Business',d:'Skilled trades mein own business. 5-20 LPA.'}],
+    en:[{n:'Auto/Manufacturing',t:'Industry',d:'Maruti, Tata Motors, L&T. Post ITI 3-8 LPA.'},{n:'Freelancing — Digital',t:'Freelance',d:'Graphic design, video editing. 3-20 LPA.'},{n:'Hospitality Industry',t:'Hotel',d:'Hotel management, cooking. 3-10 LPA entry.'},{n:'Entrepreneurship',t:'Own Business',d:'Own business as skilled tradesman. 5-20 LPA.'}]
+  },
+  kit:[{i:'🔧',n:'Trade Certification',d:{hi:'ITI/NSDC certification — industry mein recognized.',en:'ITI/NSDC certification — directly recognized in industry.'},p:'Must Have'},{i:'💻',n:'Digital Literacy',d:{hi:'Basic computer, internet — aaj har job mein zaroori.',en:'Basic computer, internet — essential in every job today.'},p:'Essential'},{i:'🗣️',n:'Communication',d:{hi:'Hindi + basic English — client se baat ke liye.',en:'Hindi + basic English — for communicating with clients.'},p:'High Value'},{i:'📱',n:'Social Media Marketing',d:{hi:'Instagram/WhatsApp marketing — free tool apne business ke liye.',en:'Instagram/WhatsApp marketing for own business — free tool.'},p:'Useful'}],
+  rr:{hi:'ITI ke baad diploma karo — salary jump hogi. Apna business shuru karo.',en:'Do diploma after ITI — salary will jump. Start own business.'}
+}
+,
+'Agriculture / Environmental Sciences':{
+  sal:{e:'₹3–6 LPA',m:'₹7–15 LPA',s:'₹15–28 LPA',l:'₹40L+'},
+  gov:{hi:[{n:'ICAR Agricultural Scientist',t:'ARS',d:'Agricultural Research Service. 8-15 LPA.'},{n:'State Agriculture Officer',t:'State PSC',d:'District Agriculture Officer. Govt stability.'},{n:'Forest Officer IFS',t:'UPSC',d:'Indian Forest Service. Prestigious.'},{n:'NABARD Officer',t:'NABARD',d:'Rural development bank. 8-12 LPA.'},{n:'FCI Food Corporation',t:'FCI',d:'Food procurement, storage. Job security.'}],en:[{n:'ICAR Agricultural Scientist',t:'ARS',d:'Agricultural Research Service. 8-15 LPA.'},{n:'State Agriculture Officer',t:'State PSC',d:'District Agriculture Officer. Govt stability.'},{n:'Forest Officer IFS',t:'UPSC',d:'Indian Forest Service. Prestigious.'},{n:'NABARD Officer',t:'NABARD',d:'Rural development bank. 8-12 LPA.'},{n:'FCI Food Corporation',t:'FCI',d:'Food procurement, storage. Job security.'}]},
+  pvt:{hi:[{n:'Mahindra Agri / ITC Agri',t:'Agritech',d:'Corporate farming, agri supply chain. 6-15 LPA.'},{n:'BigBasket / Ninjacart',t:'Startup',d:'Farm to consumer startups. 8-20 LPA.'},{n:'Bayer / Syngenta',t:'Agro Chemical',d:'Multinational agri companies. 8-18 LPA.'},{n:'Food Processing Industry',t:'Industry',d:'Nestle, Britannia, Amul. 5-12 LPA.'}],en:[{n:'Mahindra Agri / ITC Agri',t:'Agritech',d:'Corporate farming, agri supply chain. 6-15 LPA.'},{n:'BigBasket / Ninjacart',t:'Startup',d:'Farm to consumer startups. 8-20 LPA.'},{n:'Bayer / Syngenta',t:'Agro Chemical',d:'Multinational agri companies. 8-18 LPA.'},{n:'Food Processing Industry',t:'Industry',d:'Nestle, Britannia, Amul. 5-12 LPA.'}]},
+  kit:[{i:'🌱',n:'Soil Science',d:{hi:'Soil health, crop management — agriculture ki foundation.',en:'Soil health, crop management — foundation of agriculture.'},p:'Core Skill'},{i:'💻',n:'Agritech',d:{hi:'Drone tech, precision farming, IoT.',en:'Drone technology, precision farming, IoT.'},p:'Future Skill'},{i:'📊',n:'Agricultural Economics',d:{hi:'Farm finance, market analysis.',en:'Farm finance, market analysis.'},p:'High Value'},{i:'🔬',n:'Plant Pathology',d:{hi:'Disease identification, pesticide management.',en:'Disease identification, pesticide management.'},p:'Essential'}],
+  rr:{hi:'BSc Agriculture ke baad MBA Agribusiness ya ICAR research — dono strong paths.',en:'After BSc Agriculture — MBA Agribusiness or ICAR research — both are strong paths.'}
+},
+'Paramedical / Allied Health':{
+  sal:{e:'₹2–5 LPA',m:'₹5–12 LPA',s:'₹12–25 LPA',l:'₹35L+'},
+  gov:{hi:[{n:'Govt Hospital Staff Nurse',t:'State Health',d:'State health department. Job security + pension. 4-8 LPA.'},{n:'AIIMS PGIMER Paramedical',t:'Central Govt',d:'Central govt hospitals. 5-10 LPA.'},{n:'Railway Health Services',t:'RRB',d:'Indian Railways paramedical. Stable job.'},{n:'ESIC Paramedical',t:'ESIC',d:'Employee State Insurance hospitals. 4-8 LPA.'},{n:'Defence Medical Staff',t:'Army',d:'Military hospitals. Uniform + stability.'}],en:[{n:'Govt Hospital Staff Nurse',t:'State Health',d:'State health department. Job security + pension. 4-8 LPA.'},{n:'AIIMS PGIMER Paramedical',t:'Central Govt',d:'Central govt hospitals. 5-10 LPA.'},{n:'Railway Health Services',t:'RRB',d:'Indian Railways paramedical. Stable job.'},{n:'ESIC Paramedical',t:'ESIC',d:'Employee State Insurance hospitals. 4-8 LPA.'},{n:'Defence Medical Staff',t:'Army',d:'Military hospitals. Uniform + stability.'}]},
+  pvt:{hi:[{n:'Apollo Fortis Max Paramedical',t:'Private Hospital',d:'Entry 3-6 LPA. Senior 10-20 LPA.'},{n:'Diagnostic Labs Dr Lal SRL',t:'Diagnostics',d:'Lab technician. 3-7 LPA. Growing sector.'},{n:'Physiotherapy Clinic',t:'Own Practice',d:'Own clinic after experience. 8-25 LPA.'},{n:'Pharma Medical Rep',t:'Pharma',d:'Medical Representative. 3-8 LPA.'}],en:[{n:'Apollo Fortis Max Paramedical',t:'Private Hospital',d:'Entry 3-6 LPA. Senior 10-20 LPA.'},{n:'Diagnostic Labs Dr Lal SRL',t:'Diagnostics',d:'Lab technician. 3-7 LPA. Growing sector.'},{n:'Physiotherapy Clinic',t:'Own Practice',d:'Own clinic after experience. 8-25 LPA.'},{n:'Pharma Medical Rep',t:'Pharma',d:'Medical Representative. 3-8 LPA.'}]},
+  kit:[{i:'🏥',n:'Clinical Skills',d:{hi:'Patient care, lab procedures, emergency response.',en:'Patient care, lab procedures, emergency response.'},p:'Core Skill'},{i:'💊',n:'Pharmacology Basics',d:{hi:'Drug knowledge — har paramedical professional ke liye.',en:'Drug knowledge — essential for every paramedical.'},p:'Essential'},{i:'📋',n:'Medical Documentation',d:{hi:'Patient records, reports — digital health mein important.',en:'Patient records, reports — important in digital health.'},p:'High Value'},{i:'🤝',n:'Patient Communication',d:{hi:'Empathy + clear communication — trust banata hai.',en:'Empathy + clear communication — builds trust.'},p:'Career Critical'}],
+  rr:{hi:'GNM BPT ke baad govt hospital mein experience lo. Specialization se salary jump hogi.',en:'After GNM/BPT, gain experience in govt hospital. Specialization gives salary jump.'}
+},
+'Media / Journalism / Communication':{
+  sal:{e:'₹3–6 LPA',m:'₹8–18 LPA',s:'₹18–35 LPA',l:'₹50L+'},
+  gov:{hi:[{n:'Doordarshan AIR Journalist',t:'Prasar Bharati',d:'Government media. Stable + pension. 5-10 LPA.'},{n:'PIB Press Info Bureau',t:'Govt',d:'Government press releases. 6-10 LPA.'},{n:'UPSC IIS Officer',t:'UPSC',d:'Indian Information Service. Media + policy.'},{n:'State Info PR Dept',t:'State Govt',d:'State government media officer. 5-8 LPA.'},{n:'Films Division Documentary',t:'Govt',d:'Government documentary making.'}],en:[{n:'Doordarshan AIR Journalist',t:'Prasar Bharati',d:'Government media. Stable + pension. 5-10 LPA.'},{n:'PIB Press Info Bureau',t:'Govt',d:'Government press releases. 6-10 LPA.'},{n:'UPSC IIS Officer',t:'UPSC',d:'Indian Information Service. Media + policy.'},{n:'State Info PR Dept',t:'State Govt',d:'State government media officer. 5-8 LPA.'},{n:'Films Division Documentary',t:'Govt',d:'Government documentary making.'}]},
+  pvt:{hi:[{n:'Times of India NDTV ABP',t:'Media House',d:'Top media. Entry 4-8 LPA. Senior editor 20-40 LPA.'},{n:'YouTube Podcasting',t:'Creator Economy',d:'Independent content creator. Unlimited earning potential.'},{n:'PR Agencies Adfactors',t:'PR & Comms',d:'Corporate communications. 5-15 LPA.'},{n:'Netflix Amazon OTT',t:'Digital Media',d:'Content, scripting, production. 8-25 LPA.'}],en:[{n:'Times of India NDTV ABP',t:'Media House',d:'Top media. Entry 4-8 LPA. Senior editor 20-40 LPA.'},{n:'YouTube Podcasting',t:'Creator Economy',d:'Independent content creator. Unlimited earning potential.'},{n:'PR Agencies Adfactors',t:'PR & Comms',d:'Corporate communications. 5-15 LPA.'},{n:'Netflix Amazon OTT',t:'Digital Media',d:'Content, scripting, production. 8-25 LPA.'}]},
+  kit:[{i:'✍️',n:'Writing & Storytelling',d:{hi:'Clear engaging writing — journalism ki foundation.',en:'Clear engaging writing — foundation of journalism.'},p:'Core Skill'},{i:'📱',n:'Digital Social Media',d:{hi:'Instagram, YouTube, Twitter — aaj ka media.',en:'Instagram, YouTube, Twitter — today media landscape.'},p:'Must Have'},{i:'🎥',n:'Video Production',d:{hi:'Editing, shooting, scripting — multimedia skills.',en:'Editing, shooting, scripting — multimedia skills.'},p:'High Value'},{i:'📊',n:'Data Journalism',d:{hi:'Data visualization, infographics — modern journalism.',en:'Data visualization, infographics — modern journalism.'},p:'Future Skill'}],
+  rr:{hi:'BJMC ke baad internship karo. Digital media mein jaao — traditional se zyada scope.',en:'After BJMC, do internships. Go into digital media — more scope than traditional.'}
+},
+'Design / Architecture / Fine Arts':{
+  sal:{e:'₹3–7 LPA',m:'₹8–20 LPA',s:'₹20–40 LPA',l:'₹60L+'},
+  gov:{hi:[{n:'CPWD Architect',t:'UPSC Direct',d:'Central Public Works Dept. Govt architecture. 7-12 LPA.'},{n:'Smart Cities Mission',t:'Govt',d:'Urban planning + design. Growing sector.'},{n:'Archaeological Survey India',t:'UPSC',d:'Heritage conservation. Architect + art historian.'},{n:'NIFT NID Faculty',t:'Academic',d:'Design college faculty. 6-12 LPA.'},{n:'State PWD Architect',t:'State Govt',d:'State public works. Stable career. 5-10 LPA.'}],en:[{n:'CPWD Architect',t:'UPSC Direct',d:'Central Public Works Dept. Govt architecture. 7-12 LPA.'},{n:'Smart Cities Mission',t:'Govt',d:'Urban planning + design. Growing sector.'},{n:'Archaeological Survey India',t:'UPSC',d:'Heritage conservation. Architect + art historian.'},{n:'NIFT NID Faculty',t:'Academic',d:'Design college faculty. 6-12 LPA.'},{n:'State PWD Architect',t:'State Govt',d:'State public works. Stable career. 5-10 LPA.'}]},
+  pvt:{hi:[{n:'Top Architecture Firms',t:'Architecture',d:'Senior architect 20-50 LPA.'},{n:'Product Design Apple Samsung',t:'Product Design',d:'UX/Product designer in tech. 12-40 LPA.'},{n:'NIFT Fashion Brands',t:'Fashion Design',d:'Zara, Myntra, FabIndia design teams. 6-18 LPA.'},{n:'Gaming Animation Studios',t:'Digital Design',d:'Graphic designer, animator. 5-20 LPA.'}],en:[{n:'Top Architecture Firms',t:'Architecture',d:'Senior architect 20-50 LPA.'},{n:'Product Design Apple Samsung',t:'Product Design',d:'UX/Product designer in tech. 12-40 LPA.'},{n:'NIFT Fashion Brands',t:'Fashion Design',d:'Zara, Myntra, FabIndia design teams. 6-18 LPA.'},{n:'Gaming Animation Studios',t:'Digital Design',d:'Graphic designer, animator. 5-20 LPA.'}]},
+  kit:[{i:'🎨',n:'Design Fundamentals',d:{hi:'Colour theory, typography, composition — foundation.',en:'Colour theory, typography, composition — foundation.'},p:'Core Skill'},{i:'💻',n:'Design Software',d:{hi:'AutoCAD, Photoshop, Illustrator, Figma — industry standard.',en:'AutoCAD, Photoshop, Illustrator, Figma — industry standard.'},p:'Must Have'},{i:'📐',n:'Technical Drawing',d:{hi:'Architectural drawings, blueprints — precision.',en:'Architectural drawings, blueprints — precision.'},p:'Essential'},{i:'🌐',n:'Portfolio Development',d:{hi:'Behance, online portfolio — clients ke liye.',en:'Behance, online portfolio — for finding clients.'},p:'Career Critical'}],
+  rr:{hi:'NATA NIFT NID entrance strong preparation karo. Portfolio pehle se banana shuru karo.',en:'Prepare strongly for NATA/NIFT/NID entrance. Start building portfolio early.'}
+},
+'Hotel Management / Hospitality':{
+  sal:{e:'₹3–6 LPA',m:'₹7–15 LPA',s:'₹15–30 LPA',l:'₹50L+'},
+  gov:{hi:[{n:'IRCTC Tourism Officer',t:'Railway',d:'Indian Railways tourism. 6-10 LPA. Job security.'},{n:'Ministry of Tourism',t:'Central Govt',d:'Tourism promotion, policy. 6-12 LPA.'},{n:'State Tourism Corp',t:'State Govt',d:'State tourism officer. Stable. 5-10 LPA.'},{n:'Airport Authority AAI',t:'AAI',d:'Hospitality at airports. 5-9 LPA.'},{n:'Indian Navy Hospitality',t:'Defence',d:'Ship catering, naval hospitality.'}],en:[{n:'IRCTC Tourism Officer',t:'Railway',d:'Indian Railways tourism. 6-10 LPA. Job security.'},{n:'Ministry of Tourism',t:'Central Govt',d:'Tourism promotion, policy. 6-12 LPA.'},{n:'State Tourism Corp',t:'State Govt',d:'State tourism officer. Stable. 5-10 LPA.'},{n:'Airport Authority AAI',t:'AAI',d:'Hospitality at airports. 5-9 LPA.'},{n:'Indian Navy Hospitality',t:'Defence',d:'Ship catering, naval hospitality.'}]},
+  pvt:{hi:[{n:'Taj Oberoi Marriott',t:'Luxury Hotels',d:'Top hotel chains. Entry 3-6 LPA. GM 25-60 LPA.'},{n:'IndiGo Air India Cabin Crew',t:'Aviation',d:'Flight attendant. 4-8 LPA + travel benefits.'},{n:'OYO MakeMyTrip',t:'Travel Tech',d:'Hospitality + tech. 6-15 LPA.'},{n:'Restaurant Chains Chef',t:'F&B',d:'Executive chef 15-40 LPA.'}],en:[{n:'Taj Oberoi Marriott',t:'Luxury Hotels',d:'Top hotel chains. Entry 3-6 LPA. GM 25-60 LPA.'},{n:'IndiGo Air India Cabin Crew',t:'Aviation',d:'Flight attendant. 4-8 LPA + travel benefits.'},{n:'OYO MakeMyTrip',t:'Travel Tech',d:'Hospitality + tech. 6-15 LPA.'},{n:'Restaurant Chains Chef',t:'F&B',d:'Executive chef 15-40 LPA.'}]},
+  kit:[{i:'🤝',n:'Guest Relations',d:{hi:'Customer service excellence — hospitality ka dil.',en:'Customer service excellence — heart of hospitality.'},p:'Core Skill'},{i:'🗣️',n:'Communication Skills',d:{hi:'English fluency + personality — international guests.',en:'English fluency + personality — for international guests.'},p:'Must Have'},{i:'🍽️',n:'Food & Beverage',d:{hi:'Menu planning, food service, kitchen management.',en:'Menu planning, food service, kitchen management.'},p:'Essential'},{i:'📊',n:'Hotel Operations',d:{hi:'Front office, housekeeping, revenue management.',en:'Front office, housekeeping, revenue management.'},p:'High Value'}],
+  rr:{hi:'NCHMCT JEE top hotel management ke liye. Internship 5-star hotel mein karo.',en:'Clear NCHMCT JEE for top hotel management. Intern at 5-star hotel.'}
+},
+'Sports / Physical Education':{
+  sal:{e:'₹3–6 LPA',m:'₹6–15 LPA',s:'₹15–30 LPA',l:'₹50L+'},
+  gov:{hi:[{n:'Sports Authority India SAI',t:'Govt',d:'National sports coaching. 5-10 LPA. Prestige.'},{n:'Army Sports Institute',t:'Defence',d:'Army sports teams. Uniform + sports career.'},{n:'State Sports Academy',t:'State Govt',d:'District + state coaching. 4-8 LPA.'},{n:'Govt School PE Teacher',t:'Education',d:'Physical Education teacher. 5-9 LPA.'},{n:'Railways Sports Quota',t:'Railway',d:'Indian Railways sports quota. Stable career.'}],en:[{n:'Sports Authority India SAI',t:'Govt',d:'National sports coaching. 5-10 LPA. Prestige.'},{n:'Army Sports Institute',t:'Defence',d:'Army sports teams. Uniform + sports career.'},{n:'State Sports Academy',t:'State Govt',d:'District + state coaching. 4-8 LPA.'},{n:'Govt School PE Teacher',t:'Education',d:'Physical Education teacher. 5-9 LPA.'},{n:'Railways Sports Quota',t:'Railway',d:'Indian Railways sports quota. Stable career.'}]},
+  pvt:{hi:[{n:'IPL Pro Kabaddi ISL Teams',t:'Pro Sports',d:'Team staff, analyst, coach. 8-30 LPA.'},{n:'Fitness Industry Cult Gym',t:'Fitness',d:'Personal trainer, manager. 4-15 LPA.'},{n:'Sports Management Companies',t:'Management',d:'Event management, athlete management. 6-18 LPA.'},{n:'Sports Academies',t:'Coaching',d:'Private cricket football academies. 5-15 LPA.'}],en:[{n:'IPL Pro Kabaddi ISL Teams',t:'Pro Sports',d:'Team staff, analyst, coach. 8-30 LPA.'},{n:'Fitness Industry Cult Gym',t:'Fitness',d:'Personal trainer, manager. 4-15 LPA.'},{n:'Sports Management Companies',t:'Management',d:'Event management, athlete management. 6-18 LPA.'},{n:'Sports Academies',t:'Coaching',d:'Private cricket football academies. 5-15 LPA.'}]},
+  kit:[{i:'💪',n:'Physical Fitness',d:{hi:'Excellent fitness — sports career ki basic requirement.',en:'Excellent fitness — basic requirement of sports career.'},p:'Non-Negotiable'},{i:'🎯',n:'Sports Specialization',d:{hi:'Ek sport mein mastery — national state level required.',en:'Mastery in one sport — national/state level required.'},p:'Core Skill'},{i:'🧠',n:'Sports Psychology',d:{hi:'Mental conditioning — champions ko alag banata hai.',en:'Mental conditioning — what separates champions.'},p:'High Value'},{i:'📊',n:'Sports Analytics',d:{hi:'Performance data, video analysis — modern sports.',en:'Performance data, video analysis — modern sports.'},p:'Future Skill'}],
+  rr:{hi:'NIS Patiala se coaching diploma karo. State medals physical fitness tests mein help karte hain.',en:'Do coaching diploma from NIS Patiala. State medals help in physical fitness tests.'}
+},
+'Social Work / NGO':{
+  sal:{e:'₹2–4 LPA',m:'₹5–12 LPA',s:'₹12–25 LPA',l:'₹35L+'},
+  gov:{hi:[{n:'UPSC IAS Social Focus',t:'UPSC',d:'IAS District Collector — rural development, social welfare.'},{n:'ICDS Social Worker',t:'State Govt',d:'Integrated Child Development. Anganwadi + social work.'},{n:'National Health Mission',t:'Central Govt',d:'ASHA worker to Programme Manager. 3-8 LPA.'},{n:'NACO NABARD',t:'Central Govt',d:'HIV programs, rural development. 6-12 LPA.'},{n:'State Welfare Dept',t:'State Govt',d:'Child welfare, women empowerment schemes.'}],en:[{n:'UPSC IAS Social Focus',t:'UPSC',d:'IAS District Collector — rural development, social welfare.'},{n:'ICDS Social Worker',t:'State Govt',d:'Integrated Child Development. Anganwadi + social work.'},{n:'National Health Mission',t:'Central Govt',d:'ASHA worker to Programme Manager. 3-8 LPA.'},{n:'NACO NABARD',t:'Central Govt',d:'HIV programs, rural development. 6-12 LPA.'},{n:'State Welfare Dept',t:'State Govt',d:'Child welfare, women empowerment schemes.'}]},
+  pvt:{hi:[{n:'UN UNICEF WHO',t:'International',d:'Programme officer. 15-40 LPA.'},{n:'CRY HelpAge Pratham',t:'Top NGOs',d:'Programme Manager 6-15 LPA.'},{n:'CSR Tata Infosys Foundation',t:'Corporate CSR',d:'Corporate social responsibility. 8-18 LPA.'},{n:'Oxfam International NGOs',t:'INGO',d:'International development. 10-25 LPA.'}],en:[{n:'UN UNICEF WHO',t:'International',d:'Programme officer. 15-40 LPA.'},{n:'CRY HelpAge Pratham',t:'Top NGOs',d:'Programme Manager 6-15 LPA.'},{n:'CSR Tata Infosys Foundation',t:'Corporate CSR',d:'Corporate social responsibility. 8-18 LPA.'},{n:'Oxfam International NGOs',t:'INGO',d:'International development. 10-25 LPA.'}]},
+  kit:[{i:'🤝',n:'Community Mobilization',d:{hi:'People ko saath laana — social work ki core skill.',en:'Bringing people together — core skill of social work.'},p:'Core Skill'},{i:'📝',n:'Project Management',d:{hi:'Grant writing, project planning — NGO mein essential.',en:'Grant writing, project planning — essential in NGOs.'},p:'High Value'},{i:'📊',n:'Data & Research',d:{hi:'Impact measurement — donors ko chahiye.',en:'Impact measurement, social research — donors need this.'},p:'Essential'},{i:'🗣️',n:'Communication',d:{hi:'Report writing, presentation — field se funders tak.',en:'Report writing, presentation — from field to funders.'},p:'Career Critical'}],
+  rr:{hi:'MSW ke baad UN Young Professionals Programme try karo. CSR sector mein MBA wale bhi aate hain.',en:'After MSW, try UN Young Professionals Programme. MBA graduates also enter CSR sector.'}
+},
+'Fashion / Retail / Lifestyle':{
+  sal:{e:'₹3–6 LPA',m:'₹8–18 LPA',s:'₹18–35 LPA',l:'₹50L+'},
+  gov:{hi:[{n:'NIFT NID Faculty',t:'Academic',d:'Design college faculty. 6-12 LPA.'},{n:'Textile Ministry Programs',t:'Govt',d:'Handloom, textile promotion. 5-10 LPA.'},{n:'Export Promotion Councils',t:'Govt',d:'Apparel Export Promotion Council.'},{n:'State Handicrafts Dept',t:'State Govt',d:'Artisan development, craft promotion.'}],en:[{n:'NIFT NID Faculty',t:'Academic',d:'Design college faculty. 6-12 LPA.'},{n:'Textile Ministry Programs',t:'Govt',d:'Handloom, textile promotion. 5-10 LPA.'},{n:'Export Promotion Councils',t:'Govt',d:'Apparel Export Promotion Council.'},{n:'State Handicrafts Dept',t:'State Govt',d:'Artisan development, craft promotion.'}]},
+  pvt:{hi:[{n:'Zara HM Myntra',t:'Fast Fashion',d:'Fashion designer, merchandiser. 5-15 LPA.'},{n:'Reliance Retail DMart',t:'Retail',d:'Retail manager, buyer. 6-15 LPA.'},{n:'Nykaa Mamaearth',t:'D2C Beauty',d:'Beauty lifestyle brands. 8-20 LPA.'},{n:'Influencer Content Creator',t:'Digital',d:'Fashion lifestyle content. 3-50 LPA.'}],en:[{n:'Zara HM Myntra',t:'Fast Fashion',d:'Fashion designer, merchandiser. 5-15 LPA.'},{n:'Reliance Retail DMart',t:'Retail',d:'Retail manager, buyer. 6-15 LPA.'},{n:'Nykaa Mamaearth',t:'D2C Beauty',d:'Beauty lifestyle brands. 8-20 LPA.'},{n:'Influencer Content Creator',t:'Digital',d:'Fashion lifestyle content. 3-50 LPA.'}]},
+  kit:[{i:'🎨',n:'Design & Aesthetics',d:{hi:'Colour, fabric, styling — fashion ki core language.',en:'Colour, fabric, styling — core language of fashion.'},p:'Core Skill'},{i:'📱',n:'Social Media & Branding',d:{hi:'Instagram portfolio — fashion mein identity zaruri.',en:'Instagram portfolio — identity essential in fashion.'},p:'Must Have'},{i:'📊',n:'Retail Analytics',d:{hi:'Sales data, trend forecasting — modern retail.',en:'Sales data, trend forecasting — modern retail.'},p:'High Value'},{i:'✂️',n:'Garment Construction',d:{hi:'Pattern making, stitching — technical skills.',en:'Pattern making, stitching — technical fashion skills.'},p:'Essential'}],
+  rr:{hi:'NIFT entrance ke liye portfolio + creativity class 10 se shuru karo.',en:'Start portfolio + creativity development from class 10 for NIFT entrance.'}
+}};
 // Default cluster data
 var DFCL={sal:{e:'₹3–6 LPA',m:'₹8–15 LPA',s:'₹15–25 LPA',l:'₹35L+'},
   gov:{hi:[{n:'UPSC Civil Services',t:'UPSC',d:'IAS/IPS/IFS — India ki sabse prestigious govt exam.'},
@@ -1112,6 +1302,7 @@ var demo={
 function detectStage(academicStage, qual){
   var s = (academicStage||'').toLowerCase() + ' ' + (qual||'').toLowerCase();
   if(s.includes('class 9') || s.includes('class 10') || s.includes('class ix') || s.includes('class x') || s.includes('9th') || s.includes('10th')) return 'class_9_10';
+  if((s.includes('class 11') || s.includes('11th') || s.includes('xi')) && (s.includes('pass') || s.includes('passed') || s.includes('complete'))) return '12_appearing';
   if(s.includes('class 11') || s.includes('xi') || s.includes('11th')) return 'class_11';
   if(s.includes('appearing') || s.includes('result awaited') || s.includes('class 12') || s.includes('xii') || s.includes('12th')) return '12_appearing';
   if(s.includes('12 pass') || s.includes('passed') || s.includes('hsc') || s.includes('intermediate')) return '12_pass';
@@ -1176,6 +1367,7 @@ function GLS(sc){
 // ── RENDER ──
 function RND(d){
   D=d;
+  var hi = (typeof L !== 'undefined') ? L === 'hi' : true;
   var td=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
   // Print header
   var phi=document.getElementById('phInfo');
@@ -1232,9 +1424,51 @@ function RND(d){
   if(d.stream && IP) document.getElementById('stmCard').style.display=IP?'block':'none';
   // Paid
   if(IP){
-    ['radCard','lsCard','sutCard','crsCard','rolCard','kitCard','salCard','tlCard','govCard','actCard','conCard','rmCard','parCard','cnCard','disCard'].forEach(function(id){
+    // ── STAGE-BASED SECTIONS ──
+    var qs = d.qualStatus || 'other';
+    var is9_10 = (qs === 'class_9_10');
+    var is11   = (qs === 'class_11');
+    var is12   = (qs === '12_appearing' || qs === '12_pass');
+    var isDip  = (qs === 'diploma');
+    var isGrad = (qs === 'graduation' || qs === 'other');
+    var isSchool  = is9_10 || is11;
+    var isSenior  = is12 || isDip;
+    
+    // Common sections — ALL stages
+    ['lsCard','actCard','conCard','parCard','cnCard'].forEach(function(id){
       var el=document.getElementById(id);if(el)el.style.display='block';
     });
+    
+    if(is9_10){
+      // Class 9-10 → Stream recommendation focus
+      ['sutCard','stmCard','radCard'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.style.display='block';
+      });
+      ['crsCard','rolCard','salCard','tlCard','govCard','rmCard','disCard','kitCard'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.style.display='none';
+      });
+    } else if(is11){
+      // Class 11 → Same as 12 full report, roadmap different
+      ['radCard','sutCard','crsCard','rolCard','kitCard','salCard','tlCard','govCard','actCard','conCard','rmCard','parCard','cnCard','disCard'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.style.display='block';
+      });
+      // Update roadmap title for class 11
+      var rmTitle = document.querySelector('#rmCard .sl');
+      if(rmTitle) rmTitle.textContent = hi?'Class 12 ke Baad — Roadmap':'After Class 12 — Your Roadmap';
+    } else if(isSenior){
+      // 12th, Diploma → Full career report
+      ['radCard','sutCard','crsCard','rolCard','kitCard','salCard','tlCard','govCard','rmCard','disCard'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.style.display='block';
+      });
+    } else {
+      // Graduate/Working → Career acceleration
+      ['radCard','sutCard','crsCard','rolCard','kitCard','salCard','tlCard','govCard','rmCard','disCard'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.style.display='block';
+      });
+      // Update titles for grad
+      var salTitle = document.querySelector('#salCard .sl');
+      if(salTitle) salTitle.textContent = hi?'Salary & Career ROI Analysis':'Salary & Career ROI Analysis';
+    }
     var ca=document.getElementById('crsArea');
     (d.courses||[]).forEach(function(c){ca.innerHTML+='<span class="chip cg2">'+c+'</span>';});
     var ra=document.getElementById('rolArea');
@@ -1254,7 +1488,7 @@ function AL(){
   var d=D;if(!d)return;
   var hi=L==='hi';
   if(document.getElementById('LB')){
-    document.getElementById('LB').textContent = hi ? 'IN Hinglish' : 'EN English';
+    document.getElementById('LB').textContent = hi ? 'English' : 'Hinglish';
     document.getElementById('LB').className = 'btn-l active';
   }
   document.getElementById('ltxt').textContent=hi?'Report load ho rahi hai...':'Loading your report...';
@@ -1298,6 +1532,37 @@ function AL(){
   document.getElementById('lSec').textContent=hi?'Secondary':'Secondary';
   document.getElementById('lEm').textContent=hi?'Emerging':'Emerging';
   document.getElementById('lCR').textContent=hi?'🎯 Ye cluster kyun suggest hua':'🎯 Why this cluster was suggested';
+  // Show alignment message
+  var alignEl = document.getElementById('alignMsg');
+  if(!alignEl){
+    var clCard = document.getElementById('clusterCard');
+    if(clCard){
+      alignEl = document.createElement('div');
+      alignEl.id = 'alignMsg';
+      alignEl.style.cssText = 'margin:12px 0;padding:12px;border-radius:10px;font-size:12px;line-height:1.6;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15)';
+      clCard.appendChild(alignEl);
+    }
+  }
+  if(alignEl && (hi ? alignMsg.hi : alignMsg.en)){
+    alignEl.textContent = hi ? alignMsg.hi : alignMsg.en;
+    alignEl.style.display = 'block';
+  }
+  
+  // Parent concern in report
+  var pcEl = document.getElementById('parentConcernText');
+  if(!pcEl){
+    var parCard = document.getElementById('parCard');
+    if(parCard){
+      pcEl = document.createElement('div');
+      pcEl.id = 'parentConcernText';
+      pcEl.style.cssText = 'margin-top:12px;padding:12px;background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:10px;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.6';
+      parCard.appendChild(pcEl);
+    }
+  }
+  if(pcEl && d.pconcern){
+    pcEl.innerHTML = (hi ? '<strong style="color:#c8a84b">Parent Concern:</strong> "' : '<strong style="color:#c8a84b">Parent Concern:</strong> "') + d.pconcern + '"<br><span style="color:rgba(255,255,255,0.5);font-size:11px">' + (hi ? 'Ye concern valid hai — INWANG counselling mein address kiya jaayega.' : 'This concern is valid and will be addressed in INWANG counselling.') + '</span>';
+  }
+
   document.getElementById('clRea').textContent=hi?'Analytical '+vals[0].toFixed(1)+'/7 aur Learning '+vals[2].toFixed(1)+'/7 — '+d.pri+' field ke core skills hain. Assessment responses is direction ko indicate karte hain.':'Analytical '+vals[0].toFixed(1)+'/7 and Learning '+vals[2].toFixed(1)+'/7 — core skills for '+d.pri+'. Assessment responses indicate this direction.';
   // Interest
   var int=hi?d.interest.hi:d.interest.en;
@@ -1385,8 +1650,71 @@ function AL(){
   });
   // Skill kit
   var kit=cl.kit||DFCL.kit;
-  document.getElementById('kitIntro').textContent=hi?d.pri+' ke liye ye foundational skills develop karo — college se pehle shuru karo toh advantage milega.':'Develop these foundational skills for '+d.pri+' — starting before college gives a significant advantage.';
-  var ka=document.getElementById('kitArea');ka.innerHTML='<div class="kg">'+kit.map(function(s){return '<div class="ki2"><div class="kic">'+s.i+'</div><div><div class="kn">'+s.n+'</div><div class="kd">'+(hi?s.d.hi:s.d.en)+'</div><div class="kb" style="background:rgba(200,168,75,.1);border:1px solid var(--gb);color:var(--gold2)">'+s.p+'</div></div></div>';}).join('')+'</div>';
+  
+  // Add skill gap based skills
+  var gapSkills = [];
+  var scores = d.scores || {};
+  var DIM_SKILLS = {
+    analytical: {i:'🧠', n:hi?'Analytical Thinking':'Analytical Thinking', 
+      d:{hi:'Logical problems, puzzles, case studies practice karo. Structured thinking develop hogi.',en:'Practice logical problems, puzzles, case studies. Develops structured thinking.'},
+      p:'Priority — Foundational'},
+    communication: {i:'🗣️', n:hi?'Communication Skills':'Communication Skills',
+      d:{hi:'Public speaking, group discussions, debates join karo. Career mein sabse zyada kaam aata hai.',en:'Join public speaking, group discussions, debates. Most valuable career skill.'},
+      p:'Priority — Career Critical'},
+    decision: {i:'⚖️', n:hi?'Decision Making':'Decision Making',
+      d:{hi:'Pros-cons analysis practice karo. Real life problems mein options evaluate karo.',en:'Practice pros-cons analysis. Evaluate options in real life problems.'},
+      p:'Priority — Leadership Skill'},
+    motivation: {i:'🎯', n:hi?'Goal Setting & Self-Discipline':'Goal Setting & Self-Discipline',
+      d:{hi:'Daily habits banao, goals write karo, progress track karo. Consistency hi success hai.',en:'Build daily habits, write goals, track progress. Consistency is success.'},
+      p:'Priority — Success Habit'},
+    clarity: {i:'🧭', n:hi?'Career Awareness':'Career Awareness',
+      d:{hi:'Different careers explore karo, professionals se baat karo, LinkedIn use karo.',en:'Explore different careers, talk to professionals, use LinkedIn.'},
+      p:'Priority — Direction'},
+  };
+  
+  // Add gap-based skills (score < 5)
+  ['analytical','communication','decision','motivation','clarity'].forEach(function(dim){
+    if((scores[dim]||0) < 5 && DIM_SKILLS[dim]){
+      gapSkills.push(DIM_SKILLS[dim]);
+    }
+  });
+  
+  // Combine cluster skills + gap skills (gap skills first)
+  var allKit = gapSkills.concat(kit.filter(function(k){
+    return !gapSkills.find(function(g){return g.n === k.n;});
+  }));
+  
+  // Goal-based override note
+  var goalNote = '';
+  if(d.goal && d.goal.trim()){
+    var g = d.goal.toLowerCase();
+    var goalCluster = '';
+    if(g.includes('ca') || g.includes('chartered') || g.includes('accountant')) goalCluster = 'Commerce / Finance';
+    else if(g.includes('doctor') || g.includes('mbbs') || g.includes('medical')) goalCluster = 'Medical / Healthcare';
+    else if(g.includes('ias') || g.includes('upsc') || g.includes('civil')) goalCluster = 'Civil Services / Govt Jobs';
+    else if(g.includes('engineer') || g.includes('jee')) goalCluster = 'Engineering / Technical';
+    else if(g.includes('army') || g.includes('nda') || g.includes('defence')) goalCluster = 'Defence / Uniform Services';
+    else if(g.includes('mba') || g.includes('business')) goalCluster = 'Management / Business';
+    else if(g.includes('software') || g.includes('coding') || g.includes('it')) goalCluster = 'IT / Computer Applications';
+    
+    if(goalCluster && goalCluster !== d.pri){
+      goalNote = hi ? 
+        '⚡ Note: Aapne "'+d.goal+'" ka goal bataya hai — ye '+goalCluster+' cluster se align hota hai. INWANG counselling mein is direction ko explore karo.' :
+        '⚡ Note: You mentioned "'+d.goal+'" as your goal — this aligns with '+goalCluster+' cluster. Explore this direction in INWANG counselling.';
+      var goalEl = document.getElementById('kitIntro');
+      if(goalEl) goalEl.style.background = 'rgba(200,168,75,0.08)';
+    }
+  }
+  document.getElementById('kitIntro').textContent=hi?
+    d.pri+' ke liye foundational skills + aapke personal skill gaps ke basis par — ye specifically aapke liye select ki gayi hain.':
+    'Foundational skills for '+d.pri+' + based on your personal skill gaps — these are specifically selected for you.';
+  var ka=document.getElementById('kitArea');
+  ka.innerHTML='<div class="kg">'+allKit.map(function(s){
+    var isGap = gapSkills.indexOf(s) >= 0;
+    var border = isGap ? 'border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.05)' : '';
+    var badge = isGap ? '<div class="kb" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444">⚡ Skill Gap — Priority</div>' : '<div class="kb" style="background:rgba(200,168,75,.1);border:1px solid var(--gb);color:var(--gold2)">'+s.p+'</div>';
+    return '<div class="ki2" style="'+border+'"><div class="kic">'+s.i+'</div><div><div class="kn">'+s.n+'</div><div class="kd">'+(hi?s.d.hi:s.d.en)+'</div>'+badge+'</div></div>';
+  }).join('')+'</div>';
   // Salary
   var sal=cl.sal||DFCL.sal;
   document.getElementById('salArea').innerHTML=
@@ -1633,30 +1961,186 @@ function AL(){
   },
   'class_9_10':{
     hi:[
-      {p:'Abhi (School)',i:['INWANG assessment complete karo','Different careers explore karo','Extracurricular activities join karo','Apni strengths identify karo']},
-      {p:'Class 10 Boards',i:['Boards par 100% focus karo','Maths aur Science strong karo','Previous year papers solve karo','Study routine set karo']},
-      {p:'Post Result',i:['Board marks ke basis par stream decide karo','INWANG counselling lo — Science/Commerce/Arts','Subject combination carefully choose karo','Entrance exams research karo']},
-      {p:'Class 11-12',i:['Chosen stream mein foundation banao','Entrance exam preparation shuru karo','Career goal set karo','Regular INWANG guidance lo']},
+      {p:'Abhi (Class 9-10)',i:[
+        'INWANG Stream Intelligence Report se stream clarity lo',
+        'Maths aur Science strong karo — ye sab streams mein kaam aata hai',
+        'Reading habit banao — newspapers + career articles',
+        'Different professions ke baare mein research karo',
+        'Extracurricular activities join karo — strengths discover karni hain',
+      ]},
+      {p:'Class 10 Boards (2-3 Months Pehle)',i:[
+        'Boards par 100% focus karo — percentage matter karti hai',
+        'Previous year papers solve karo daily',
+        'Weak subjects pe extra time do',
+        'Stream decision final karo — INWANG report ke hisaab se',
+        'Parents ke saath stream discussion karo',
+      ]},
+      {p:'Class 10 Result ke Baad — Stream Choice',i:[
+        '📚 Science (PCM/PCB) → JEE/NEET ki taiyari ke liye',
+        '💼 Commerce → CA/MBA/Finance career ke liye',
+        '🎨 Arts/Humanities → Law/Civil Services/Design ke liye',
+        '🔧 Diploma/ITI → Practical skills + Job-ready path:',
+        '   • Diploma in Engineering (3 years) → Lateral entry B.Tech',
+        '   • ITI (1-2 years) → Government jobs + Private sector',
+        '   • Polytechnic → AICTE approved, good placement',
+        '🔔 INWANG Class 11/Diploma Assessment — updated guidance',
+        'INWANG Upgrade: ~~₹999~~ ₹199 mein full Career Intelligence Report',
+      ]},
+      {p:'Diploma/ITI Path — Agar Ye Choose Karo',i:[
+        'Cluster ke hisaab se best ITI/Diploma trade choose karo:',
+        '   • Engineering cluster → Mechanical/Electrical/Civil diploma',
+        '   • IT cluster → Computer Science diploma',
+        '   • Healthcare → Pharmacy/Lab technician diploma',
+        '   • Defence → NCC + ITI combination',
+        'AICTE approved college select karo — placement record dekho',
+        'Diploma ke baad lateral entry B.Tech possible hai (2nd year)',
+        'Govt jobs ke liye ITI certificate bahut valuable hai',
+        '✅ INWANG Skill Gap Report — trade selection mein help',
+      ]},
+      {p:'Class 11 (Next Phase)',i:[
+        'NCERT thoroughly padho',
+        'Target entrance exam identify karo',
+        'Study routine establish karo',
+        'Coaching decision karo — online ya offline',
+        'INWANG Counselling Session lo — detailed career roadmap',
+      ]},
     ],
     en:[
-      {p:'Now (School)',i:['Complete INWANG assessment','Explore different careers','Join extracurricular activities','Identify your strengths']},
-      {p:'Class 10 Boards',i:['Give 100% to boards','Strengthen Maths and Science','Solve previous year papers','Set a study routine']},
-      {p:'Post Result',i:['Decide stream based on board marks','Take INWANG counselling — Science/Commerce/Arts','Carefully choose subject combination','Research entrance exams']},
-      {p:'Class 11-12',i:['Build foundation in chosen stream','Start entrance exam preparation','Set career goal','Take regular INWANG guidance']},
+      {p:'Now (Class 9-10)',i:[
+        'Get stream clarity from INWANG Stream Intelligence Report',
+        'Strengthen Maths and Science — useful in all streams',
+        'Build reading habit — newspapers and career articles',
+        'Research different professions',
+        'Join extracurricular activities — discover your strengths',
+      ]},
+      {p:'Class 10 Boards (2-3 Months Before)',i:[
+        'Focus 100% on boards — percentage matters',
+        'Solve previous year papers daily',
+        'Give extra time to weak subjects',
+        'Finalize stream decision based on INWANG report',
+        'Discuss stream choice with parents',
+      ]},
+      {p:'After Class 10 Result — Stream Choice',i:[
+        '📚 Science (PCM/PCB) → For JEE/NEET preparation',
+        '💼 Commerce → For CA/MBA/Finance career',
+        '🎨 Arts/Humanities → For Law/Civil Services/Design',
+        '🔧 Diploma/ITI → Practical skills + Job-ready path:',
+        '   • Diploma in Engineering (3 years) → Lateral entry B.Tech',
+        '   • ITI (1-2 years) → Government jobs + Private sector',
+        '   • Polytechnic → AICTE approved, good placement',
+        '🔔 INWANG Class 11/Diploma Assessment — updated guidance',
+        'INWANG Upgrade: ~~₹999~~ ₹199 for full Career Intelligence Report',
+      ]},
+      {p:'Diploma/ITI Path — If You Choose This',i:[
+        'Choose best ITI/Diploma trade based on your cluster:',
+        '   • Engineering cluster → Mechanical/Electrical/Civil diploma',
+        '   • IT cluster → Computer Science diploma',
+        '   • Healthcare → Pharmacy/Lab technician diploma',
+        '   • Defence → NCC + ITI combination',
+        'Select AICTE approved college — check placement record',
+        'Lateral entry B.Tech possible after Diploma (2nd year)',
+        'ITI certificate very valuable for government jobs',
+        '✅ INWANG Skill Gap Report — help in trade selection',
+      ]},
+      {p:'Class 11 (Next Phase)',i:[
+        'Read NCERT thoroughly',
+        'Identify target entrance exam',
+        'Establish a study routine',
+        'Decide on coaching — online or offline',
+        'Take INWANG Counselling Session — detailed career roadmap',
+      ]},
     ],
   },
   'class_11':{
     hi:[
-      {p:'Abhi (Class 11)',i:['New subjects ke fundamentals deeply samjho','Weak topics identify karo aur address karo','Study schedule banao — boards + entrance dono ke liye','NCERT thoroughly complete karo']},
-      {p:'3-6 Months',i:['Target entrance exam decide karo','Basic entrance preparation shuru karo','Reference books add karo','Mock tests practice karo']},
-      {p:'Class 12 Start',i:['Boards + entrance dual strategy banao','Coaching ya self-study decide karo','Previous year papers solve karo','INWANG counselling mein roadmap finalize karo']},
-      {p:'Class 12 End',i:['Boards strong karo','Entrance mein best performance do','College shortlist banao','INWANG se college counselling lo']},
+      {p:'Abhi (Class 11 — Shuruat)',i:[
+        'NCERT har subject ka thoroughly padho — ye base hai sab ka',
+        'Weak topics identify karo aur tutor/YouTube se address karo',
+        'Study schedule banao — Daily 6-8 hours minimum',
+        'INWANG report ke cluster ke hisaab se target exam decide karo',
+        'Extracurricular activities join karo — personality build hogi',
+      ]},
+      {p:'3-6 Months (Preparation Phase)',i:[
+        'Target entrance exam confirm karo (JEE/NEET/CLAT/CUET/NDA etc.)',
+        'Entrance exam syllabus download karo aur compare karo boards se',
+        'Coaching join karo ya online platform (Unacademy/PW/Allen) decide karo',
+        'Reference books add karo (cluster ke hisaab se)',
+        'Weekly mock tests practice shuru karo',
+        '🔔 INWANG 6-Month Follow-up Assessment recommended',
+      ]},
+      {p:'Class 11 End (June-July)',i:[
+        'Class 11 ka poora syllabus revise karo',
+        'Class 12 ka syllabus preview karo — 1 month pehle se',
+        'Summer mein internship ya skill course karo',
+        'College shortlist karna shuru karo (INWANG College Mapping)',
+        'Parent ke saath career discussion karo — budget + location',
+      ]},
+      {p:'Class 12 Shuruat (August-October)',i:[
+        'Dual strategy — Boards 70% + Entrance 30% focus',
+        'NCERT Class 12 complete karo October tak',
+        'Previous 10 years question papers practice karo',
+        'CUET registration dates track karo (Oct-Nov mein open hoti hai)',
+        'NDA/Defence ke liye physical training shuru karo (agar relevant)',
+      ]},
+      {p:'Class 12 Mid (November-January)',i:[
+        'Boards ki serious preparation shuru karo',
+        'Entrance mock tests weekly 2-3 dena zaroori hai',
+        'College applications research karo',
+        'INWANG Counselling Session — college final shortlist',
+        'Scholarship opportunities dhundo',
+      ]},
+      {p:'Class 12 End (February-May)',i:[
+        'Boards mein best performance do',
+        'JEE/NEET/CLAT/CUET April-May mein — full preparation',
+        'Backup colleges list ready rakho',
+        'Result ke baad seedha INWANG Career Counselling lo',
+        '✅ INWANG Re-Assessment — updated career direction milegi',
+      ]},
     ],
     en:[
-      {p:'Now (Class 11)',i:['Deeply understand fundamentals of new subjects','Identify and address weak topics','Build study schedule for both boards and entrance','Complete NCERT thoroughly']},
-      {p:'3-6 Months',i:['Decide target entrance exam','Start basic entrance preparation','Add reference books','Practice mock tests']},
-      {p:'Class 12 Start',i:['Build dual boards + entrance strategy','Decide coaching or self-study','Solve previous year papers','Finalise roadmap in INWANG counselling']},
-      {p:'Class 12 End',i:['Excel in boards','Give best performance in entrance','Build college shortlist','Take INWANG college counselling']},
+      {p:'Now (Class 11 — Beginning)',i:[
+        'Read NCERT thoroughly for every subject — this is the base for everything',
+        'Identify weak topics and address them through tutor/YouTube',
+        'Build a study schedule — minimum 6-8 hours daily',
+        'Decide target exam based on your INWANG cluster',
+        'Join extracurricular activities — personality development',
+      ]},
+      {p:'3-6 Months (Preparation Phase)',i:[
+        'Confirm target entrance exam (JEE/NEET/CLAT/CUET/NDA etc.)',
+        'Download entrance exam syllabus and compare with boards',
+        'Decide on coaching or online platform (Unacademy/PW/Allen)',
+        'Add reference books based on your cluster',
+        'Start weekly mock test practice',
+        '🔔 INWANG 6-Month Follow-up Assessment recommended',
+      ]},
+      {p:'End of Class 11 (June-July)',i:[
+        'Revise complete Class 11 syllabus',
+        'Preview Class 12 syllabus 1 month in advance',
+        'Do internship or skill course in summer',
+        'Start college shortlisting (INWANG College Mapping)',
+        'Career discussion with parents — budget + location',
+      ]},
+      {p:'Class 12 Start (August-October)',i:[
+        'Dual strategy — Boards 70% + Entrance 30% focus',
+        'Complete Class 12 NCERT by October',
+        'Practice previous 10 years question papers',
+        'Track CUET registration dates (opens Oct-Nov)',
+        'Start physical training for NDA/Defence if relevant',
+      ]},
+      {p:'Class 12 Mid (November-January)',i:[
+        'Begin serious board exam preparation',
+        'Give 2-3 entrance mock tests weekly',
+        'Research college applications',
+        'INWANG Counselling Session — final college shortlist',
+        'Look for scholarship opportunities',
+      ]},
+      {p:'Class 12 End (February-May)',i:[
+        'Give best performance in boards',
+        'JEE/NEET/CLAT/CUET April-May — full preparation',
+        'Keep backup college list ready',
+        'After results — take INWANG Career Counselling immediately',
+        '✅ INWANG Re-Assessment — get updated career direction',
+      ]},
     ],
   },
   'diploma':{
@@ -1853,7 +2337,24 @@ function showError(e){
 }
 
 // Merge AppScript data with demo defaults
+
+function detectStageKey(qual){
+  var s = String(qual||'').toLowerCase().trim();
+  if(!s) return '12_appearing';
+  if(s.includes('class 9')||s.includes('9th')||s.includes('class 10')||s.includes('10th')) return 'class_9_10';
+  if((s.includes('class 11')||s.includes('11th'))&&(s.includes('pass')||s.includes('passed')||s.includes('complete'))) return '12_appearing';
+  if(s.includes('class 11')||s.includes('xi')||s.includes('11th')) return 'class_11';
+  if(s.includes('12')&&(s.includes('appear')||s.includes('awaited')||s.includes('running'))) return '12_appearing';
+  if(s.includes('class 12')||s.includes('12th')||s.includes('12 pass')||s.includes('hsc')||s.includes('intermediate')||s.includes('higher secondary')) return '12_pass';
+  if(s.includes('iti')||s.includes('diploma')||s.includes('polytechnic')) return 'diploma';
+  if(s.includes('ug')||s.includes('b.tech')||s.includes('bca')||s.includes('b.sc')||s.includes('b.com')||s.includes('ba ')||s.includes('bba')||s.includes('graduate')||s.includes('graduation')) return 'graduation';
+  if(s.includes('pg')||s.includes('m.tech')||s.includes('mba')||s.includes('mca')||s.includes('post graduate')||s.includes('working')||s.includes('professional')) return 'graduation';
+  if(s.includes('pass')||s.includes('complete')) return '12_pass';
+  return '12_appearing';
+}
+
 function mergeWithDefaults(d){
+  var hi = (typeof L !== 'undefined') ? L === 'hi' : true; // language flag
   var sc = d.scores || {};
   var a = sc.a||4, c = sc.c||4, l = sc.l||4, de = sc.d||4, m = sc.m||4, cl = sc.cl||4;
   var readPct = Math.round((a+c+l+de+m+cl)/42*100);
@@ -1907,30 +2408,296 @@ function mergeWithDefaults(d){
   };
   
   // Primary cluster from assessment
+  // Assessment required — no cluster without it
+  var _hasAssessment = !!(d.c1 && d.c1.trim());
   var pri = d.c1 || demo.pri;
   var sec = d.c2 || demo.sec;
   var em  = d.c3 || demo.em;
+  var _derivedCluster = false;
+  
+  // ══════════════════════════════════════
+  // INTELLIGENCE LAYER — Stream + Goal + Stage
+  // ══════════════════════════════════════
+  
+  var stream = (d.stream || '').toLowerCase();
+  var goal = (d.goal || '').toLowerCase();
+  var qual = (d.qual || '').toLowerCase();
+  var marks = parseFloat(d.marks) || 0;
+  
+  // ── STREAM → ALLOWED CLUSTERS ──
+  var streamClusters = [];
+  var streamLabel = '';
+  if(stream.includes('pcmb') || (stream.includes('pcm') && stream.includes('bio'))){
+    streamClusters = ['Engineering / Technical','IT / Computer Applications','Medical / Healthcare','Research / Science','Defence / Uniform Services'];
+    streamLabel = 'Science (PCMB)';
+  } else if(stream.includes('pcm') || stream.includes('maths') || stream.includes('math') || 
+            (stream.includes('science') && !stream.includes('bio')) ||
+            stream.includes('physics') || stream.includes('chemistry') && stream.includes('maths')){
+    streamClusters = ['Engineering / Technical','IT / Computer Applications','Research / Science','Defence / Uniform Services','Civil Services / Govt Jobs','Medical / Healthcare'];
+    streamLabel = 'Science (PCM)';
+  } else if(stream.includes('pcb') || stream.includes('biology') || stream.includes('bio') ||
+            stream.includes('zoology') || stream.includes('botany')){
+    streamClusters = ['Medical / Healthcare','Research / Science','Civil Services / Govt Jobs','Teaching / Education','Engineering / Technical'];
+    streamLabel = 'Science (PCB)';
+  } else if(stream.includes('commerce') || stream.includes('accounts') || stream.includes('accountancy') ||
+            stream.includes('economics') || stream.includes('business studies')){
+    streamClusters = ['Commerce / Finance','Management / Business','Law / Legal Studies','Civil Services / Govt Jobs'];
+    streamLabel = 'Commerce';
+  } else if(stream.includes('arts') || stream.includes('humanities') || stream.includes('history') || 
+            stream.includes('political') || stream.includes('geography') || stream.includes('sociology') ||
+            stream.includes('psychology') || stream.includes('hindi') || stream.includes('english lit')){
+    streamClusters = ['Law / Legal Studies','Civil Services / Govt Jobs','Teaching / Education','Arts / Humanities / Creative','Management / Business'];
+    streamLabel = 'Arts / Humanities';
+  } else if(stream.includes('iti') || stream.includes('diploma') || stream.includes('vocational') ||
+            stream.includes('polytechnic')){
+    streamClusters = ['Engineering / Technical','Skill / Vocational','Defence / Uniform Services'];
+    streamLabel = 'ITI / Diploma';
+  }
+  
+  // ── GOAL → TARGET CLUSTER ──
+  var goalCluster = '';
+  var goalMatch = false;
+  if(goal){
+    // ── COMMERCE / FINANCE ──
+    if(goal.includes('ca') || goal.includes('chartered') || goal.includes('accountant') || 
+       goal.includes('finance') || goal.includes('stock') || goal.includes('trading') ||
+       goal.includes('banking') || goal.includes('bank') || goal.includes('cma') || 
+       goal.includes('cfa') || goal.includes('tax') || goal.includes('audit') ||
+       goal.includes('b.com') || goal.includes('bcom') || goal.includes('mcom') ||
+       goal.includes('commerce') || goal.includes('economist') || goal.includes('economics'))
+      goalCluster = 'Commerce / Finance';
+    
+    // ── MEDICAL / HEALTHCARE ──
+    else if(goal.includes('doctor') || goal.includes('mbbs') || goal.includes('medical') || 
+            goal.includes('surgeon') || goal.includes('bpt') || goal.includes('physiotherapy') || 
+            goal.includes('physio') || goal.includes('nursing') || goal.includes('nurse') ||
+            goal.includes('pharmacy') || goal.includes('pharma') || goal.includes('bpharm') || 
+            goal.includes('b.pharm') || goal.includes('paramedical') || goal.includes('healthcare') ||
+            goal.includes('neet') || goal.includes('dentist') || goal.includes('bds') || 
+            goal.includes('ayurveda') || goal.includes('bams') || goal.includes('bhms') ||
+            goal.includes('homeopathy') || goal.includes('unani') || goal.includes('radiology') ||
+            goal.includes('lab technician') || goal.includes('optometry') || goal.includes('speech') ||
+            goal.includes('occupational therapy') || goal.includes('dialysis') || goal.includes('ot tech'))
+      goalCluster = 'Medical / Healthcare';
+    
+    // ── CIVIL SERVICES / GOVT ──
+    else if(goal.includes('ias') || goal.includes('ips') || goal.includes('ifs') || 
+            goal.includes('upsc') || goal.includes('civil service') || goal.includes('collector') ||
+            goal.includes('sdo') || goal.includes('sdm') || goal.includes('bdo') ||
+            goal.includes('government job') || goal.includes('govt job') || goal.includes('ssc') ||
+            goal.includes('ibps') || goal.includes('sbi po') || goal.includes('bank po') ||
+            goal.includes('railway') || goal.includes('rrb') || goal.includes('psc') ||
+            goal.includes('state service') || goal.includes('pcs') || goal.includes('bpsc') ||
+            goal.includes('uppsc') || goal.includes('mpsc'))
+      goalCluster = 'Civil Services / Govt Jobs';
+    
+    // ── ENGINEERING / TECHNICAL ──
+    else if(goal.includes('engineer') || goal.includes('iit') || goal.includes('jee') || 
+            goal.includes('mechanical') || goal.includes('electrical') || goal.includes('civil engg') ||
+            goal.includes('chemical') || goal.includes('b.tech') || goal.includes('btech') ||
+            goal.includes('automobile') || goal.includes('aerospace') || goal.includes('robotics') ||
+            goal.includes('electronics') || goal.includes('instrumentation') || goal.includes('production') ||
+            goal.includes('gate') || goal.includes('diploma engineer') || goal.includes('polytechnic'))
+      goalCluster = 'Engineering / Technical';
+    
+    // ── DEFENCE ──
+    else if(goal.includes('army') || goal.includes('nda') || goal.includes('defence') || 
+            goal.includes('military') || goal.includes('airforce') || goal.includes('air force') ||
+            goal.includes('navy') || goal.includes('navy') || goal.includes('cds') ||
+            goal.includes('capf') || goal.includes('crpf') || goal.includes('bsf') ||
+            goal.includes('cisf') || goal.includes('itbp') || goal.includes('ssb') ||
+            goal.includes('agniveer') || goal.includes('soldier') || goal.includes('officer') ||
+            goal.includes('police') || goal.includes('ips') || goal.includes('paramilitary'))
+      goalCluster = 'Defence / Uniform Services';
+    
+    // ── MANAGEMENT / BUSINESS ──
+    else if(goal.includes('mba') || goal.includes('business') || goal.includes('entrepreneur') || 
+            goal.includes('startup') || goal.includes('management') || goal.includes('bba') ||
+            goal.includes('marketing') || goal.includes('hr') || goal.includes('human resource') ||
+            goal.includes('operations') || goal.includes('supply chain') || goal.includes('logistics') ||
+            goal.includes('businessmaan') || goal.includes('businessman') || goal.includes('ceo') ||
+            goal.includes('manager') || goal.includes('hotel management') || goal.includes('hospitality'))
+      goalCluster = 'Management / Business';
+    
+    // ── IT / COMPUTER ──
+    else if(goal.includes('software') || goal.includes('coding') || goal.includes('programmer') || 
+            goal.includes('developer') || goal.includes('web developer') || goal.includes('app developer') ||
+            goal.includes('it ') || goal.includes('tech') || goal.includes('computer') ||
+            goal.includes('bca') || goal.includes('mca') || goal.includes('data science') ||
+            goal.includes('ai') || goal.includes('machine learning') || goal.includes('cyber') ||
+            goal.includes('networking') || goal.includes('cloud') || goal.includes('database') ||
+            goal.includes('game developer') || goal.includes('animation'))
+      goalCluster = 'IT / Computer Applications';
+    
+    // ── LAW ──
+    else if(goal.includes('lawyer') || goal.includes('advocate') || goal.includes('law') || 
+            goal.includes('judge') || goal.includes('llb') || goal.includes('llm') ||
+            goal.includes('legal') || goal.includes('court') || goal.includes('barrister') ||
+            goal.includes('solicitor') || goal.includes('clat') || goal.includes('judiciary'))
+      goalCluster = 'Law / Legal Studies';
+    
+    // ── TEACHING / EDUCATION ──
+    else if(goal.includes('teacher') || goal.includes('professor') || goal.includes('education') || 
+            goal.includes('b.ed') || goal.includes('bed') || goal.includes('tet') ||
+            goal.includes('ctet') || goal.includes('lecturer') || goal.includes('principal') ||
+            goal.includes('tutor') || goal.includes('coaching') || goal.includes('academic'))
+      goalCluster = 'Teaching / Education';
+    
+    // ── RESEARCH / SCIENCE ──
+    else if(goal.includes('research') || goal.includes('scientist') || goal.includes('isro') || 
+            goal.includes('drdo') || goal.includes('csir') || goal.includes('iiser') ||
+            goal.includes('phd') || goal.includes('ph.d') || goal.includes('biotech') ||
+            goal.includes('biotechnology') || goal.includes('microbiology') || goal.includes('genetics') ||
+            goal.includes('forensic') || goal.includes('environmental') || goal.includes('agriculture'))
+      goalCluster = 'Research / Science';
+    
+    // ── ARTS / CREATIVE ──
+    else if(goal.includes('artist') || goal.includes('design') || goal.includes('fashion') || 
+            goal.includes('graphic') || goal.includes('photography') || goal.includes('film') ||
+            goal.includes('acting') || goal.includes('music') || goal.includes('dance') ||
+            goal.includes('writer') || goal.includes('journalism') || goal.includes('media') ||
+            goal.includes('nid') || goal.includes('nift') || goal.includes('mass comm') ||
+            goal.includes('architecture') || goal.includes('interior design') || goal.includes('fine arts'))
+      goalCluster = 'Arts / Humanities / Creative';
+    
+    // ── AGRICULTURE ──
+    else if(goal.includes('agriculture') || goal.includes('farming') || goal.includes('agri') || 
+            goal.includes('horticulture') || goal.includes('forestry') || goal.includes('soil') ||
+            goal.includes('icar') || goal.includes('food technology') || goal.includes('fisheries'))
+      goalCluster = 'Agriculture / Environmental Sciences';
+    
+    // ── PARAMEDICAL ──
+    else if(goal.includes('nursing') || goal.includes('nurse') || goal.includes('bpt') || 
+            goal.includes('physiotherapy') || goal.includes('lab tech') || goal.includes('mlt') ||
+            goal.includes('radiology') || goal.includes('gnm') || goal.includes('anm') ||
+            goal.includes('ot tech') || goal.includes('dialysis') || goal.includes('paramedical'))
+      goalCluster = 'Paramedical / Allied Health';
+    
+    // ── MEDIA / JOURNALISM ──
+    else if(goal.includes('journalist') || goal.includes('journalism') || goal.includes('media') || 
+            goal.includes('content creator') || goal.includes('youtuber') || goal.includes('anchor') ||
+            goal.includes('bjmc') || goal.includes('mass comm') || goal.includes('pr ') ||
+            goal.includes('animation') || goal.includes('vfx') || goal.includes('film maker'))
+      goalCluster = 'Media / Journalism / Communication';
+    
+    // ── DESIGN / ARCHITECTURE ──
+    else if(goal.includes('architect') || goal.includes('architecture') || goal.includes('interior') || 
+            goal.includes('product design') || goal.includes('ux') || goal.includes('ui ') ||
+            goal.includes('nata') || goal.includes('b.arch') || goal.includes('fine arts') ||
+            goal.includes('bfa') || goal.includes('graphic design') || goal.includes('animation'))
+      goalCluster = 'Design / Architecture / Fine Arts';
+    
+    // ── HOTEL / HOSPITALITY ──
+    else if(goal.includes('hotel') || goal.includes('hospitality') || goal.includes('chef') || 
+            goal.includes('cabin crew') || goal.includes('tourism') || goal.includes('travel') ||
+            goal.includes('nchmct') || goal.includes('culinary') || goal.includes('bhm'))
+      goalCluster = 'Hotel Management / Hospitality';
+    
+    // ── SPORTS ──
+    else if(goal.includes('sports') || goal.includes('athlete') || goal.includes('cricket') || 
+            goal.includes('football') || goal.includes('fitness trainer') || goal.includes('coach') ||
+            goal.includes('nis ') || goal.includes('physical education') || goal.includes('yoga'))
+      goalCluster = 'Sports / Physical Education';
+    
+    // ── SOCIAL WORK ──
+    else if(goal.includes('social work') || goal.includes('ngo') || goal.includes('welfare') || 
+            goal.includes('community') || goal.includes('development sector') || goal.includes('msw') ||
+            goal.includes('unicef') || goal.includes('ias social') || goal.includes('bsw'))
+      goalCluster = 'Social Work / NGO';
+    
+    // ── FASHION / RETAIL ──
+    else if(goal.includes('fashion') || goal.includes('nift') || goal.includes('styling') || 
+            goal.includes('retail') || goal.includes('makeup') || goal.includes('beauty') ||
+            goal.includes('merchandis') || goal.includes('boutique') || goal.includes('lifestyle'))
+      goalCluster = 'Fashion / Retail / Lifestyle';
+    
+    goalMatch = goalCluster === pri;
+  }
+  
+  // ── CLUSTER VALIDATION ──
+  var clusterValid = streamClusters.length === 0 || streamClusters.indexOf(pri) >= 0;
+  var suggestedCluster = pri; // default keep assessment cluster
+  
+  // If stream says something different AND goal is clear → trust goal
+  if(!clusterValid && goalCluster){
+    suggestedCluster = goalCluster;
+    pri = goalCluster; // Override with goal-based cluster
+  } else if(!clusterValid && streamClusters.length > 0){
+    // Assessment cluster doesn't match stream → warn but keep
+    // Don't override - just flag it
+  }
+  
+  // ── ALIGNMENT STATUS ──
+  var alignmentStatus = 'aligned'; // aligned / goal_mismatch / stream_mismatch / both_mismatch
+  if(goalCluster && !goalMatch){
+    if(!clusterValid) alignmentStatus = 'both_mismatch';
+    else alignmentStatus = 'goal_mismatch';
+  } else if(!clusterValid){
+    alignmentStatus = 'stream_mismatch';
+  }
+  
+  // ── ALIGNMENT MESSAGE ──
+  var alignMsg = {hi:'', en:''};
+  if(alignmentStatus === 'goal_mismatch'){
+    alignMsg.hi = '⚡ Aapne "'+d.goal+'" ka goal bataya hai. Assessment '+pri+' cluster suggest kar raha hai. INWANG counselling session mein dono directions ko explore karo.';
+    alignMsg.en = '⚡ You mentioned "'+d.goal+'" as your goal. Assessment suggests '+pri+' cluster. Explore both directions in INWANG counselling session.';
+  } else if(alignmentStatus === 'stream_mismatch'){
+    // Special case - PCM/PCB overlap courses
+    var overlapNote = '';
+    if((streamLabel==='Science (PCM)' && pri==='Medical / Healthcare') || 
+       (streamLabel==='Science (PCB)' && pri==='Engineering / Technical')){
+      overlapNote = ' B.Pharma, Biotechnology, Forensic Science jaise courses dono ke liye eligible hain.';
+    }
+    alignMsg.hi = '⚠️ Aapka '+streamLabel+' stream aur assessment cluster ('+pri+') mein thoda gap hai.'+overlapNote+' INWANG counselling mein clarify karo.';
+    alignMsg.en = '⚠️ Your '+streamLabel+' stream and assessment cluster ('+pri+') have a slight gap.'+overlapNote+' Clarify in INWANG counselling.';
+  } else if(alignmentStatus === 'both_mismatch'){
+    alignMsg.hi = '🎯 Aapka goal "'+d.goal+'" — ye '+goalCluster+' cluster se align karta hai. INWANG counselling mein detailed guidance lo.';
+    alignMsg.en = '🎯 Your goal "'+d.goal+'" aligns with '+goalCluster+' cluster. Get detailed guidance in INWANG counselling.';
+  } else {
+    alignMsg.hi = goalCluster ? '✅ Aapka goal aur assessment cluster perfectly aligned hain!' : '';
+    alignMsg.en = goalCluster ? '✅ Your goal and assessment cluster are perfectly aligned!' : '';
+  }
+  
+  // ── STAGE from qual ──
+  var qualStatus = detectStageKey(d.qual || '');
   
   // Stream alignment
   var streamAlign = d.align || 'Aligned';
   var streamPrimary = d.sp || 'Science / General';
   
-  // Parse skill gaps
-  var gapsText = d.gaps || '';
-  var gapLines = gapsText.split('\n').filter(function(g){ return g.trim(); });
-  var gaps = gapLines.length > 0 ? gapLines.map(function(g){
-    var parts = g.split('→');
-    var dim = (parts[0]||g).trim();
-    var action = (parts[1]||'Practice regularly').trim();
-    var score = scores[dim.toLowerCase()] || 4;
+  // Build gaps from actual scores
+  var DIM_MAP = [
+    {key:'analytical',    hi:'Analytical Thinking',     en:'Analytical Thinking',     
+     ahi:'Logical problems aur structured tasks practice karo', aen:'Practice logical problems and structured tasks'},
+    {key:'communication', hi:'Communication Skills',    en:'Communication Skills',     
+     ahi:'Group discussions aur presentations mein participate karo', aen:'Participate in group discussions and presentations'},
+    {key:'learning',      hi:'Seekhne ki Kshamata',     en:'Learning Agility',         
+     ahi:'Roz kuch naya seekhne ki aadat banao', aen:'Build a habit of learning something new daily'},
+    {key:'decision',      hi:'Nirnay Lene ki Shakti',   en:'Decision Making',          
+     ahi:'Options evaluate karo, phir decide karo', aen:'Evaluate options carefully before deciding'},
+    {key:'motivation',    hi:'Prerana aur Drive',       en:'Motivation & Drive',       
+     ahi:'Short-term goals set karo aur track karo', aen:'Set short-term goals and track progress'},
+    {key:'clarity',       hi:'Career Clarity',          en:'Career Clarity',           
+     ahi:'Career paths explore karo aur counselling lo', aen:'Explore career paths and seek counselling'},
+  ];
+  
+  // Sort by score ascending (lowest first = biggest gaps)
+  var dimScores = DIM_MAP.map(function(d){ return {d:d, s:scores[d.key]||4}; });
+  dimScores.sort(function(a,b){ return a.s - b.s; });
+  
+  var gaps = dimScores.slice(0,4).map(function(item){
+    var s = item.s;
+    var lvl = s >= 5.5 ? 'lg' : s >= 4 ? 'lm' : 'll';
+    var cur_hi = s >= 5.5 ? 'Accha' : s >= 4 ? 'Developing' : 'Needs Work';
+    var cur_en = s >= 5.5 ? 'Good' : s >= 4 ? 'Developing' : 'Needs Work';
     return {
-      a:{hi:dim,en:dim},
-      c:{hi:score>=5?'Good':'Developing',en:score>=5?'Good':'Developing'},
-      r:{hi:'Strong',en:'Strong'},
-      ac:{hi:action,en:action},
-      l:score>=5?'lm':'ll'
+      a:  {hi: item.d.hi, en: item.d.en},
+      c:  {hi: cur_hi,    en: cur_en},
+      r:  {hi: 'Strong',  en: 'Strong'},
+      ac: {hi: item.d.ahi, en: item.d.aen},
+      l:  lvl
     };
-  }) : demo.gaps;
+  });
   
   // Parse strengths
   var strText = d.str || '';
@@ -1946,81 +2713,111 @@ function mergeWithDefaults(d){
   // Courses and roles
   // Use Sheet data — fallback to cluster-based defaults if "No matching" 
   var CLUSTER_FALLBACK = {
-    'Arts / Humanities / Creative': {
-      courses:['BA English','BA Political Science','BA Psychology','BA Journalism','BFA','BBA','BA LLB'],
-      roles:['IAS/IPS Officer','Content Writer','Journalist','HR Manager','Teacher','Lawyer']},
-    'Teaching / Education': {
-      courses:['BA + B.Ed','B.El.Ed','MA Education','D.El.Ed'],
-      roles:['School Teacher','College Lecturer','Education Counsellor','Training Manager']},
-    'Law / Legal Studies': {
-      courses:['BA LLB (5yr)','BBA LLB (5yr)','LLB (3yr)','BA Political Science'],
-      roles:['Advocate','Judge','Legal Advisor','Corporate Lawyer','Public Prosecutor']},
-    'Medical / Healthcare': {
-      courses:['MBBS','BDS','BAMS','BHMS','BSc Nursing','BPT'],
-      roles:['Doctor','Dentist','Pharmacist','Medical Officer','Healthcare Manager']},
-    'Paramedical / Nursing / BPT / OT / Lab Tech': {
-      courses:['BSc Nursing','GNM','BPT','BSc MLT','DMLT','ANM','BSc OT'],
-      roles:['Staff Nurse','Lab Technician','Physiotherapist','OT Technician','Radiographer']},
-    'Management (BBA / BCom / BCA / MBA / PGDM)': {
-      courses:['BBA','BCom','MBA','PGDM','BCA','CA','CS'],
-      roles:['Business Analyst','Marketing Manager','Finance Manager','HR Manager','Operations Manager']},
-    'Engineering / Technical': {
-      courses:['B.Tech CSE','B.Tech ECE','B.Tech Mechanical','B.Tech Civil','BCA + MCA'],
-      roles:['Software Engineer','Mechanical Engineer','Civil Engineer','Electronics Engineer']},
-    'IT / Computer Applications': {
-      courses:['BCA','B.Tech CSE','B.Sc CS','MCA','BSc IT'],
-      roles:['Software Developer','Data Analyst','Web Developer','System Analyst']},
-    'Research / Science': {
-      courses:['BSc PCM','BSc PCB','BSc Statistics','BSc Maths','MSc','IISER'],
-      roles:['Research Scientist','Data Scientist','Professor','Science Officer']},
-    'Commerce / Accounts / Finance': {
-      courses:['BCom','BCom (Hons)','CA','CS','BBA Finance','MBA Finance'],
-      roles:['Chartered Accountant','Financial Analyst','Tax Consultant','Auditor','Investment Banker']},
-    'Medical / MBBS / BDS': {
-      courses:['MBBS','BDS','BAMS','BHMS','BUMS'],
-      roles:['Doctor (MBBS)','Dentist','Ayurvedic Doctor','Homoeopathic Doctor']},
-    'Government / Civil Services': {
-      courses:['BA Political Science','BA History','BA Sociology','LLB','MA Public Admin'],
-      roles:['IAS Officer','IPS Officer','SDM','BDO','State Civil Services']},
-    'Design / Creative Arts': {
-      courses:['BFA','B.Des','B.Sc Animation','BA Fine Arts','Diploma Design'],
-      roles:['Graphic Designer','UI/UX Designer','Animator','Art Director','Creative Head']},
-    'Design / Architecture / Fine Arts': {
-      courses:['B.Arch','B.Des','BFA','NIFT','BSc Interior Design','Diploma Graphic Design'],
-      roles:['Architect','UI/UX Designer','Fashion Designer','Interior Designer','Art Director']},
-    'Paramedical / Allied Health / Nursing': {
-      courses:['BSc Nursing','GNM','ANM','BPT','BSc MLT','DMLT','BSc OT'],
-      roles:['Staff Nurse','Lab Technician','Physiotherapist','OT Technician','Radiographer']},
-    'Vocational / Skill / ITI': {
-      courses:['ITI (Electrician)','ITI (Fitter)','ITI (COPA)','ITI (Welder)','Polytechnic Diploma'],
-      roles:['Electrician','Fitter','Computer Operator','Welder','Junior Engineer']},
-    'Media / Journalism / Communication': {
-      courses:['BJMC','BA Mass Communication','BSc Animation','BA Film & TV','BA Advertising'],
-      roles:['Journalist','Content Writer','Animator','PR Manager','Video Editor']},
-    'Hotel Management / Tourism / Hospitality': {
-      courses:['BHM','BA Tourism','Diploma Hotel Management','Diploma Culinary Arts','Cabin Crew'],
-      roles:['Hotel Manager','Chef','Travel Consultant','Cabin Crew','Event Manager']},
-    'Sports / Physical Education': {
-      courses:['BSc Physical Education','BPEd','BSc Sports Science','NIS Diploma'],
-      roles:['PE Teacher','Sports Coach','Fitness Trainer','Sports Manager','NIS Coach']},
-    'Social Work / NGO / Development': {
-      courses:['BSW','BA Sociology','BA Psychology','MSW','MA Development Studies'],
-      roles:['Social Worker','NGO Manager','Community Organizer','Policy Analyst','Counsellor']},
-    'Fashion / Retail / Lifestyle': {
-      courses:['NIFT Fashion Design','BSc Fashion Design','BBA Retail','Diploma Fashion','Diploma Beauty'],
-      roles:['Fashion Designer','Fashion Stylist','Retail Manager','Merchandiser','Beauty Therapist']},
-  };
+  'Engineering / Technical': {
+    courses:['B.Tech CSE','B.Tech Mechanical','B.Tech Civil','B.Tech ECE','B.Tech Chemical','B.Tech Aerospace','Diploma Engineering','B.Tech Electrical','B.Tech IT','B.Tech Biotechnology'],
+    roles:['Software Engineer','Mechanical Engineer','Civil Engineer','Electronics Engineer','Project Manager','Design Engineer','R&D Engineer','Production Manager','Structural Engineer','Automation Engineer']
+  },
+  'IT / Computer Applications': {
+    courses:['BCA','B.Tech CSE','B.Sc CS','MCA','BSc IT','B.Tech AI/ML','B.Sc Data Science','PG Diploma IT','B.Tech Cybersecurity','BSc Software Engineering'],
+    roles:['Software Developer','Data Analyst','Web Developer','App Developer','Cybersecurity Analyst','Database Admin','AI/ML Engineer','System Analyst','DevOps Engineer','Cloud Architect']
+  },
+  'Medical / Healthcare': {
+    courses:['MBBS','BDS','BAMS','BHMS','BSc Nursing','BPT','B.Pharm','BMLT','BOT','BSc Optometry','BUMS','BSc Radiology','BSc Dialysis Technology','D.Pharm','GNM Nursing'],
+    roles:['Medical Officer','Doctor','Dentist','Physiotherapist','Pharmacist','Staff Nurse','Lab Technician','Radiographer','Healthcare Manager','OT Technician','Ayurvedic Doctor']
+  },
+  'Management / Business': {
+    courses:['BBA','MBA','BBA + MBA Integrated','PGDM','BHM','MBA Marketing','MBA Finance','MBA HR','MBA Operations','BBA International Business'],
+    roles:['Business Analyst','Marketing Manager','Operations Manager','HR Manager','Brand Manager','Product Manager','Entrepreneur','Business Development Manager','Supply Chain Manager','Hotel Manager']
+  },
+  'Commerce / Finance': {
+    courses:['BCom','BCom Hons','CA ICAI','CS ICSI','CMA','BBA Finance','MBA Finance','CFA','BCom LLB','BSc Economics'],
+    roles:['Chartered Accountant','Financial Analyst','Investment Banker','Tax Consultant','Auditor','Cost Accountant','Company Secretary','Stock Broker','Finance Manager','Risk Analyst']
+  },
+  'Civil Services / Govt Jobs': {
+    courses:['BA Political Science','BA History','BA Public Admin','MA Political Science','LLB','BA Geography','BSc UPSC Prep','BA Hindi','Integrated Law UPSC','BA Sociology'],
+    roles:['IAS Officer','IPS Officer','IFS Officer','SDM','BDO','Income Tax Officer','Railway Officer','Bank Manager','State PCS Officer','CAPF Officer']
+  },
+  'Defence / Uniform Services': {
+    courses:['NDA Army Navy Air Force','CDS Entry','B.Tech SSB','BA CDS','BSc NDA','Technical Entry Scheme','JAG Entry Law','SCO Entry','10+2 Technical Entry','Agniveer Entry'],
+    roles:['Army Officer','Air Force Officer','Navy Officer','CAPF Officer','Police Officer','Intelligence Officer','NCC Officer','Coast Guard Officer','Paramilitary Officer','Defence Scientist']
+  },
+  'Law / Legal Studies': {
+    courses:['BA LLB 5yr','BBA LLB 5yr','BSc LLB 5yr','LLB 3yr','LLM','CLAT Prep','Diploma Cyber Law','Diploma Corporate Law','BA Political Science LLB','MA Law'],
+    roles:['Advocate','Judge','Legal Advisor','Corporate Lawyer','Public Prosecutor','Legal Consultant','Patent Attorney','Human Rights Lawyer','Arbitrator','Legal Researcher']
+  },
+  'Teaching / Education': {
+    courses:['BA BEd','BSc BEd','BElEd','DElEd','MA Education','BEd Special Education','CTET TET Prep','MA Hindi English','PhD Education','Diploma Early Childhood Education'],
+    roles:['School Teacher','College Lecturer','Education Counsellor','Principal','Training Manager','Content Developer','Curriculum Designer','Special Educator','Education Admin','Online Tutor']
+  },
+  'Research / Science': {
+    courses:['BSc PCM','BSc PCB','BSc Statistics','BSc Maths','BSc Biotechnology','BSc Microbiology','BSc Genetics','IISER Program','Integrated MSc','BSc Environmental Science'],
+    roles:['Research Scientist','Data Scientist','Science Officer','Professor','Lab Director','Clinical Researcher','Biotech Researcher','Environmental Scientist','Statistician','Science Writer']
+  },
+  'Arts / Humanities / Creative': {
+    courses:['BFA','BDes','BA Mass Communication','BJC','BA Film Studies','BA Music','BA Dance','NIFT Fashion Design','NID Product Design','BA Animation'],
+    roles:['Graphic Designer','Journalist','Content Creator','Filmmaker','Fashion Designer','Animator','Art Director','UX Designer','Creative Director','Photographer']
+  },
+  'Skill / Vocational': {
+    courses:['ITI Electrician','ITI Fitter','ITI Mechanic','Diploma Computer','PMKVY Certification','Diploma Hotel Management','ITI Welder','Polytechnic','ITI Plumber','Beauty Wellness Diploma'],
+    roles:['Electrician','Fitter','Mechanic','Computer Operator','Hotel Staff','Entrepreneur','Technician','Craftsman','Plumber','Beautician']
+  }
+,
+  'Agriculture / Environmental Sciences': {
+    courses:['BSc Agriculture','BTech Agricultural Engineering','BSc Horticulture','BSc Forestry','BSc Environmental Science','MBA Agribusiness','BSc Food Technology','BSc Sericulture','BSc Fisheries','Diploma in Agriculture'],
+    roles:['Agriculture Officer','Agricultural Engineer','Horticulturist','Forest Officer','Food Scientist','Agribusiness Manager','Soil Scientist','Farm Manager']
+  },
+  'Paramedical / Allied Health': {
+    courses:['BSc Nursing','GNM Nursing','BPT Physiotherapy','BSc MLT','DMLT','ANM','BSc OT Technology','BSc Radiology','BSc Dialysis Technology','D.Pharm'],
+    roles:['Staff Nurse','Lab Technician','Physiotherapist','OT Technician','Radiographer','ANM Nurse','Dialysis Technician','Pharmacist']
+  },
+  'Media / Journalism / Communication': {
+    courses:['BJMC','BA Mass Communication','BSc Animation & Multimedia','BA Advertising & PR','BA Journalism','Diploma in Journalism','BSc Film & TV Production','BA Digital Media'],
+    roles:['Journalist','Content Writer','Animator','PR Manager','News Anchor','Video Editor','Social Media Manager','Digital Marketer']
+  },
+  'Design / Architecture / Fine Arts': {
+    courses:['B.Arch','B.Des','NIFT Fashion Design','BFA','BSc Interior Design','B.Des Product Design','B.Des Communication Design','Diploma in Graphic Design'],
+    roles:['Architect','Fashion Designer','Graphic Designer','Interior Designer','UX Designer','Product Designer','Art Director','Visual Designer']
+  },
+  'Hotel Management / Hospitality': {
+    courses:['BHM Hotel Management','BA Tourism Management','Diploma Hotel Management','Diploma Culinary Arts','Cabin Crew Training','BSc Hospitality','Diploma Food Production','Diploma Travel & Tourism'],
+    roles:['Hotel Manager','Chef','Travel Consultant','F&B Manager','Cabin Crew','Front Office Manager','Housekeeping Manager','Event Manager']
+  },
+  'Sports / Physical Education': {
+    courses:['BSc Physical Education','BPEd','BSc Sports Science','NIS Diploma Coaching','BA Sports Management','MPEd','Diploma in Yoga','BSc Fitness & Nutrition'],
+    roles:['PE Teacher','Sports Coach','Fitness Trainer','Sports Scientist','Sports Manager','Yoga Instructor','Athletic Trainer','Sports Analyst']
+  },
+  'Social Work / NGO': {
+    courses:['BSW Social Work','BA Sociology','MSW Master of Social Work','MA Development Studies','PG Diploma NGO Management','BA Psychology','MA Social Policy'],
+    roles:['Social Worker','Programme Manager','Community Organizer','Development Consultant','NGO Director','Policy Analyst','Child Welfare Officer','HR in NGO']
+  },
+  'Fashion / Retail / Lifestyle': {
+    courses:['NIFT Fashion Design','BSc Fashion Design','BBA Retail Management','Diploma Fashion Designing','Diploma Beauty & Wellness','BSc Textile Design','MBA Fashion Management'],
+    roles:['Fashion Designer','Retail Manager','Merchandiser','Fashion Stylist','Beauty Therapist','Visual Merchandiser','Brand Manager','Boutique Owner']
+  }
+};
 
   // Check if Sheet data is valid (not "No matching course found")
+  // Deduplicate courses and roles
+  function dedup(arr){ 
+    if(!arr) return null;
+    var seen = {};
+    return arr.filter(function(x){ 
+      var k = x.toLowerCase().trim();
+      if(seen[k]) return false;
+      seen[k] = true;
+      return k.length > 0;
+    }).slice(0,6);
+  }
+  
   var sheetCourses = d.courses && d.courses !== 'No matching course found' ? 
-    d.courses.split(',').map(function(x){return x.trim();}).filter(Boolean) : null;
+    dedup(d.courses.split(',').map(function(x){return x.trim();}).filter(Boolean)) : null;
   var sheetRoles = d.roles && d.roles !== 'No roles mapped' ?
-    d.roles.split(',').map(function(x){return x.trim();}).filter(Boolean) : null;
+    dedup(d.roles.split(',').map(function(x){return x.trim();}).filter(Boolean)) : null;
 
   // Use Sheet → fallback to cluster default → fallback to demo
   var fb = CLUSTER_FALLBACK[pri] || {};
-  var courses = sheetCourses || fb.courses || demo.courses;
-  var roles   = sheetRoles   || fb.roles   || demo.roles;
+  var courses = sheetCourses || dedup(fb.courses) || demo.courses;
+  var roles   = sheetRoles   || dedup(fb.roles)   || demo.roles;
   
   // Pathway
   var pathway = d.path || '';
@@ -2031,6 +2828,10 @@ function mergeWithDefaults(d){
     name:      d.name || demo.name,
     father:    d.father || '',
     qual:      d.qual || demo.qual,
+    goal:      d.goal || '',
+    confusion: d.confusion || '',
+    priority:  d.priority || '',
+    pconcern:  d.pconcern || '',
     city:      d.city || 'Muzaffarpur',
     state:     d.state || 'Bihar',
     date:      new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}),
@@ -2058,18 +2859,72 @@ function mergeWithDefaults(d){
     },
     str: {hi: strengths, en: strengths},
     gaps: gaps,
-    mot: demo.mot,
-    concern: demo.concern,
-    intro: {
-      body_hi: 'Yeh AI-based career assessment report '+d.name+' ke natural strengths, learning pattern aur career direction ko samajhne ke liye design ki gayi hai.',
-      body_en: "This report has been designed to understand "+d.name+"'s natural strengths, learning patterns and career direction.",
-      pts_hi: demo.intro.pts_hi,
-      pts_en: demo.intro.pts_en,
-      note_hi: demo.intro.note_hi,
-      note_en: demo.intro.note_en
+    mot: {
+      hi: [
+        m>=5 ? 'Apne goals achieve karne ki strong internal drive' : 'External support se better perform karna',
+        de>=5 ? 'Decisions confidently lena aur challenges face karna' : 'Guided environment mein best results dena',
+        cl>=5 ? 'Career direction ke baare mein aware hona aur focused rehna' : 'Career clarity develop karna step by step',
+      ],
+      en: [
+        m>=5 ? 'Strong internal drive to achieve goals' : 'Performs better with external support',
+        de>=5 ? 'Takes decisions confidently and faces challenges' : 'Gives best results in a guided environment',
+        cl>=5 ? 'Aware about career direction and stays focused' : 'Developing career clarity step by step',
+      ]
     },
-    interest: demo.interest,
-    parent: demo.parent,
+    concern: {
+      q: {hi: d.confusion ? '"'+d.confusion+'"' : (d.goal ? '"'+d.goal+'" — is direction mein clarity chahiye' : '"Sahi career kaise choose karein?"'),
+          en: d.confusion ? '"'+d.confusion+'"' : (d.goal ? '"'+d.goal+'" — need clarity in this direction' : '"How to choose the right career?"')},
+      r: {hi: 'INWANG assessment ne '+d.name+' ke natural strengths clearly identify ki hain — '+pri.split('/')[0].trim()+' cluster mein strong signal mila hai. Counselling session mein detailed guidance milegi.',
+          en: 'The INWANG assessment has clearly identified '+d.name+"'s natural strengths — strong signal found in "+pri.split('/')[0].trim()+' cluster. Detailed guidance will be provided in the counselling session.'}
+    },
+    intro: {
+      body_hi: d.name+' ki yeh AI Career Report unke natural strengths, thinking style aur career direction ko clearly samjhne ke liye banayi gayi hai.'+(d.priority?' Student ki priority: "'+d.priority+'"':'')+' Yeh report assessment responses aur counselling discussion ko combine karke banayi gayi hai.',
+      body_en: "This AI Career Report has been designed to clearly understand "+d.name+"'s natural strengths, thinking style and career direction."+(d.priority?' Student priority: "'+d.priority+'"':'')+" This report combines assessment responses with counselling discussion.",
+      pts_hi: ['Student aur parents ko clear career direction dena','Course aur college selection mein informed decision banana','Personality aur strengths ke according suitable fields identify karna'],
+      pts_en: ['Give student and parents a clear career direction','Make an informed decision for course and college selection','Identify suitable fields aligned with personality and strengths'],
+      note_hi: 'Har recommendation ke saath uska reason bhi clearly explain kiya gaya hai.',
+      note_en: 'Every recommendation includes a clear explanation of its reasoning.'
+    },
+    interest: {
+      hi: {
+        on: [
+          a>=5 ? 'Logical aur analytical tasks mein natural interest' : 'Creative aur practical tasks mein interest',
+          l>=5 ? 'Naye concepts sikhna engaging lagta hai' : 'Practical application mein zyada comfortable',
+          m>=5 ? 'Clear goals ke saath focused rehna' : 'Step by step guidance mein better performance',
+        ],
+        off: [
+          a<4 ? 'Highly structured analytical work mein discomfort' : 'Unstructured aur ambiguous environments mein challenge',
+        ]
+      },
+      en: {
+        on: [
+          a>=5 ? 'Natural interest in logical and analytical tasks' : 'Interest in creative and practical tasks',
+          l>=5 ? 'Finds learning new concepts engaging' : 'More comfortable with practical application',
+          m>=5 ? 'Stays focused with clear goals' : 'Better performance with step-by-step guidance',
+        ],
+        off: [
+          a<4 ? 'Discomfort with highly structured analytical work' : 'Challenged by unstructured and ambiguous environments',
+        ]
+      }
+    },
+    parent: {
+      ind: {
+        hi: [
+          m>=5 ? 'Goal-driven mindset — apne career ke baare mein serious hain' : 'Supportive environment mein better perform karte hain',
+          de>=5 ? 'Self-reliant decision making — khud sochte hain' : 'Guidance appreciate karte hain aur follow karte hain',
+          cl>=5 ? 'Career clarity — direction ke baare mein aware hain' : 'Career guidance se bahut benefit hoga',
+        ],
+        en: [
+          m>=5 ? 'Goal-driven mindset — serious about their career' : 'Performs better in a supportive environment',
+          de>=5 ? 'Self-reliant decision making — thinks independently' : 'Appreciates and follows guidance well',
+          cl>=5 ? 'Career clarity — aware about direction' : 'Will benefit greatly from career guidance',
+        ]
+      },
+      note: {
+        hi: 'Ye assessment results clearly dikhate hain ki '+d.name+' mein career success ke liye zaruri qualities hain.'+(d.pconcern?' Parent concern: "'+d.pconcern+'" — ye bilkul valid hai aur counselling mein address kiya jaayega.':' Sahi direction ke saath ye bahut aage ja sakte hain.'),
+        en: 'These assessment results clearly show that '+d.name+' has the qualities needed for career success.'+(d.pconcern?' Parent concern: "'+d.pconcern+'" — this is completely valid and will be addressed in counselling.':' With the right direction, they can go very far.')
+      }
+    },
   };
 }
 
@@ -2097,41 +2952,31 @@ window.onload = function(){
   document.getElementById('ltxt').textContent = 'Report load ho rahi hai...';
 
   // JSONP fetch
-  var cbName = 'inwangCb_' + Date.now();
-  var script = document.createElement('script');
-  
-  var timer = setTimeout(function(){
-    if(window[cbName]) delete window[cbName];
-    document.getElementById('ls').innerHTML = 
-      '<div style="text-align:center;padding:40px 20px">' +
-      '<div style="font-size:32px;margin-bottom:16px">⚠️</div>' +
-      '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">Report Load Nahi Ho Saki</div>' +
-      '<div style="font-size:13px;color:#6b7a99;margin-bottom:20px">Internet check karo ya thodi der baad try karo.</div>' +
-      '<a href="https://wa.me/919470659224?text=Hi+INWANG,+Report+load+nahi+ho+rahi.+ID:+' + leadId + '" target="_blank" ' +
-      'style="display:inline-block;background:#25D366;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none">💬 WhatsApp Help</a>' +
-      '</div>';
-  }, 12000);
-
-  window[cbName] = function(d){
-    clearTimeout(timer);
-    delete window[cbName];
-    try{ document.head.removeChild(script); } catch(e){}
-    if(d && d.error){
-      try{ RND(demo); } catch(e){ showError(e); }
+  fetch('https://script.google.com/macros/s/AKfycbwU-FHQij4bNhWGyol0jRZz6x2Mkc3h5g8LDM2APdlZFm5TLyDxOo6flpPrCFxs3eh1/exec?action=report&id=' + encodeURIComponent(leadId))
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d || d.error){
+      try{ RND(demo); } catch(e2){ showError(e2); }
       return;
     }
     try{
-      var reportData = mergeWithDefaults(d);
-      RND(reportData);
-    } catch(e){ showError(e); }
-  };
-
-  script.src = 'https://script.google.com/macros/s/AKfycbwU-FHQij4bNhWGyol0jRZz6x2Mkc3h5g8LDM2APdlZFm5TLyDxOo6flpPrCFxs3eh1/exec?action=report&id=' + encodeURIComponent(leadId) + '&callback=' + cbName;
-  script.onerror = function(){
-    clearTimeout(timer);
-    try{ RND(demo); } catch(e){ showError(e); }
-  };
-  document.head.appendChild(script);
+      // Check if assessment done
+      if(!d.c1 || !d.scores || Object.keys(d.scores).length === 0){
+        document.getElementById('ltxt').innerHTML = 
+          '<div style="text-align:center;padding:60px 20px">' +
+          '<div style="font-size:40px;margin-bottom:16px">📋</div>' +
+          '<div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">Assessment Abhi Baki Hai</div>' +
+          '<div style="font-size:13px;color:#6b7a99;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.7">Report generate karne ke liye pehle 40-question career assessment complete karo. Sirf 15-20 minutes lagte hain!</div>' +
+          '<a href="https://inwangai.com/assess?id=' + leadId + '" style="display:inline-block;background:linear-gradient(135deg,#c8a84b,#e8c96d);color:#020408;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:800;text-decoration:none">Assessment Shuru Karo →</a>' +
+          '</div>';
+        return;
+      }
+      RND(mergeWithDefaults(d));
+    } catch(e2){ showError(e2); }
+  })
+  .catch(function(){
+    try{ RND(demo); } catch(e2){ showError(e2); }
+  });
 };
 
 function showError(e){
@@ -2140,5 +2985,79 @@ function showError(e){
     '<strong>Error:</strong><br>' + (e.message||e) + '</div>';
 }
 
+
+function toggleClusterDetail(type){
+  var el = document.getElementById(type+'Detail');
+  if(!el) return;
+  var isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  if(isHidden) renderClusterDetail(type);
+}
+
+function renderClusterDetail(type){
+  if(!D) return;
+  var hi = typeof L !== 'undefined' ? L === 'hi' : true;
+  var clusterName = type === 'sec' ? D.sec : D.em;
+  var cl = CLDATA[clusterName];
+  var contentEl = document.getElementById(type+'DetailContent');
+  if(!cl || !contentEl){ 
+    if(contentEl) contentEl.innerHTML = '<div style="font-size:12px;color:#6b7a99">'+clusterName+' — detailed data loading soon.</div>';
+    return;
+  }
+  
+  var html = '';
+  
+  // Salary
+  if(cl.sal){
+    html += '<div style="margin-bottom:12px">'
+      +'<div style="font-size:10px;font-weight:700;color:#c8a84b;letter-spacing:1px;margin-bottom:6px">💰 SALARY RANGE</div>'
+      +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+      +'<div style="background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:8px;padding:6px 10px;font-size:11px"><span style="color:#6b7a99">Entry</span> <strong style="color:#c8a84b">'+cl.sal.e+'</strong></div>'
+      +'<div style="background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:8px;padding:6px 10px;font-size:11px"><span style="color:#6b7a99">Mid</span> <strong style="color:#c8a84b">'+cl.sal.m+'</strong></div>'
+      +'<div style="background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:8px;padding:6px 10px;font-size:11px"><span style="color:#6b7a99">Senior</span> <strong style="color:#c8a84b">'+cl.sal.s+'</strong></div>'
+      +'</div></div>';
+  }
+  
+  // Top govt opportunities
+  var govData = cl.gov ? (hi ? cl.gov.hi : cl.gov.en) : null;
+  if(govData && govData.length){
+    html += '<div style="margin-bottom:12px">'
+      +'<div style="font-size:10px;font-weight:700;color:#10b981;letter-spacing:1px;margin-bottom:6px">🏛️ TOP GOVT OPPORTUNITIES</div>';
+    govData.slice(0,3).forEach(function(g){
+      html += '<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">'
+        +'<div style="font-size:12px;font-weight:600;color:#fff">'+g.n+'</div>'
+        +'<div style="font-size:11px;color:#6b7a99">'+g.d+'</div>'
+        +'</div>';
+    });
+    html += '</div>';
+  }
+  
+  // Top private opportunities
+  var pvtData = cl.pvt ? (hi ? cl.pvt.hi : cl.pvt.en) : null;
+  if(pvtData && pvtData.length){
+    html += '<div style="margin-bottom:12px">'
+      +'<div style="font-size:10px;font-weight:700;color:#00d4ff;letter-spacing:1px;margin-bottom:6px">🏢 TOP PRIVATE OPPORTUNITIES</div>';
+    pvtData.slice(0,2).forEach(function(g){
+      html += '<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">'
+        +'<div style="font-size:12px;font-weight:600;color:#fff">'+g.n+'</div>'
+        +'<div style="font-size:11px;color:#6b7a99">'+g.d+'</div>'
+        +'</div>';
+    });
+    html += '</div>';
+  }
+  
+  // Key skills
+  if(cl.kit && cl.kit.length){
+    html += '<div>'
+      +'<div style="font-size:10px;font-weight:700;color:#9c5fff;letter-spacing:1px;margin-bottom:6px">⚡ KEY SKILLS</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    cl.kit.slice(0,4).forEach(function(k){
+      html += '<span style="background:rgba(156,95,255,0.1);border:1px solid rgba(156,95,255,0.2);color:#c4a0ff;padding:3px 8px;border-radius:100px;font-size:11px">'+k.i+' '+k.n+'</span>';
+    });
+    html += '</div></div>';
+  }
+  
+  contentEl.innerHTML = html || '<div style="font-size:12px;color:#6b7a99">Loading...</div>';
+}
 </script>
 </body></html>
