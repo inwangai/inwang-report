@@ -3094,16 +3094,16 @@ window.onload = function(){
     if(script.parentNode) script.parentNode.removeChild(script);
     if(data.error){ showError(data.error); return; }
 
-    // Flatten lead + score
+    // API returns flat object — no lead/score wrapper
+    // data = {id, name, city, ..., scores:{a,c,l...}, c1, c2...}
     var d = {};
-    if(data.lead) Object.assign(d, data.lead);
-    if(data.score) Object.assign(d, data.score);
+    Object.assign(d, data);  // copy everything
 
-    // d.scores with short+long keys
-    var sc = data.score || {};
+    // scores object
+    var sc = data.scores || data.score || {};
     d.scores = sc;
 
-    // Calculate readPct, pri, found etc that RND() needs on d directly
+    // Calculate fields RND() needs
     var a  = sc.a  || sc.analytical    || 0;
     var c  = sc.c  || sc.communication || 0;
     var l  = sc.l  || sc.learning      || 0;
@@ -3111,9 +3111,9 @@ window.onload = function(){
     var m  = sc.m  || sc.motivation    || 0;
     var cl = sc.cl || sc.clarity       || 0;
 
-    d.readPct  = Math.round((a+c+l+de+m+cl)/42*100);
-    d.found    = Math.round((a+l+de)/21*100) + '%';
-    d.pri      = sc.c1 || sc.streamPrimary || '';
+    d.readPct    = Math.round((a+c+l+de+m+cl)/42*100);
+    d.found      = Math.round((a+l+de)/21*100) + '%';
+    d.pri        = d.c1 || sc.streamPrimary || '';
     d.qualStatus = d.qual || '';
 
     D = d;
